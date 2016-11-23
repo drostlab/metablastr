@@ -1,0 +1,9 @@
+Package: blastr
+Title: Performing local BLAST searches with R
+Version: 0.1.0
+Authors@R: person("Hajk-Georg", "Drost", email = "hgd23@cam.ac.uk", role = c("aut", "cre"))
+Description: Users can perform local BLAST searches and efficiently store and process the results with R.
+Depends: R (>= 3.3.2)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true

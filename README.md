@@ -1,5 +1,5 @@
 # blastr
-### Performing local BLAST searches with R
+### Perform Local BLAST Searches with R
 The Basic Local Alignment Search Tool (BLAST) finds regions of sequence similarity between a query and a subject sequence or sequence database.
 
 The `blastr` package aims to provide R interface functions for the standalone (command line tool) version

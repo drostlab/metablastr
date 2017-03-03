@@ -16,6 +16,15 @@ install_github("HajkD/blastr", build_vignettes = TRUE, dependencies = TRUE)
 ```
 
 
+## Interfaces implemented in `blastr`:
+
+### Perform BLAST searches 
+- `blast_p()`: Perform Protein to Protein BLAST Searches
+
+
+### Navigation functions
+- `list_outformats()`: List available BLAST output formats
+
 ## Discussions and Bug Reports
 
 I would be very happy to learn more about potential improvements of the concepts and functions provided in this package.

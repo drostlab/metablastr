@@ -1,9 +1,8 @@
 Package: blastr
-Title: Performing local BLAST searches with R
+Title: Perform Local BLAST Searches
 Version: 0.1.0
 Authors@R: person("Hajk-Georg", "Drost", email = "hgd23@cam.ac.uk", role = c("aut", "cre"))
-Description: Users can perform local BLAST searches and efficiently store and
-    process the results with R.
+Description: This package provides interface functions for users to perform local Basic Local Alignment Search Tool (BLAST) searches. The search results can be efficiently imported into the R session. 
 Depends:
     R (>= 3.3.2)
 Imports:

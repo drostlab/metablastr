@@ -22,3 +22,7 @@ test_that("The outformat2num() function works properly..",{
     
     
 })
+
+test_that("The outformat2num() throws error when using wrong input..",{
+    expect_error(outformat2num("p"), "'p' is not an available BLAST output format.")
+})

@@ -6,7 +6,7 @@ Description: This package provides interface functions for users to perform loca
 Depends:
     R (>= 3.3.2)
 Imports:
-    seqinr,
+    seqinr (>= 3.3-3),
     parallel (>= 3.0.2),
     dplyr (>= 0.3.0.2),
     doParallel (>= 1.0.8),
@@ -14,13 +14,8 @@ Imports:
     RSQLite (>= 0.11.4),
     stringr (>= 0.6.2),
     DBI (>= 0.3.1)
-Suggests:
-    knitr (>= 1.6),
-    rmarkdown (>= 0.3.3),
-    devtools (>= 1.6.1),
-    testthat (>= 0.9.1)
+Suggests: testthat (>= 1.0.2)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1
-Suggests: testthat
+RoxygenNote: 6.0.1

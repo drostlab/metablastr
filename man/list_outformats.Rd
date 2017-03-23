@@ -17,4 +17,3 @@ list_outformats()
 \author{
 Hajk-Georg Drost
 }
-

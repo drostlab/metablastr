@@ -83,7 +83,7 @@ blast_protein <- function(query,
             max.target.seqs,
             " -out ",
             output ,
-            " -outfmt 6",
+            paste0(" -outfmt ", outformat2num(out.format = out.format)),
             " -num_threads ",
             cores
         )

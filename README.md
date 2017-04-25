@@ -1,8 +1,8 @@
-# blastr
+# metablastr
 ### Perform Local BLAST Searches with R
 The Basic Local Alignment Search Tool (BLAST) finds regions of sequence similarity between a query and a subject sequence or sequence database.
 
-The `blastr` package aims to provide R interface functions for the standalone (command line tool) version
+The `metablastr` package aims to provide R interface functions for the standalone (command line tool) version
 of BLAST. This way users can perform local BLAST searches with R and import the results back
 to the R session.
 
@@ -12,11 +12,11 @@ to the R session.
 
 # install the current version of blastr on your system
 library(devtools)
-install_github("HajkD/blastr", build_vignettes = TRUE, dependencies = TRUE)
+install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 ```
 
 
-## Interfaces implemented in `blastr`:
+## Interfaces implemented in `metablastr`:
 
 ### Perform BLAST searches 
 - `blast_p()`: Perform Protein to Protein BLAST Searches

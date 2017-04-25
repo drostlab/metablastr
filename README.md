@@ -31,4 +31,4 @@ I would be very happy to learn more about potential improvements of the concepts
 
 Furthermore, in case you find some bugs, need additional (more flexible) functionality of parts of this package, or want to contribute to this project please let me know:
 
-https://github.com/HajkD/blastr/issues
+https://github.com/HajkD/metablastr/issues

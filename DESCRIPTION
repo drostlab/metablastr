@@ -1,4 +1,4 @@
-Package: blastr
+Package: metablastr
 Title: Perform Local BLAST Searches
 Version: 0.1.0
 Authors@R: person("Hajk-Georg", "Drost", email = "hgd23@cam.ac.uk", role = c("aut", "cre"))

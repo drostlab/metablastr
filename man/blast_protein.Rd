@@ -68,7 +68,8 @@ against a blast-able database.
 \examples{
 \dontrun{
 blast_protein(query   = system.file('seqs/qry.fa', package = 'metablastr'),
-              subject = system.file('seqs/sbj.fa', package = 'metablastr'))
+              subject = system.file('seqs/sbj.fa', package = 'metablastr'),
+              import  = TRUE)
 }
 
 

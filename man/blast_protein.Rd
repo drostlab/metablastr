@@ -4,9 +4,10 @@
 \alias{blast_protein}
 \title{Perform Protein to Protein BLAST Searches}
 \usage{
-blast_protein(query, subject, is.subject.db = FALSE, task = "blastp",
-  import = FALSE, evalue = 10, out.format = "tab", cores = 1,
-  blast.path = NULL)
+blast_protein(query, subject, output.path = NULL, is.subject.db = FALSE,
+  task = "blastp", import = FALSE, evalue = 0.001, out.format = "tab",
+  cores = 1, max.target.seqs = 500, db.soft.mask = FALSE,
+  db.hard.mask = FALSE, blast.path = NULL)
 }
 \arguments{
 \item{query}{path to input file in fasta format.}
@@ -52,11 +53,25 @@ Available options are:
 
 \item{cores}{number of cores for parallel BLAST searches.}
 
+\item{max.target.seqs}{maximum number of aligned sequences that shall be kept.}
+
+\item{db.soft.mask}{shall low complexity regions be soft masked? Default is \code{db.soft.mask = FALSE}.}
+
+\item{db.hard.mask}{shall low complexity regions be hard masked? Default is \code{db.hard.mask = FALSE}.}
+
 \item{blast.path}{path to BLAST executables.}
 }
 \description{
 Run protein to protein BLAST of reference sequences
 against a blast-able database.
+}
+\examples{
+\dontrun{
+blast_protein(query   = system.file('seqs/qry.fa', package = 'metablastr'),
+              subject = system.file('seqs/sbj.fa', package = 'metablastr'))
+}
+
+
 }
 \author{
 Hajk-Georg Drost

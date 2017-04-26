@@ -86,13 +86,9 @@ blast_protein <- function(query,
     if (!is.element(task, c("blastp", "blastp-fast", "blastp-short")))
         stop("Please choose a protein-protein comparison task that is supported by BLAST: task = 'blastp', task = 'blastp-fast', or task = 'blastp-short'.", call. = FALSE)
     
-    ifelse(
-        !is.subject.db,
-        blast_call <-
-            paste0(task, " -query ", ws_wrap(query), " -subject ", ws_wrap(subject)),
-        blast_call <-
-            paste0(task, " -query ", ws_wrap(query), " -db ", ws_wrap(subject))
-    )
+    blast_call <-
+        paste0("blastp -query ", ws_wrap(query), " -db ", ws_wrap(subject))
+    
     
     output_blast <-
         file.path(ifelse(is.null(output.path), ws_wrap(getwd()), ws_wrap(output.path)),
@@ -134,6 +130,32 @@ blast_protein <- function(query,
             "bit_score",
             "score_raw"
         )
+    
+    # format subject into database
+    if (!is.subject.db) {
+        if (is.null(blast.path)) {
+            system(
+                paste0(
+                    "makeblastdb -in ",
+                    subject,
+                    " -input_type fasta -dbtype prot -hash_index"
+                )
+            )
+            
+        } else {
+            system(
+                paste0(
+                    "export PATH=",
+                    blast.path,
+                    "; makeblastdb -in ",
+                    subject,
+                    " -input_type fasta -dbtype prot -hash_index"
+                )
+            )
+        }
+    } 
+    
+    
     system(
         paste0(
             ifelse(is.null(blast.path), blast_call, paste0("export PATH=$PATH:", blast_call)),
@@ -147,6 +169,7 @@ blast_protein <- function(query,
             cores,
             ifelse(db.soft.mask, " -db_soft_mask", ""),
             ifelse(db.hard.mask, " -db_hard_mask", ""),
+            paste0( " -task ", task),
             paste0(" -outfmt '", outformat2num(out.format = out.format), " qseqid sseqid pident nident length mismatch gapopen gaps positive ppos qstart qend qlen qcovs qcovhsp sstart send slen evalue bitscore score'")
         )
     )

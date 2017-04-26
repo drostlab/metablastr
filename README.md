@@ -19,7 +19,7 @@ install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 ## Interfaces implemented in `metablastr`:
 
 ### Perform BLAST searches 
-- `blast_p()`: Perform Protein to Protein BLAST Searches
+- `blast_protein()`: Perform Protein to Protein BLAST Searches
 
 
 ### Navigation functions

@@ -4,9 +4,11 @@
 \alias{read_blast}
 \title{Import BLAST output file}
 \usage{
-read_blast(out.format)
+read_blast(file, out.format, spark_version = "2.0.1")
 }
 \arguments{
+\item{file}{path to BLAST output file.}
+
 \item{out.format}{a character string specifying the format of the file in which the BLAST results shall be stored.
 Available options are:
  \itemize{
@@ -29,6 +31,7 @@ Available options are:
  \item \code{out.format = "xml2.blast.single"} : Single-file BLAST XML2
  \item \code{out.format = "report"} : Organism Report
  }
+ @param spark_version specify Spark version that shall be installed locally. Default is \code{spark_version = "2.0.1"}.
  @author Hajk-Georg Drost
  @seealso \code{\link{blast_protein}}
  @export}

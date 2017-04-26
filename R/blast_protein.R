@@ -36,18 +36,33 @@
 #'  \item \code{out.format = "report"} : Organism Report
 #'  }
 #' @param cores number of cores for parallel BLAST searches.
+#' @param max.target.seqs maximum number of aligned sequences that shall be kept.
+#' @param db.soft.mask shall low complexity regions be soft masked? Default is \code{db.soft.mask = FALSE}.
+#' @param db.hard.mask shall low complexity regions be hard masked? Default is \code{db.hard.mask = FALSE}.
 #' @param blast.path path to BLAST executables.
 #' @author Hajk-Georg Drost
+#' @examples 
+#' \dontrun{
+#' blast_protein(query   = system.file('seqs/qry.fa', package = 'metablastr'),
+#'               subject = system.file('seqs/sbj.fa', package = 'metablastr'),
+#'               import  = TRUE)
+#' }
+#' 
+#' 
 #' @export
 
 blast_protein <- function(query, 
                           subject,
+                          output.path = NULL,
                           is.subject.db = FALSE,
                           task = "blastp",
                           import = FALSE,
-                          evalue   = 10,
+                          evalue   = 1E-3,
                           out.format = "tab", 
-                          cores = 1, 
+                          cores = 1,
+                          max.target.seqs = 500,
+                          db.soft.mask = FALSE,
+                          db.hard.mask = FALSE,
                           blast.path = NULL) {
     
     if (!is_blast_installed())
@@ -71,9 +86,54 @@ blast_protein <- function(query,
     if (!is.element(task, c("blastp", "blastp-fast", "blastp-short")))
         stop("Please choose a protein-protein comparison task that is supported by BLAST: task = 'blastp', task = 'blastp-fast', or task = 'blastp-short'.", call. = FALSE)
     
-    ifelse(!is.subject.db, blast_call <- paste0(task, " -query ", query, " -subject ", subject),
-                           blast_call <- paste0(task, " -query ", query, " -db ", subject))
+    ifelse(
+        !is.subject.db,
+        blast_call <-
+            paste0(task, " -query ", ws_wrap(query), " -subject ", ws_wrap(subject)),
+        blast_call <-
+            paste0(task, " -query ", ws_wrap(query), " -db ", ws_wrap(subject))
+    )
     
+    output_blast <-
+        file.path(ifelse(is.null(output.path), ws_wrap(getwd()), ws_wrap(output.path)),
+                  paste0(unlist(stringr::str_split(
+                      basename(query), "[.]"
+                  ))[1], ".blast_tbl"))
+    
+    output_read_blast <-
+        file.path(ifelse(is.null(output.path), getwd(), output.path),
+                  paste0(unlist(stringr::str_split(
+                      basename(query), "[.]"
+                  ))[1], ".blast_tbl"))
+    
+    params <-
+        c(
+            "query_id",
+            "subject_id",
+            "subject_taxonomy",
+            "subject_kingdom",
+            "perc_identity",
+            "num_ident_matches",
+            "alig_length",
+            "mismatches",
+            "gap_openings",
+            "n_gaps",
+            "pos_match",
+            "ppos",
+            "q_start",
+            "q_end",
+            "q_len",
+            "qcov",
+            "qcovhsp",
+            "query_seq",
+            "s_start",
+            "s_end",
+            "s_len",
+            "subject_seq",
+            "evalue",
+            "bit_score",
+            "score_raw"
+        )
     system(
         paste0(
             ifelse(is.null(blast.path), blast_call, paste0("export PATH=$PATH:", blast_call)),
@@ -82,12 +142,20 @@ blast_protein <- function(query,
             " -max_target_seqs ",
             max.target.seqs,
             " -out ",
-            output ,
-            paste0(" -outfmt ", outformat2num(out.format = out.format)),
+            output_blast ,
             " -num_threads ",
-            cores
+            cores,
+            ifelse(db.soft.mask, " -db_soft_mask", ""),
+            ifelse(db.hard.mask, " -db_hard_mask", ""),
+            paste0(" -outfmt '", outformat2num(out.format = out.format), " qseqid sseqid pident nident length mismatch gapopen gaps positive ppos qstart qend qlen qcovs qcovhsp sstart send slen evalue bitscore score'")
         )
     )
+    
+    
+    if (import) {
+        blast_tbl <- read_blast(file = output_read_blast, out.format = out.format)
+        return(blast_tbl)
+    }
     
 }
 

@@ -4,7 +4,7 @@
 \alias{read_blast}
 \title{Import BLAST output file}
 \usage{
-read_blast(file, out.format, spark_version = "2.0.1")
+read_blast(file, out.format, postgres.user = NULL)
 }
 \arguments{
 \item{file}{path to BLAST output file.}
@@ -34,6 +34,7 @@ Available options are:
  @param spark_version specify Spark version that shall be installed locally. Default is \code{spark_version = "2.0.1"}.
  @author Hajk-Georg Drost
  @seealso \code{\link{blast_protein}}
+ @importFrom RPostgreSQL
  @export}
 }
 \description{

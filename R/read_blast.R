@@ -28,8 +28,9 @@
 #'  @param spark_version specify Spark version that shall be installed locally. Default is \code{spark_version = "2.0.1"}.
 #'  @author Hajk-Georg Drost
 #'  @seealso \code{\link{blast_protein}}
+#'  @importFrom RPostgreSQL
 #'  @export
-read_blast <- function(file, out.format, spark_version = "2.0.1") {
+read_blast <- function(file, out.format, postgres.user = NULL) {
 
    if (out.format == "tab") {
        
@@ -46,21 +47,25 @@ read_blast <- function(file, out.format, spark_version = "2.0.1") {
        #                                        overwrite = TRUE) 
        
        
+       if (is.null(postgres.user))
+           stop("Please specify a 'postgres.user' to import BLAST output into PostgresSQL database.")
        
-       
-       
-       sqlite3_filename <- paste0(basename(file),".sqlite3")
-       
-       blast_sql_db <-
-           dplyr::src_sqlite(sqlite3_filename, create = TRUE)
+       require(RPostgreSQL)
+     
+       postgres_filename <- paste0(unlist(stringr::str_split(basename(file),"[.]"))[1],"_postgres")
        
        connect_db <-
-           DBI::dbConnect(RSQLite::SQLite(), dbname = sqlite3_filename)
-       
+           DBI::dbConnect(
+               DBI::dbDriver("PostgreSQL"),
+               user = postgres.user,
+               password = "",
+               host = "localhost",
+               port = 5432, 
+               dbname = postgres.user)
        
        DBI::dbWriteTable(
            connect_db,
-           name      = paste0(basename(file),"._blast_hit_tbl"),
+           name      = postgres_filename,
            value     = file,
            row.names = FALSE,
            header    = FALSE,
@@ -68,18 +73,54 @@ read_blast <- function(file, out.format, spark_version = "2.0.1") {
            overwrite = TRUE
        )
        
+       blast_sql_db <-
+           dplyr::src_postgres(
+               dbname = postgres.user,
+               host = "localhost",
+               port = 5432,
+               user = postgres.user,
+               password = ""
+           )
+       
+       blast_postgres <-
+           dplyr::tbl(blast_sql_db, postgres_filename)
+       
        on.exit({
            #sparklyr::spark_disconnect(sparkconnect)
            DBI::dbDisconnect(connect_db)
            
        })
        
-       blast_sqlite <-
-           dplyr::tbl(blast_sql_db, paste0(basename(file),"._blast_hit_tbl"))
-       
-       return(blast_sqlite)
+       return(blast_postgres)
    }     
     
-    
+   
+    if (out.format == "csv") {
+        blast_csv <- readr::read_delim(file, delim = ",", 
+                                       col_names = FALSE,
+                                       col_types = readr::cols(
+                                           "X1" = readr::col_character(),
+                                           "X2" = readr::col_character(),
+                                           "X3" = readr::col_double(),
+                                           "X4" = readr::col_integer(),
+                                           "X5" = readr::col_integer(),
+                                           "X6" = readr::col_integer(),
+                                           "X7" = readr::col_integer(),
+                                           "X8" = readr::col_integer(),
+                                           "X9" = readr::col_integer(),
+                                           "X10" = readr::col_double(),
+                                           "X11" = readr::col_integer(),
+                                           "X12" = readr::col_integer(),
+                                           "X13" = readr::col_integer(),
+                                           "X14" = readr::col_integer(),
+                                           "X15" = readr::col_integer(),
+                                           "X16" = readr::col_integer(),
+                                           "X17" = readr::col_double(),
+                                           "X18" = readr::col_double(),
+                                           "X19" = readr::col_double()
+                                       ))
+        colnames(blast_csv) <- blast_outfmt_colnames()
+        return(blast_csv)
+    }    
     
 }

@@ -5,9 +5,9 @@
 \title{Perform Protein to Protein BLAST Searches}
 \usage{
 blast_protein(query, subject, output.path = NULL, is.subject.db = FALSE,
-  task = "blastp", import = FALSE, evalue = 0.001, out.format = "tab",
-  cores = 1, max.target.seqs = 500, db.soft.mask = FALSE,
-  db.hard.mask = FALSE, blast.path = NULL)
+  task = "blastp", import = FALSE, postgres.user = NULL, evalue = 0.001,
+  out.format = "tab", cores = 1, max.target.seqs = 500,
+  db.soft.mask = FALSE, db.hard.mask = FALSE, blast.path = NULL)
 }
 \arguments{
 \item{query}{path to input file in fasta format.}
@@ -25,6 +25,10 @@ or a blast-able database that was formatted with \code{makeblastdb} (\code{is.su
 }}
 
 \item{import}{shall output of the protein BLAST search be directly imported via \code{\link{read_blast}}? Default is \code{import = FALSE}.}
+
+\item{postgres.user}{when \code{import = TRUE} and \code{out.format = "tab"} is selected, the BLAST output is imported and stored in a 
+PostgresSQL database. In that case, users need to have PostgresSQL installed and initialized on their system. 
+Please consult the Installation Vignette for details.}
 
 \item{evalue}{Expectation value (E) threshold for saving hits (default: \code{evalue = 10}).}
 
@@ -67,8 +71,9 @@ against a blast-able database.
 }
 \examples{
 \dontrun{
-blast_protein(query   = system.file('seqs/qry.fa', package = 'metablastr'),
-              subject = system.file('seqs/sbj.fa', package = 'metablastr'),
+blast_protein(query   = system.file('seqs/qry_aa.fa', package = 'metablastr'),
+              subject = system.file('seqs/sbj_aa.fa', package = 'metablastr'),
+              out.format = "csv",
               import  = TRUE)
 }
 

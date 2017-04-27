@@ -12,26 +12,16 @@ read_blast(file, out.format, postgres.user = NULL)
 \item{out.format}{a character string specifying the format of the file in which the BLAST results shall be stored.
 Available options are:
  \itemize{
- \item \code{out.format = "pair"} : Pairwise
- \item \code{out.format = "qa.ident"} : Query-anchored showing identities
- \item \code{out.format = "qa.nonident"} : Query-anchored no identities
- \item \code{out.format = "fq.ident"} : Flat query-anchored showing identities
- \item \code{out.format = "fq.nonident"} : Flat query-anchored no identities
  \item \code{out.format = "xml"} : XML
  \item \code{out.format = "tab"} : Tabular separated file
- \item \code{out.format = "tab.comment"} : Tabular separated file with comment lines
- \item \code{out.format = "ASN.1.text"} : Seqalign (Text ASN.1)
- \item \code{out.format = "ASN.1.binary"} : Seqalign (Binary ASN.1)
  \item \code{out.format = "csv"} : Comma-separated values
- \item \code{out.format = "ASN.1"} : BLAST archive (ASN.1)
  \item \code{out.format = "json.seq.aln"} : Seqalign (JSON)
  \item \code{out.format = "json.blast.multi"} : Multiple-file BLAST JSON
  \item \code{out.format = "xml2.blast.multi"} : Multiple-file BLAST XML2
  \item \code{out.format = "json.blast.single"} : Single-file BLAST JSON
  \item \code{out.format = "xml2.blast.single"} : Single-file BLAST XML2
- \item \code{out.format = "report"} : Organism Report
  }
- @param spark_version specify Spark version that shall be installed locally. Default is \code{spark_version = "2.0.1"}.
+ @param postgres.user specify Spark version that shall be installed locally. Default is \code{spark_version = "2.0.1"}.
  @author Hajk-Georg Drost
  @seealso \code{\link{blast_protein}}
  @importFrom RPostgreSQL

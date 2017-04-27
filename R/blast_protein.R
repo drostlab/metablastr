@@ -12,6 +12,9 @@
 #' \item \code{task = "blastp-short"} : Optimized protein-protein comparisons for query sequences shorter than 30 residues.
 #' }
 #' @param import shall output of the protein BLAST search be directly imported via \code{\link{read_blast}}? Default is \code{import = FALSE}.
+#' @param postgres.user when \code{import = TRUE} and \code{out.format = "tab"} is selected, the BLAST output is imported and stored in a 
+#' PostgresSQL database. In that case, users need to have PostgresSQL installed and initialized on their system. 
+#' Please consult the Installation Vignette for details. 
 #' @param evalue Expectation value (E) threshold for saving hits (default: \code{evalue = 10}).
 #' @param out.format a character string specifying the format of the file in which the BLAST results shall be stored.
 #' Available options are:
@@ -43,8 +46,9 @@
 #' @author Hajk-Georg Drost
 #' @examples 
 #' \dontrun{
-#' blast_protein(query   = system.file('seqs/qry.fa', package = 'metablastr'),
-#'               subject = system.file('seqs/sbj.fa', package = 'metablastr'),
+#' blast_protein(query   = system.file('seqs/qry_aa.fa', package = 'metablastr'),
+#'               subject = system.file('seqs/sbj_aa.fa', package = 'metablastr'),
+#'               out.format = "csv",
 #'               import  = TRUE)
 #' }
 #' 
@@ -57,6 +61,7 @@ blast_protein <- function(query,
                           is.subject.db = FALSE,
                           task = "blastp",
                           import = FALSE,
+                          postgres.user = NULL,
                           evalue   = 1E-3,
                           out.format = "tab", 
                           cores = 1,
@@ -88,48 +93,20 @@ blast_protein <- function(query,
     
     blast_call <-
         paste0("blastp -query ", ws_wrap(query), " -db ", ws_wrap(subject))
-    
-    
+
     output_blast <-
         file.path(ifelse(is.null(output.path), ws_wrap(getwd()), ws_wrap(output.path)),
                   paste0(unlist(stringr::str_split(
                       basename(query), "[.]"
                   ))[1], ".blast_tbl"))
     
+    # output_blast without ws_wrap()
     output_read_blast <-
         file.path(ifelse(is.null(output.path), getwd(), output.path),
                   paste0(unlist(stringr::str_split(
                       basename(query), "[.]"
                   ))[1], ".blast_tbl"))
     
-    params <-
-        c(
-            "query_id",
-            "subject_id",
-            "subject_taxonomy",
-            "subject_kingdom",
-            "perc_identity",
-            "num_ident_matches",
-            "alig_length",
-            "mismatches",
-            "gap_openings",
-            "n_gaps",
-            "pos_match",
-            "ppos",
-            "q_start",
-            "q_end",
-            "q_len",
-            "qcov",
-            "qcovhsp",
-            "query_seq",
-            "s_start",
-            "s_end",
-            "s_len",
-            "subject_seq",
-            "evalue",
-            "bit_score",
-            "score_raw"
-        )
     
     # format subject into database
     if (!is.subject.db) {
@@ -155,7 +132,6 @@ blast_protein <- function(query,
         }
     } 
     
-    
     system(
         paste0(
             ifelse(is.null(blast.path), blast_call, paste0("export PATH=$PATH:", blast_call)),
@@ -174,9 +150,10 @@ blast_protein <- function(query,
         )
     )
     
-    
     if (import) {
-        blast_tbl <- read_blast(file = output_read_blast, out.format = out.format)
+        blast_tbl <- read_blast(file = output_read_blast, 
+                                out.format = out.format,
+                                postgres.user = postgres.user)
         return(blast_tbl)
     }
     

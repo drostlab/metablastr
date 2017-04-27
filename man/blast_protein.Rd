@@ -14,6 +14,9 @@ blast_protein(query, subject, output.path = NULL, is.subject.db = FALSE,
 
 \item{subject}{path to subject file in fasta format or blast-able database.}
 
+\item{output.path}{path to folder at which BLAST output table shall be stored. 
+Default is \code{output.path = NULL} (hence \code{getwd()} is used).}
+
 \item{is.subject.db}{logical specifying whether or not the \code{subject} file is a file in fasta format (\code{is.subject.db = FALSE}; default)
 or a blast-able database that was formatted with \code{makeblastdb} (\code{is.subject.db = TRUE}).}
 
@@ -24,13 +27,19 @@ or a blast-able database that was formatted with \code{makeblastdb} (\code{is.su
 \item \code{task = "blastp-short"} : Optimized protein-protein comparisons for query sequences shorter than 30 residues.
 }}
 
-\item{import}{shall output of the protein BLAST search be directly imported via \code{\link{read_blast}}? Default is \code{import = FALSE}.}
+\item{import}{shall output of the protein BLAST search be directly imported via \code{\link{read_blast}}? Default is \code{import = FALSE}.
+In case \code{import = TRUE} only the following output formats will be imported:
+\itemize{
+ \item \code{out.format = "xml"} : XML
+ \item \code{out.format = "tab"} : Tabular separated file
+ \item \code{out.format = "csv"} : Comma-separated values
+ }}
 
 \item{postgres.user}{when \code{import = TRUE} and \code{out.format = "tab"} is selected, the BLAST output is imported and stored in a 
 PostgresSQL database. In that case, users need to have PostgresSQL installed and initialized on their system. 
 Please consult the Installation Vignette for details.}
 
-\item{evalue}{Expectation value (E) threshold for saving hits (default: \code{evalue = 10}).}
+\item{evalue}{Expectation value (E) threshold for saving hits (default: \code{evalue = 0.001}).}
 
 \item{out.format}{a character string specifying the format of the file in which the BLAST results shall be stored.
 Available options are:
@@ -74,6 +83,7 @@ against a blast-able database.
 blast_protein(query   = system.file('seqs/qry_aa.fa', package = 'metablastr'),
               subject = system.file('seqs/sbj_aa.fa', package = 'metablastr'),
               out.format = "csv",
+              output.path = tempdir(),
               import  = TRUE)
 }
 

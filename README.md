@@ -12,8 +12,8 @@ and still process them in R via the [dplyr](https://github.com/tidyverse/dplyr) 
 
 Hence, using `metablastr::read_blast()` in database mode users can use the familiar `dplyr` notation
 to analyze large scale BLAST reports. Additional functions such as `blast_nr()`, `blast_pdb_aa()`, `blast_refseq_protein()`, etc.
-are designed to perform easy-to-run BLAST searches on a metagenomic scale. The corresponding output can then
-be analyzed using specialized `filter_blast_*` functions.
+are designed to perform easy-to-run BLAST searches on a metagenomic scale. Metagenomic data retrieval can be performed via the [biomartr](https://github.com/HajkD/biomartr) package. The `biomartr` and `metablastr` packages are designed to work together seamlessly. The corresponding BLAST output can then
+be analyzed using specialized `metablastr::filter_blast_*` functions.
 
 ### Install `metablastr`
 
@@ -24,6 +24,13 @@ be analyzed using specialized `filter_blast_*` functions.
 library(devtools)
 install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 ```
+## Discussions and Bug Reports
+
+I would be very happy to learn more about potential improvements of the concepts and functions provided in this package.
+
+Furthermore, in case you find some bugs, need additional (more flexible) functionality of parts of this package, or want to contribute to this project please let me know:
+
+https://github.com/HajkD/metablastr/issues
 
 
 ## Interfaces implemented in `metablastr`:
@@ -55,10 +62,3 @@ install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 ### Navigation functions
 - `list_outformats()`: List available BLAST output formats
 
-## Discussions and Bug Reports
-
-I would be very happy to learn more about potential improvements of the concepts and functions provided in this package.
-
-Furthermore, in case you find some bugs, need additional (more flexible) functionality of parts of this package, or want to contribute to this project please let me know:
-
-https://github.com/HajkD/metablastr/issues

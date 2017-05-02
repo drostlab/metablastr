@@ -19,6 +19,7 @@ test_that("The list_outformats() function works properly..",{
         "xml2.blast.multi",
         "json.blast.single",
         "xml2.blast.single",
+        "SAM",
         "report"
     ))
 })

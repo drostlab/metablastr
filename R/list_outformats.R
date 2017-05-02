@@ -7,6 +7,7 @@
 #' list_outformats()
 #' @export
 list_outformats <- function() {
+    
     available_outformats <- c(
         "pair",
         "qa.ident",
@@ -25,6 +26,7 @@ list_outformats <- function() {
         "xml2.blast.multi",
         "json.blast.single",
         "xml2.blast.single",
+        "SAM",
         "report"
     )
     

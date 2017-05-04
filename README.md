@@ -20,7 +20,7 @@ be analyzed using specialized `metablastr::filter_blast_*` functions.
 ```r
 # install.packages("devtools")
 
-# install the current version of blastr on your system
+# install the current version of metablastr on your system
 library(devtools)
 install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 ```

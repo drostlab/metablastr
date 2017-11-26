@@ -118,7 +118,7 @@ blast_nucleotide_to_nucleotide <- function(query,
         stop("Unfortunately, no subject file has been found at ", subject, call. = FALSE)
     
     if (!is.element(task, c("blastn", "blastn-short", "dc-megablast", "megablast", "rmblastn")))
-        stop("Please choose a protein-protein comparison task that is supported by BLAST: task = 'blastn', task = 'blastn-short', task = 'dc-megablast', task = 'megablast', task = 'rmblastn'.", call. = FALSE)
+        stop("Please choose a nucleotide-nucleotide comparison task that is supported by BLAST: task = 'blastn', task = 'blastn-short', task = 'dc-megablast', task = 'megablast', task = 'rmblastn'.", call. = FALSE)
     
     blast_call <-
         paste0("blastn -query ", ws_wrap(query), " -db ", ws_wrap(subject))

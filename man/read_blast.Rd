@@ -9,11 +9,12 @@ read_blast(file, out.format, postgres.user = NULL)
 \arguments{
 \item{file}{path to BLAST output file.}
 
-\item{out.format}{a character string specifying the format of the file in which the BLAST results shall be stored.
+\item{out.format}{a character string specifying the output format of the BLAST output that shall be imported.
 Available options are:
  \itemize{
+ \item \code{out.format = "postgres"} : store BLAST output as Postgres database and generate postgres database connection.
  \item \code{out.format = "xml"} : XML
- \item \code{out.format = "tab"} : Tabular separated file
+ \item \code{out.format = "tsv"} : Tabular separated file
  \item \code{out.format = "csv"} : Comma-separated values
  \item \code{out.format = "json.seq.aln"} : Seqalign (JSON)
  \item \code{out.format = "json.blast.multi"} : Multiple-file BLAST JSON
@@ -21,9 +22,10 @@ Available options are:
  \item \code{out.format = "json.blast.single"} : Single-file BLAST JSON
  \item \code{out.format = "xml2.blast.single"} : Single-file BLAST XML2
  }
- @param postgres.user specify Spark version that shall be installed locally. Default is \code{spark_version = "2.0.1"}.
+ @param postgres.user specify username for RPostgreSQL connection.
  @author Hajk-Georg Drost
- @seealso \code{\link{blast_protein}}
+ @seealso \code{\link{blast_protein_to_protein}}, \code{\link{blast_nucleotide_to_protein}},
+ \code{\link{blast_nucleotide_to_nucleotide}}
  @importFrom RPostgreSQL
  @export}
 }

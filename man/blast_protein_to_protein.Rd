@@ -5,7 +5,7 @@
 \title{Perform Protein to Protein BLAST Searches (BLASTP)}
 \usage{
 blast_protein_to_protein(query, subject, output.path = NULL,
-  is.subject.db = FALSE, task = "blastp", import = FALSE,
+  is.subject.db = FALSE, task = "blastp", db.import = FALSE,
   postgres.user = NULL, evalue = 0.001, out.format = "csv", cores = 1,
   max.target.seqs = 500, db.soft.mask = FALSE, db.hard.mask = FALSE,
   blast.path = NULL)
@@ -28,15 +28,10 @@ or a blast-able database that was formatted with \code{makeblastdb} (\code{is.su
 \item \code{task = "blastp-short"} : Optimized protein-protein comparisons for query sequences shorter than 30 residues.
 }}
 
-\item{import}{shall output of the protein BLAST search be directly imported via \code{\link{read_blast}}? Default is \code{import = FALSE}.
-In case \code{import = TRUE} only the following output formats will be imported:
-\itemize{
- \item \code{out.format = "xml"} : XML
- \item \code{out.format = "tab"} : Tabular separated file
- \item \code{out.format = "csv"} : Comma-separated values
- }}
+\item{db.import}{shall the BLAST output be stored in a PostgresSQL database and shall a connection be established to this database? Default is \code{db.import = FALSE}.
+In case users wish to to only generate a BLAST output file without importing it to the current R session they can specify \code{db.import = NULL}.}
 
-\item{postgres.user}{when \code{import = TRUE} and \code{out.format = "tab"} is selected, the BLAST output is imported and stored in a 
+\item{postgres.user}{when \code{db.import = TRUE} and \code{out.format = "postgres"} is selected, the BLAST output is imported and stored in a 
 PostgresSQL database. In that case, users need to have PostgresSQL installed and initialized on their system. 
 Please consult the Installation Vignette for details.}
 
@@ -81,11 +76,14 @@ against a blast-able database or fasta file.
 }
 \examples{
 \dontrun{
-blast_protein_to_protein(
+blast_example <- blast_protein_to_protein(
               query   = system.file('seqs/qry_aa.fa', package = 'metablastr'),
               subject = system.file('seqs/sbj_aa.fa', package = 'metablastr'),
               output.path = tempdir(),
-              import  = TRUE)
+              db.import  = FALSE)
+              
+# look at BLAST results
+blast_example
 }
 
 }

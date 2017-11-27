@@ -2,11 +2,11 @@
 % Please edit documentation in R/blast_nucleotide_to_protein.R
 \name{blast_nucleotide_to_protein}
 \alias{blast_nucleotide_to_protein}
-\title{Perform Nucleotide to Nucleotide BLAST Searches (BLASTX)}
+\title{Perform Nucleotide to Protein BLAST Searches (BLASTX)}
 \usage{
 blast_nucleotide_to_protein(query, subject, strand = "both",
   output.path = NULL, is.subject.db = FALSE, task = "blastx",
-  import = FALSE, postgres.user = NULL, evalue = 0.001,
+  db.import = FALSE, postgres.user = NULL, evalue = 0.001,
   out.format = "csv", cores = 1, max.target.seqs = 500,
   db.soft.mask = FALSE, db.hard.mask = FALSE, blast.path = NULL)
 }
@@ -31,22 +31,14 @@ or a blast-able database that was formatted with \code{makeblastdb} (\code{is.su
 
 \item{task}{nucleotide search task option. Options are:
 \itemize{
-\item \code{task = "blastn"} : Standard nucleotide-nucleotide comparisons (default) - Traditional BLASTN requiring an exact match of 11.
-\item \code{task = "blastn-short"} : Optimized nucleotide-nucleotide comparisons for query sequences shorter than 50 nucleotides.
-\item \code{task = "dc-megablast"} : Discontiguous megablast used to find more distant (e.g., interspecies) sequences.
-\item \code{task = "megablast"} : Traditional megablast used to find very similar (e.g., intraspecies or closely related species) sequences.
-\item \code{task = "rmblastn"}
+\item \code{task = "blastx"} : Standard nucleotide-protein comparisons (default).
+\item \code{task = "blastx-fast"} : Optimized nucleotide-protein comparisons.
 }}
 
-\item{import}{shall output of the nucleotide BLAST search be directly imported via \code{\link{read_blast}}? Default is \code{import = FALSE}.
-In case \code{import = TRUE} only the following output formats will be imported:
-\itemize{
- \item \code{out.format = "xml"} : XML
- \item \code{out.format = "tab"} : Tabular separated file
- \item \code{out.format = "csv"} : Comma-separated values
- }}
+\item{db.import}{shall the BLAST output be stored in a PostgresSQL database and shall a connection be established to this database? Default is \code{db.import = FALSE}.
+In case users wish to to only generate a BLAST output file without importing it to the current R session they can specify \code{db.import = NULL}.}
 
-\item{postgres.user}{when \code{import = TRUE} and \code{out.format = "tab"} is selected, the BLAST output is imported and stored in a 
+\item{postgres.user}{when \code{db.import = TRUE} and \code{out.format = "postgres"} is selected, the BLAST output is imported and stored in a 
 PostgresSQL database. In that case, users need to have PostgresSQL installed and initialized on their system. 
 Please consult the Installation Vignette for details.}
 
@@ -87,21 +79,26 @@ Available options are:
 \item{blast.path}{path to BLAST executables.}
 }
 \description{
-Run nucleotide to nucleotide BLAST of reference sequences
-against a blast-able database or fasta file.
+Run nucleotide to protein BLAST of reference sequences
+against a blast-able database or fasta file. Internally BLAST translates the 
+nucleotide sequence into a protein sequence and then searches for hits.
 }
 \examples{
 \dontrun{
-blast_nucleotide_to_protein(
+blast_test <- blast_nucleotide_to_protein(
                  query   = system.file('seqs/qry_nn.fa', package = 'metablastr'),
                  subject = system.file('seqs/sbj_aa.fa', package = 'metablastr'),
                  output.path = tempdir(),
-                 import  = TRUE)
+                 db.import  = FALSE)
+                 
+ # look at results
+ blast_test
 }
 
 }
 \seealso{
-\code{\link{blast_protein}}
+\code{\link{blast_nucleotide_to_nucleotide}}, \code{\link{blast_protein_to_protein}}, 
+\code{\link{blast_protein_to_nucleotide}}
 }
 \author{
 Hajk-Georg Drost

@@ -40,13 +40,16 @@ https://github.com/HajkD/metablastr/issues
 - `blast_protein_to_protein()`: Perform Protein to Protein BLAST Searches (BLASTP)
 - `blast_nucleotide_to_nucleotide()`: Perform Nucleotide to Nucleotide BLAST Searches (BLASTN)
 - `blast_nucleotide_to_protein()`: Perform Nucleotide to Protein BLAST Searches (BLASTX)
+- `blast_protein_to_nucleotide()`: Perform Protein to Nucleotide BLAST Searches (TBLASTN)
+- `blast_best_hit()`: Retrieve only the best BLAST hit for each query
+- `blast_best_reciprocal_hit()`: Retrieve only the best reciprocal BLAST hit for each query
 - `read_blast()`: Import BLAST output into R session (in memory) or via `PostgresSQL` database connection.
 
 ### BLAST against common NCBI databases 
 
-- `blast_nr()`: Perform Protein to Protein BLAST Searches against the [NCBI non-redundant database]() 
-- `blast_nt()`:
-- `blast_est()`:
+- `blast_nr()`: Perform Protein to Protein BLAST Searches against the `NCBI non-redundant database`
+- `blast_nt()`: Perform Nucleotide to Nucleotide BLAST Searches against the `NCBI non-redundant database`
+- `blast_est()`: Perform Nucleotide to Nucleotide BLAST Searches against the `NCBI expressed sequence tags database`
 - `blast_pdb_protein()`:
 - `blast_pdb_nucleotide()`:
 - `blast_swissprot()`:

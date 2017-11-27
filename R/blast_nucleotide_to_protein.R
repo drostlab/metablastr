@@ -143,7 +143,7 @@ blast_nucleotide_to_protein <- function(query,
                 paste0(
                     "makeblastdb -in ",
                     subject,
-                    " -input_type fasta -dbtype nucl -hash_index"
+                    " -input_type fasta -dbtype prot -hash_index"
                 )
             )
             

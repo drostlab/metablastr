@@ -13,14 +13,9 @@
 #' \item \code{task = "blast-fast"} : Improved BLAST searches using longer words for protein seeding.
 #' \item \code{task = "blastp-short"} : Optimized protein-protein comparisons for query sequences shorter than 30 residues.
 #' }
-#' @param import shall output of the protein BLAST search be directly imported via \code{\link{read_blast}}? Default is \code{import = FALSE}.
-#' In case \code{import = TRUE} only the following output formats will be imported:
-#' \itemize{
-#'  \item \code{out.format = "xml"} : XML
-#'  \item \code{out.format = "tab"} : Tabular separated file
-#'  \item \code{out.format = "csv"} : Comma-separated values
-#'  }
-#' @param postgres.user when \code{import = TRUE} and \code{out.format = "tab"} is selected, the BLAST output is imported and stored in a 
+#' @param db.import shall the BLAST output be stored in a PostgresSQL database and shall a connection be established to this database? Default is \code{db.import = FALSE}.
+#' In case users wish to to only generate a BLAST output file without importing it to the current R session they can specify \code{db.import = NULL}.
+#' @param postgres.user when \code{db.import = TRUE} and \code{out.format = "postgres"} is selected, the BLAST output is imported and stored in a 
 #' PostgresSQL database. In that case, users need to have PostgresSQL installed and initialized on their system. 
 #' Please consult the Installation Vignette for details. 
 #' @param evalue Expectation value (E) threshold for saving hits (default: \code{evalue = 0.001}).
@@ -54,11 +49,14 @@
 #' @author Hajk-Georg Drost
 #' @examples 
 #' \dontrun{
-#' blast_protein_to_protein(
+#' blast_example <- blast_protein_to_protein(
 #'               query   = system.file('seqs/qry_aa.fa', package = 'metablastr'),
 #'               subject = system.file('seqs/sbj_aa.fa', package = 'metablastr'),
 #'               output.path = tempdir(),
-#'               import  = TRUE)
+#'               db.import  = FALSE)
+#'               
+#' # look at BLAST results
+#' blast_example
 #' }
 #' 
 #' @seealso \code{\link{blast_nucleotide_to_nucleotide}}, \code{\link{blast_nucleotide_to_protein}}
@@ -69,7 +67,7 @@ blast_protein_to_protein <- function(query,
                           output.path = NULL,
                           is.subject.db = FALSE,
                           task = "blastp",
-                          import = FALSE,
+                          db.import = FALSE,
                           postgres.user = NULL,
                           evalue   = 1E-3,
                           out.format = "csv", 
@@ -82,9 +80,11 @@ blast_protein_to_protein <- function(query,
     if (!is_blast_installed())
         stop("Please install a valid version of BLAST.", call. = FALSE)
     
-    if (import) {
+    if (!is.null(db.import)) {
+      if (db.import) {
         if (!is.element(out.format, c("xml", "tab", "csv")))
-            stop("Only output formats: 'xml', 'tab', or 'csv' can be imported.", call. = FALSE)
+          stop("Only output formats: 'xml', 'tab', or 'csv' can be imported.", call. = FALSE)
+      }
     }
     
     # determine the number of cores on a multicore machine
@@ -104,6 +104,8 @@ blast_protein_to_protein <- function(query,
     
     if (!is.element(task, c("blastp", "blastp-fast", "blastp-short")))
         stop("Please choose a protein-protein comparison task that is supported by BLAST: task = 'blastp', task = 'blastp-fast', or task = 'blastp-short'.", call. = FALSE)
+    
+    message("Starting 'blastp -task ", task,"' with  query: ", query, " and subject: ",subject," using ", cores, " core(s) ...")
     
     blast_call <-
         paste0("blastp -query ", ws_wrap(query), " -db ", ws_wrap(subject))
@@ -164,12 +166,26 @@ blast_protein_to_protein <- function(query,
         )
     )
     
-    if (import) {
+    if (!is.null(db.import)) {
+      if (db.import) {
+        blast_tbl <- read_blast(file = output_read_blast, 
+                                out.format = "postgres",
+                                postgres.user = postgres.user)
+        message("\n")
+        message("BLAST search finished! A Postgres  database connection to the BLAST output file has been generated. The BLAST output file can be found at: ", output_blast)
+        return(blast_tbl)
+      } else {
         blast_tbl <- read_blast(file = output_read_blast, 
                                 out.format = out.format,
-                                postgres.user = postgres.user)
+                                postgres.user = NULL)
+        
+        message("\n")
+        message("BLAST search finished! The BLAST output file was imported into the running R session. The BLAST output file has been stored at: ", output_blast)
         return(blast_tbl)
+      }
+    } else {
+      message("\n")
+      message("BLAST search finished! BLAST output file has been stored at: ", output_blast)
     }
-    
 }
 

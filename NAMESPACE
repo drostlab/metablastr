@@ -2,5 +2,6 @@
 
 export(blast_nucleotide_to_nucleotide)
 export(blast_nucleotide_to_protein)
+export(blast_protein_to_nucleotide)
 export(blast_protein_to_protein)
 export(list_outformats)

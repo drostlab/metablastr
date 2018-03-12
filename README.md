@@ -1,5 +1,6 @@
 # metablastr
-### Perform Local BLAST Searches and Data Analysis on a Metagenomic Scale
+
+### An easy way to perform local large-scale BLAST searches with R
 
 The Basic Local Alignment Search Tool (BLAST) finds regions of sequence similarity between a query and a subject sequence or sequence database.
 
@@ -24,6 +25,25 @@ be analyzed using specialized `metablastr::filter_blast_*` functions.
 library(devtools)
 install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 ```
+
+
+### Quick start
+
+```r
+library(metablastr)
+# run blastn (nucleotide to nucleotide search) between example query and subject sequences
+blast_test <- blast_nucleotide_to_nucleotide(
+                 query   = system.file('seqs/qry_nn.fa', package = 'metablastr'),
+                 subject = system.file('seqs/sbj_nn.fa', package = 'metablastr'),
+                 output.path = tempdir(),
+                 db.import  = FALSE)
+                 
+# look at BLAST results
+blast_test
+```
+
+
+
 ## Discussions and Bug Reports
 
 I would be very happy to learn more about potential improvements of the concepts and functions provided in this package.

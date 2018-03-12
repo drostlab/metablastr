@@ -99,7 +99,7 @@ blast_protein_to_protein <- function(query,
         stop("Unfortunately, no query file has been found at ", query, call. = FALSE)
     
     # test if subject file or database exists
-    if (!file.exists(subject))
+    if (!file.exists(subject) & !is.subject.db)
         stop("Unfortunately, no subject file has been found at ", subject, call. = FALSE)
     
     if (!is.element(task, c("blastp", "blastp-fast", "blastp-short")))

@@ -29,10 +29,8 @@ sudo apt-get install libpq-dev
 ### For all systems install `metablastr` by typing
 
 ```r
-# install.packages("devtools")
 # install the current version of metablastr on your system
-library(devtools)
-install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
+source("https://install-github.me/HajkD/metablastr")
 ```
 
 

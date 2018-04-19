@@ -18,9 +18,18 @@ be analyzed using specialized `metablastr::filter_blast_*` functions.
 
 ### Install `metablastr`
 
+### For Linux Users:
+
+Please install the `libpq-dev` library on you linux machine by typing into the terminal:
+
+```
+sudo apt-get install libpq-dev
+```
+
+### For all systems install `metablastr` by typing
+
 ```r
 # install.packages("devtools")
-
 # install the current version of metablastr on your system
 library(devtools)
 install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)

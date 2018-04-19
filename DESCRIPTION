@@ -1,10 +1,11 @@
 Package: metablastr
 Title: Perform Local BLAST Searches
 Version: 0.1.0
-Authors@R: person("Hajk-Georg", "Drost",
-                role = c("aut", "cre"),
+Authors@R: c(person("Hajk-Georg", "Drost",
+                role = c("aut", "ctb", "cre"),
                 email = "hgd23@cam.ac.uk",
-                comment = c(ORCID = "http://orcid.org/0000-0002-1567-306X"))
+                comment = c(ORCID = "http://orcid.org/0000-0002-1567-306X")),
+                person("Anna", "Gogleva", email = "anna.gogleva@slcu.cam.ac.uk", role = c("aut", "ctb")))
 Description: This package provides interface functions for users to perform local Basic Local Alignment Search Tool (BLAST) searches. The search results can be efficiently imported into the R session. 
 Depends:
     R (>= 3.3.2)

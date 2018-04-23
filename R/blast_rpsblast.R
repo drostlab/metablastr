@@ -1,7 +1,8 @@
 #' @title Perform Reverse PSI-BLAST searches (rpsblast)
 #' @description Run rpsblast (Reverse PSI-BLAST) searches a query sequence against a database of profiles, or score matrices, producing BLAST-like output.
 #' @param query path to input file in fasta format.
-#' @param subject path to subject file in fasta format or blast-able database.
+#' @param db path to rpsblast-able database.
+#' @param db.alias alias for database files 
 #' @param output.path path to folder at which BLAST output table shall be stored. 
 #' @param db.import shall the BLAST output be stored in a PostgresSQL database and shall a connection be established to this database? Default is \code{db.import = FALSE}.
 #' In case users wish to to only generate a BLAST output file without importing it to the current R session they can specify \code{db.import = NULL}.
@@ -39,7 +40,8 @@
 #' @export
 
 blast_rpsblast <- function(query,
-                           subject,
+                           db,
+                           db.alias,
                            output.path = NULL,
                            db.import = FALSE,
                            postgress.user = NULL,
@@ -47,5 +49,45 @@ blast_rpsblast <- function(query,
                            out.format = 'csv',
                            cores = 1,
                            blast.path = NULL) {
+    
+    if (!is_blast_installed())
+        stop("Please install a valid version of rpsblast. See Installation Vignette for details.", call. = FALSE)
+    
+    if (db.import) {
+        if (!is.element(out.format, c("xml", "tab", "csv")))
+            stop("Only output formats: 'xml', 'tab', or 'csv' can be imported.", call. = FALSE)
+    }
+    
+    # determine the number of cores on a multicore machine
+    multi.cores <- parallel::detectCores()
+    
+    # in case one tries to use more cores than are available
+    if (cores > multi.cores)
+        stop("You chose more cores than are available on your machine.", call. = FALSE)
+    
+    # test if query file exists
+    if (!file.exists(query))
+        stop("Unfortunately, no query file has been found at ", query, call. = FALSE)
+    
+    # test if all required database files exist
+    db_postfix <- c('aux', 'freq', 
+                    'loo', 'phr',
+                    'pin', 'psi',
+                    'psq', 'rps')
+
+    full_path <- paste(db, db.alias, sep = '/')
+    db_files <- sapply(db_postfix,
+                       function(x) paste(full_path, x, sep = '.'))
+    db_status <- sapply(db_files, file.exists)
+    
+    if (!(all(db_stats))) {
+        stop('Unfortunately, one ore more required database files are missing', names(db_status[db_status == FALSE]) call. = FALSE)
+    }
+    
+    message("Starting 'rpsblast","' with  query: ", query, " against database: ", db.alias," using ", cores, " core(s) ...")
+    
+    # rpasblast calls here
+    
+    
     
 }

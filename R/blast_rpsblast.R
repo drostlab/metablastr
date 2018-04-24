@@ -2,7 +2,7 @@
 #' @description Run rpsblast (Reverse PSI-BLAST) searches a query sequence against a database of profiles, or score matrices, producing BLAST-like output.
 #' @param query path to input file in fasta format.
 #' @param prep.db logical, default FALSE; if TRUE - prep db before running rpsblast.
-#' @param db path to rpsblast-able database.
+#' @param db path to rpsblast-able database or smp files if \code{prep.db = NULL}.
 #' @param db.alias alias for database files 
 #' @param output.path path to folder at which BLAST output table shall be stored. 
 #' @param db.import shall the BLAST output be stored in a PostgresSQL database and shall a connection be established to this database? Default is \code{db.import = FALSE}.

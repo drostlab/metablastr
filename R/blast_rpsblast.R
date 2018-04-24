@@ -154,6 +154,11 @@ blast_rpsblast <- function(query,
                     'q_start', 'q_end',
                     's_start', 's_end', 
                     'e_value', 'bit_score')
+    message("\n")
+    message("rpsblast search finished! The rpsblast output file was imported into the running R session. The output file has been stored at: ", output_rpsblast)
     return(rpsblast_csv)
+    } else {
+        message("\n")
+        message("rpsblast search finished! The rpsblast output file has been stored at: ", output_rpsblast)
     }
 }

@@ -1,6 +1,7 @@
 #' @title Perform Reverse PSI-BLAST searches (rpsblast)
 #' @description Run rpsblast (Reverse PSI-BLAST) searches a query sequence against a database of profiles, or score matrices, producing BLAST-like output.
 #' @param query path to input file in fasta format.
+#' @param prep.db logical, default FALSE; if TRUE - prep db before running rpsblast.
 #' @param db path to rpsblast-able database.
 #' @param db.alias alias for database files 
 #' @param output.path path to folder at which BLAST output table shall be stored. 
@@ -35,14 +36,17 @@
 #' @seealso \code{\link{blast_protein_to_protein}}, \code{\link{blast_nucleotide_to_protein}}
 #' @export
 #' @examples
-#' db_path <- '/home/anna/anna/Labjournal/db_for_protoro'
+#' \dontrun{
+#' db_path <- '/home/Cdd'
 #' db_alias <- 'myCdd'
-#' rps_test <- blast_rpsblast(query = system.file('seqs/sbj_aa.fa', package = 'metablastr'), db = db_path, db.alias = db_alias)
+#' rps_test <- blast_rpsblast(query = system.file('seqs/sbj_aa.fa', package = 'metablastr'), db = db_path, db.alias = db_alias, prep.db = FALSE)
+#' }
 
 
 blast_rpsblast <- function(query,
                            db,
                            db.alias,
+                           prep.db = FALSE,
                            output.path = NULL,
                            db.import = FALSE,
                            postgres.user = NULL,
@@ -70,6 +74,23 @@ blast_rpsblast <- function(query,
     if (!file.exists(query))
         stop("Unfortunately, no query file has been found at ", query, call. = FALSE)
     
+    # check if db is ok, prep if required:
+    
+    if (prep.db == TRUE) {
+        # prep database if not ready yet <TO DO>
+        save_wd <- getwd()
+        setwd(db)
+        prep <- paste('makeprofiledb -in ',
+                      'Cdd.pn ',
+                      '-out ',
+                      db_alias,
+                      ' -dbtype rps -scale 1.0')
+        message('Preparing a rpsblast database, this might take some time ... ')
+        system(prep)
+        # go back to the prev location
+        setwd(save_wd)
+        
+        } else {
     # test if all required database files exist
     db.postfix <- c('aux', 'freq', 
                     'loo', 'phr',
@@ -85,6 +106,7 @@ blast_rpsblast <- function(query,
         missings <- paste(names(db.status[db.status == FALSE]), collapse = ' ')
         stop('Unfortunately, one ore more required database files are missing: ', missings, call. = FALSE)
     }
+        }
     
     message("Starting 'rpsblast+","' with  query: ", query, " against database: ", db.alias," using ", cores, " core(s) ...")
     
@@ -109,9 +131,6 @@ blast_rpsblast <- function(query,
                   paste0(unlist(stringr::str_split(
                       basename(query), "[.]"
                   ))[1], ".rpsblast_tbl"))
-    
-    # prep database if not ready yet (to do)
-    
     
     # the rpsblast call itself
     system(

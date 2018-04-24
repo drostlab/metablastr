@@ -37,9 +37,8 @@
 #' @examples
 #' db_path <- '/home/anna/anna/Labjournal/db_for_protoro'
 #' db_alias <- 'myCdd'
-#' rps_test <- blast_rpsblast(query = system.file('seqs/sbj_aa.fa', package = 'metablastr'), db = db_path, db.alias = db_alias, output.path = tempdir())
+#' rps_test <- blast_rpsblast(query = system.file('seqs/sbj_aa.fa', package = 'metablastr'), db = db_path, db.alias = db_alias)
 
-query = system.file('seqs/sbj_aa.fa', package = 'metablastr')
 
 blast_rpsblast <- function(query,
                            db,
@@ -98,7 +97,6 @@ blast_rpsblast <- function(query,
                            )
   
     # output file with ws handling
-    
     output_rpsblast <-
         file.path(ifelse(is.null(output.path), ws_wrap(getwd()), ws_wrap(output.path)),
                   paste0(unlist(stringr::str_split(
@@ -128,5 +126,34 @@ blast_rpsblast <- function(query,
                output_rpsblast
                ))
     
-    # read rpasblast outputs and convert into tibble (to do)
+    # read rpsblast outputs and convert into tibble 
+    
+    if (out.format == 'csv') {
+        rpsblast_csv <- readr::read_delim(
+                                    file = output_rpsblast,
+                                    delim = ',',
+                                    col_names = FALSE,
+                                    col_type = readr::cols(
+                                    X1 = col_character(),
+                                    X2 = col_character(),
+                                    X3 = col_double(),
+                                    X4 = col_integer(),
+                                    X5 = col_integer(),
+                                    X6 = col_integer(),
+                                    X7 = col_integer(),
+                                    X8 = col_integer(),
+                                    X9 = col_integer(),
+                                    X10 = col_integer(),
+                                    X11 = col_double(),
+                                    X12 = col_double()))
+    
+    
+    colnames(rpsblast_csv) <- c('query_id', 'subject_id',
+                    'perc_identity', 'alig_length',
+                    'mismatches', 'gap_openings',
+                    'q_start', 'q_end',
+                    's_start', 's_end', 
+                    'e_value', 'bit_score')
+    return(rpsblast_csv)
+    }
 }

@@ -42,7 +42,6 @@
 #' rps_test <- blast_rpsblast(query = system.file('seqs/sbj_aa.fa', package = 'metablastr'), db = db_path, db.alias = db_alias, prep.db = FALSE)
 #' }
 
-
 blast_rpsblast <- function(query,
                            db,
                            db.alias,
@@ -56,7 +55,7 @@ blast_rpsblast <- function(query,
                            blast.path = NULL) {
     
     if (!is_blast_installed())
-        stop("Please install a valid version of rpsblast. See Installation Vignette for details.", call. = FALSE)
+        stop("Please install a valid version of BLAST. See Installation Vignette for details.", call. = FALSE)
     
     if (db.import) {
         if (!is.element(out.format, c("xml", "tab", "csv")))
@@ -75,6 +74,8 @@ blast_rpsblast <- function(query,
         stop("Unfortunately, no query file has been found at ", query, call. = FALSE)
     
     # check if db is ok, prep if required:
+    
+    full.db.path <- paste(db, db.alias, sep = '/')
     
     if (prep.db == TRUE) {
         # prep database if not ready yet <TO DO>
@@ -97,7 +98,6 @@ blast_rpsblast <- function(query,
                     'pin', 'psi',
                     'psq', 'rps')
 
-    full.db.path <- paste(db, db.alias, sep = '/')
     db.files <- sapply(db.postfix,
                        function(x) paste(full.db.path, x, sep = '.'))
     db.status <- sapply(db.files, file.exists)

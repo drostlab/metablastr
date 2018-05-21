@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Perform Protein to Protein BLAST Searches (BLASTP) — blast_protein_to_protein • metablastr</title>
+<title>Perform Reverse PSI-BLAST searches (rpsblast) — blast_rpsblast • metablastr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,10 +28,9 @@
 
 
 
-<meta property="og:title" content="Perform Protein to Protein BLAST Searches (BLASTP) — blast_protein_to_protein" />
+<meta property="og:title" content="Perform Reverse PSI-BLAST searches (rpsblast) — blast_rpsblast" />
 
-<meta property="og:description" content="Run protein to protein BLAST of reference sequences
-against a blast-able database or fasta file." />
+<meta property="og:description" content="Run rpsblast (Reverse PSI-BLAST) searches a query sequence against a database of profiles, or score matrices, producing BLAST-like output." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -90,23 +89,20 @@ against a blast-able database or fasta file." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Perform Protein to Protein BLAST Searches (BLASTP)</h1>
+    <h1>Perform Reverse PSI-BLAST searches (rpsblast)</h1>
     
-    <div class="hidden name"><code>blast_protein_to_protein.Rd</code></div>
+    <div class="hidden name"><code>blast_rpsblast.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Run protein to protein BLAST of reference sequences
-against a blast-able database or fasta file.</p>
+    <p>Run rpsblast (Reverse PSI-BLAST) searches a query sequence against a database of profiles, or score matrices, producing BLAST-like output.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>blast_protein_to_protein</span>(<span class='no'>query</span>, <span class='no'>subject</span>, <span class='kw'>output.path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>is.subject.db</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>task</span> <span class='kw'>=</span> <span class='st'>"blastp"</span>, <span class='kw'>db.import</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>postgres.user</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>evalue</span> <span class='kw'>=</span> <span class='fl'>0.001</span>, <span class='kw'>out.format</span> <span class='kw'>=</span> <span class='st'>"csv"</span>, <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>max.target.seqs</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>db.soft.mask</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>db.hard.mask</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>blast.path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>blast_rpsblast</span>(<span class='no'>query</span>, <span class='no'>db</span>, <span class='no'>db.alias</span>, <span class='kw'>prep.db</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>output.path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>db.import</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>postgres.user</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>evalue</span> <span class='kw'>=</span> <span class='fl'>0.001</span>,
+  <span class='kw'>out.format</span> <span class='kw'>=</span> <span class='st'>"csv"</span>, <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>blast.path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -116,26 +112,20 @@ against a blast-able database or fasta file.</p>
       <td><p>path to input file in fasta format.</p></td>
     </tr>
     <tr>
-      <th>subject</th>
-      <td><p>path to subject file in fasta format or blast-able database.</p></td>
+      <th>db</th>
+      <td><p>path to rpsblast-able database or smp files if <code>prep.db = NULL</code>.</p></td>
+    </tr>
+    <tr>
+      <th>db.alias</th>
+      <td><p>alias for database files</p></td>
+    </tr>
+    <tr>
+      <th>prep.db</th>
+      <td><p>logical, default FALSE; if TRUE - prep db before running rpsblast.</p></td>
     </tr>
     <tr>
       <th>output.path</th>
-      <td><p>path to folder at which BLAST output table shall be stored. 
-Default is <code>output.path = NULL</code> (hence <code>getwd()</code> is used).</p></td>
-    </tr>
-    <tr>
-      <th>is.subject.db</th>
-      <td><p>logical specifying whether or not the <code>subject</code> file is a file in fasta format (<code>is.subject.db = FALSE</code>; default)
-or a blast-able database that was formatted with <code>makeblastdb</code> (<code>is.subject.db = TRUE</code>).</p></td>
-    </tr>
-    <tr>
-      <th>task</th>
-      <td><p>protein search task option. Options are:</p><ul>
-<li><p><code>task = "blastp"</code> : Standard protein-protein comparisons (default).</p></li>
-<li><p><code>task = "blast-fast"</code> : Improved BLAST searches using longer words for protein seeding.</p></li>
-<li><p><code>task = "blastp-short"</code> : Optimized protein-protein comparisons for query sequences shorter than 30 residues.</p></li>
-</ul></td>
+      <td><p>path to folder at which BLAST output table shall be stored.</p></td>
     </tr>
     <tr>
       <th>db.import</th>
@@ -154,7 +144,7 @@ Please consult the Installation Vignette for details.</p></td>
     </tr>
     <tr>
       <th>out.format</th>
-      <td><p>a character string specifying the format of the file in which the BLAST results shall be stored.
+      <td><p>a character string specifying the format of the file in which the rpsblast results shall be stored.
 Available options are:</p><ul>
 <li><p><code>out.format = "pair"</code> : Pairwise</p></li>
 <li><p><code>out.format = "qa.ident"</code> : Query-anchored showing identities</p></li>
@@ -171,50 +161,29 @@ Available options are:</p><ul>
 <li><p><code>out.format = "json.seq.aln"</code> : Seqalign (JSON)</p></li>
 <li><p><code>out.format = "json.blast.multi"</code> : Multiple-file BLAST JSON</p></li>
 <li><p><code>out.format = "xml2.blast.multi"</code> : Multiple-file BLAST XML2</p></li>
-<li><p><code>out.format = "json.blast.single"</code> : Single-file BLAST JSON</p></li>
-<li><p><code>out.format = "xml2.blast.single"</code> : Single-file BLAST XML2</p></li>
-<li><p><code>out.format = "report"</code> : Organism Report</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>cores</th>
-      <td><p>number of cores for parallel BLAST searches.</p></td>
-    </tr>
-    <tr>
-      <th>max.target.seqs</th>
-      <td><p>maximum number of aligned sequences that shall be kept.</p></td>
-    </tr>
-    <tr>
-      <th>db.soft.mask</th>
-      <td><p>shall low complexity regions be soft masked? Default is <code>db.soft.mask = FALSE</code>.</p></td>
-    </tr>
-    <tr>
-      <th>db.hard.mask</th>
-      <td><p>shall low complexity regions be hard masked? Default is <code>db.hard.mask = FALSE</code>.</p></td>
+      <td><p>number of cores for parallel rpsblast searches.</p></td>
     </tr>
     <tr>
       <th>blast.path</th>
-      <td><p>path to BLAST executables.</p></td>
+      <td><p>path to rpsblast executables.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='blast_nucleotide_to_nucleotide.html'>blast_nucleotide_to_nucleotide</a></code>, <code><a href='blast_nucleotide_to_protein.html'>blast_nucleotide_to_protein</a></code></p></div>
+    <div class='dont-index'><p><code><a href='blast_protein_to_protein.html'>blast_protein_to_protein</a></code>, <code><a href='blast_nucleotide_to_protein.html'>blast_nucleotide_to_protein</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>blast_example</span> <span class='kw'>&lt;-</span> <span class='fu'>blast_protein_to_protein</span>(
-              <span class='kw'>query</span>   <span class='kw'>=</span> <span class='fu'>system.file</span>(<span class='st'>'seqs/qry_aa.fa'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'metablastr'</span>),
-              <span class='kw'>subject</span> <span class='kw'>=</span> <span class='fu'>system.file</span>(<span class='st'>'seqs/sbj_aa.fa'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'metablastr'</span>),
-              <span class='kw'>output.path</span> <span class='kw'>=</span> <span class='fu'>tempdir</span>(),
-              <span class='kw'>db.import</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='co'># look at BLAST results</span>
-<span class='no'>blast_example</span>
-<span class='co'># }</span><div class='input'>
-</div></pre>
+<span class='no'>db_path</span> <span class='kw'>&lt;-</span> <span class='st'>'/home/Cdd'</span>
+<span class='no'>db_alias</span> <span class='kw'>&lt;-</span> <span class='st'>'myCdd'</span>
+<span class='no'>rps_test</span> <span class='kw'>&lt;-</span> <span class='fu'>blast_rpsblast</span>(<span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>system.file</span>(<span class='st'>'seqs/sbj_aa.fa'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'metablastr'</span>), <span class='kw'>db</span> <span class='kw'>=</span> <span class='no'>db_path</span>, <span class='kw'>db.alias</span> <span class='kw'>=</span> <span class='no'>db_alias</span>, <span class='kw'>prep.db</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -228,7 +197,7 @@ Available options are:</p><ul>
 
     <h2>Author</h2>
     
-Hajk-Georg Drost
+Hajk-Georg Drost, Anna Gogleva
 
   </div>
 </div>

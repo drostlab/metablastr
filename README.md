@@ -51,6 +51,24 @@ blast_test <- blast_nucleotide_to_nucleotide(
 blast_test
 ```
 
+```
+   query_id     subject_id perc_identity num_ident_match… alig_length mismatches
+   <chr>        <chr>              <dbl>            <int>       <int>      <int>
+ 1 333554|PACi… AT1G01010…          84.2              640         760         63
+ 2 333554|PACi… AT1G01010…          84.0              536         638         90
+ 3 333554|PACi… AT1G01010…          78.6               44          56         12
+ 4 470181|PACi… AT1G01020…          94.7              699         738         39
+ 5 470180|PACi… AT1G01030…          95.2             1025        1077         40
+ 6 333551|PACi… AT1G01040…          96.0             3627        3779        125
+ 7 333551|PACi… AT1G01040…          95.5             1860        1948         82
+ 8 909874|PACi… AT1G01050…          96.6              617         639         22
+ 9 470177|PACi… AT1G01060…          92.8             1804        1944        110
+10 918864|PACi… AT1G01070…          95.3             1046        1098         40
+# ... with 13 more rows, and 15 more variables: gap_openings <int>,
+#   n_gaps <int>, pos_match <int>, ppos <dbl>, q_start <int>, q_end <int>,
+#   q_len <int>, qcov <int>, qcovhsp <int>, s_start <int>, s_end <dbl>,
+#   s_len <dbl>, evalue <dbl>, bit_score <chr>, score_raw <int>
+```
 
 
 ## Discussions and Bug Reports

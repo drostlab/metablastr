@@ -105,6 +105,10 @@ https://github.com/HajkD/metablastr/issues
 - `blast_refseq_gene()`:
 - `blast_refseq_protein()`:
 
+
+### BLAST against a set of organisms
+- `blast_genomes()`: Perfrom BLAST Searches Against a Set of Genomes
+
 ### Analyze BLAST Report
 
 - `filter_blast_`:

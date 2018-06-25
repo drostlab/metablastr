@@ -132,8 +132,14 @@ read_blast <- function(file, out.format, postgres.user = NULL) {
                                            "X18" = readr::col_double(),
                                            "X19" = readr::col_double()
                                        ))
-        colnames(blast_csv) <- blast_outfmt_colnames()
-        return(blast_csv)
+        if (nrow(blast_csv) > 0) {
+          colnames(blast_csv) <- blast_outfmt_colnames()
+          return(blast_csv)
+        } else {
+          message("Unfortunately, no BLAST hit was found for '",file, "'.")
+          return(FALSE)
+        }
+        
     }    
     
 }

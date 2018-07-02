@@ -19,7 +19,8 @@ Imports:
     stringr (>= 0.6.2),
     DBI (>= 0.3.1),
     RPostgreSQL (>= 0.4-1),
-    readr (>= 1.1.0)
+    readr (>= 1.1.0),
+    biomartr
 Suggests: testthat (>= 1.0.2)
 License: GPL-3
 Encoding: UTF-8

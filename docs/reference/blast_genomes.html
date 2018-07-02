@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List available BLAST output formats — list_outformats • metablastr</title>
+<title>Perfrom BLAST Searches Against a Set of Genomes — blast_genomes • metablastr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,10 +30,11 @@
 
 
 
-<meta property="og:title" content="List available BLAST output formats — list_outformats" />
+<meta property="og:title" content="Perfrom BLAST Searches Against a Set of Genomes — blast_genomes" />
 
-<meta property="og:description" content="Available BLAST output formats are listed as they can
-be specified as out.format argument in any blast_* function." />
+<meta property="og:description" content="This function takes a fasta file containing query sequences
+as input and performs BLAST searches of these query sequences against
+a set of reference genomes to retrieve corresponding hits in diverse genomes." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -93,37 +94,70 @@ be specified as out.format argument in any blast_* function." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List available BLAST output formats</h1>
+    <h1>Perfrom BLAST Searches Against a Set of Genomes</h1>
     
-    <div class="hidden name"><code>list_outformats.Rd</code></div>
+    <div class="hidden name"><code>blast_genomes.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Available BLAST output formats are listed as they can
-be specified as <code>out.format</code> argument in any <code>blast_*</code> function.</p>
+    <p>This function takes a fasta file containing query sequences
+as input and performs BLAST searches of these query sequences against
+a set of reference genomes to retrieve corresponding hits in diverse genomes.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>list_outformats</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>blast_genomes</span>(<span class='no'>query</span>, <span class='no'>subject_genomes</span>, <span class='kw'>blast_type</span> <span class='kw'>=</span> <span class='st'>"blastn"</span>,
+  <span class='kw'>blast_output_path</span> <span class='kw'>=</span> <span class='st'>"blast_output"</span>, <span class='kw'>min_alig_length</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>query</th>
+      <td><p>path to input file in fasta format.</p></td>
+    </tr>
+    <tr>
+      <th>subject_genomes</th>
+      <td><p>a vector containing file paths to the reference genomes that shall be queried (e.g. file paths returned by <code><a href='http://www.rdocumentation.org/packages/biomartr/topics/meta.retrieval'>meta.retrieval</a></code>).</p></td>
+    </tr>
+    <tr>
+      <th>blast_type</th>
+      <td><p>specification of the BLAST type shall be used to perform BLAST searches between query and reference.
+Available options are:</p><ul>
+<li><p><code>blast_type = "blastn"</code> for  nucleotide to nucleotide BLAST searches (see <code><a href='blast_nucleotide_to_nucleotide.html'>blast_nucleotide_to_nucleotide</a></code> for details)</p></li>
+<li><p><code>blast_type = "tblastn"</code> for protein to nucleotide BLAST searches (see <code><a href='blast_protein_to_nucleotide.html'>blast_protein_to_nucleotide</a></code> for details)</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>blast_output_path</th>
+      <td><p>a path to a folder that will be created to store BLAST output tables for each individual query-genome search.</p></td>
+    </tr>
+    <tr>
+      <th>min_alig_length</th>
+      <td><p>minimum alignment length that shall be retained in the result dataset. All hit alignments with smaller
+hit alignment length will be removed automatically.</p></td>
+    </tr>
+    <tr>
+      <th>&#8230;</th>
+      <td><p>additional arguments passed to <code><a href='blast_nucleotide_to_nucleotide.html'>blast_nucleotide_to_nucleotide</a></code> or <code><a href='blast_protein_to_nucleotide.html'>blast_protein_to_nucleotide</a></code>.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># list available BLAST output formats</span>
-<span class='fu'>list_outformats</span>()</div><div class='output co'>#&gt;  [1] "pair"              "qa.ident"          "qa.nonident"      
-#&gt;  [4] "fq.ident"          "fq.nonident"       "xml"              
-#&gt;  [7] "tab"               "tab.comment"       "ASN.1.text"       
-#&gt; [10] "ASN.1.binary"      "csv"               "ASN.1"            
-#&gt; [13] "json.seq.aln"      "json.blast.multi"  "xml2.blast.multi" 
-#&gt; [16] "json.blast.single" "xml2.blast.single" "SAM"              
-#&gt; [19] "report"           </div></pre>
+    <p>The <code>blast_genomes</code> function enables users to BLAST specific query sequences against a set of reference genomes
+and retrieve the corresponding BLAST output.</p>
+    
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
     <h2>Author</h2>
     

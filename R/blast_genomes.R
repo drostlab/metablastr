@@ -12,7 +12,9 @@
 #' }
 #' @param blast_output_path a path to a folder that will be created to store BLAST output tables for each individual query-genome search.
 #' @param min_alig_length minimum alignment length that shall be retained in the result dataset. All hit alignments with smaller
-#' hit alignment length will be removed automatically. 
+#' hit alignment length will be removed automatically.
+#' @param update a logical value indicating whether or not pre-computed BLAST tables should be removed and re-computed (\code{update = TRUE})
+#' or imported (\code{update = FALSE}) (Default). 
 #' @param \dots additional arguments passed to \code{\link{blast_nucleotide_to_nucleotide}} or \code{\link{blast_protein_to_nucleotide}}.
 #' @author Hajk-Georg Drost
 #' @details The \code{blast_genomes} function enables users to BLAST specific query sequences against a set of reference genomes
@@ -26,12 +28,17 @@ blast_genomes <-
            blast_type = "blastn",
            blast_output_path = "blast_output",
            min_alig_length  = 30,
+           update = FALSE,
            ...) {
     
     if (!is.element(blast_type, c("blastn", "tblastn")))
       stop("Please specify a blast_type that is supported by this function, e.g. blast_type = 'blastn' or blast_type = 'tblastn'.", call. = FALSE)
     
     message("Start '",blast_type,"' search of query '", basename(query), "' against ", length(subject_genomes), " reference genomes ...")
+    
+    if (update) {
+      file.remove(blast_output_path, recursive = TRUE)
+    }
     
     if (!file.exists(blast_output_path)) {
       message("BLAST results for each individual genome search will be stored at '", blast_output_path, "'.")
@@ -135,7 +142,7 @@ blast_genomes <-
       } else {
         message("The blast output file '",file.path(blast_output_path, output_file),"' exists already and will be imported ...")
         res[i] <-
-          readr::read_csv(file.path(blast_output_path, output_file))
+          list(readr::read_csv(file.path(blast_output_path, output_file)))
       }
       
     }

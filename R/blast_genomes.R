@@ -132,19 +132,17 @@ blast_genomes <-
             
             message("Storing results for species ", species_name," in file ", file.path(blast_output_path, output_file), " ...")
             
-            readr::write_excel_csv(blast_output_tmp,
+            readr::write_tsv(blast_output_tmp,
                                    file.path(blast_output_path, output_file))
             
             res[i] <- list(blast_output_tmp)
           }
         }
-        
       } else {
         message("The blast output file '",file.path(blast_output_path, output_file),"' exists already and will be imported ...")
-        res[i] <-
-          list(readr::read_csv(file.path(blast_output_path, output_file)))
+        suppressMessages(res[i] <-
+          list(readr::read_tsv(file.path(blast_output_path, output_file))))
       }
-      
     }
     
     final_species_hit_tbl <- dplyr::bind_rows(res)

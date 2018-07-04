@@ -16,7 +16,7 @@ gg_blast_hits <-
         "' is not a valid type option. Please consult the documentation for details."
       )
     
-    q_len <- alig_length <- scope <- NULL
+    q_len <- alig_length <- scope <- species <- NULL
     blast_tbl <-
       dplyr::mutate(blast_tbl, scope = 1 - (abs(q_len - alig_length) / q_len))
     
@@ -100,6 +100,5 @@ gg_blast_hits <-
         hjust = 1
       ))
       
-    
     return(p)
   }

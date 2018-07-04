@@ -5,7 +5,8 @@
 \title{Perfrom BLAST Searches Against a Set of Genomes}
 \usage{
 blast_genomes(query, subject_genomes, blast_type = "blastn",
-  blast_output_path = "blast_output", min_alig_length = 30, ...)
+  blast_output_path = "blast_output", min_alig_length = 30,
+  update = FALSE, ...)
 }
 \arguments{
 \item{query}{path to input file in fasta format.}
@@ -23,6 +24,9 @@ Available options are:
 
 \item{min_alig_length}{minimum alignment length that shall be retained in the result dataset. All hit alignments with smaller
 hit alignment length will be removed automatically.}
+
+\item{update}{a logical value indicating whether or not pre-computed BLAST tables should be removed and re-computed (\code{update = TRUE})
+or imported (\code{update = FALSE}) (Default).}
 
 \item{\dots}{additional arguments passed to \code{\link{blast_nucleotide_to_nucleotide}} or \code{\link{blast_protein_to_nucleotide}}.}
 }

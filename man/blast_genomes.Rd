@@ -5,7 +5,7 @@
 \title{Perfrom BLAST Searches Against a Set of Genomes}
 \usage{
 blast_genomes(query, subject_genomes, blast_type = "blastn",
-  blast_output_path = "blast_output", min_alig_length = 50, ...)
+  blast_output_path = "blast_output", min_alig_length = 30, ...)
 }
 \arguments{
 \item{query}{path to input file in fasta format.}

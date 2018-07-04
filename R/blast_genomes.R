@@ -25,7 +25,7 @@ blast_genomes <-
            subject_genomes,
            blast_type = "blastn",
            blast_output_path = "blast_output",
-           min_alig_length  = 50,
+           min_alig_length  = 30,
            ...) {
     
     if (!is.element(blast_type, c("blastn", "tblastn")))
@@ -38,7 +38,6 @@ blast_genomes <-
       dir.create(blast_output_path, recursive = TRUE)
     }
       
-    
     res <- vector("list", length(subject_genomes))
     
     for (i in seq_len(length(subject_genomes))) {
@@ -53,11 +52,32 @@ blast_genomes <-
       if (!file.exists(file.path(blast_output_path, output_file))) {
         
         if (blast_type == "blastn") {
-          blast_output_tmp <- metablastr::blast_nucleotide_to_nucleotide(
+                    blast_output_tmp <- metablastr::blast_nucleotide_to_nucleotide(
             query = query,
             subject = subject_genomes[i],
             ...
           )
+          
+          # remove all makeblastdb files                    
+          if (file.exists(paste0(subject_genomes[i],".nhd")))
+            file.remove(paste0(subject_genomes[i],".nhd"))  
+          if (file.exists(paste0(subject_genomes[i],".nhi")))
+             file.remove(paste0(subject_genomes[i],".nhi"))  
+          if (file.exists(paste0(subject_genomes[i],".nhr")))
+             file.remove(paste0(subject_genomes[i],".nhr"))
+          if (file.exists(paste0(subject_genomes[i],".nin")))
+             file.remove(paste0(subject_genomes[i],".nin")) 
+          if (file.exists(paste0(subject_genomes[i],".nog")))
+             file.remove(paste0(subject_genomes[i],".nog"))
+          if (file.exists(paste0(subject_genomes[i],".nog")))
+             file.remove(paste0(subject_genomes[i],".nog"))
+          if (file.exists(paste0(subject_genomes[i],".nsd")))
+             file.remove(paste0(subject_genomes[i],".nsd"))
+          if (file.exists(paste0(subject_genomes[i],".nsi")))
+             file.remove(paste0(subject_genomes[i],".nsi"))
+          if (file.exists(paste0(subject_genomes[i],".nsq")))
+             file.remove(paste0(subject_genomes[i],".nsq"))
+                             
           if (!is.logical(blast_output_tmp)) {
             alig_length <- NULL
             blast_output_tmp <- dplyr::filter(blast_output_tmp, alig_length >= min_alig_length)
@@ -65,11 +85,10 @@ blast_genomes <-
             
             message("Storing results for species ", species_name," in file ", file.path(blast_output_path, output_file), " ...")
             
-            
             readr::write_excel_csv(blast_output_tmp,
                                    file.path(blast_output_path, output_file))
             
-            res[i] <- blast_output_tmp
+            res[i] <- list(blast_output_tmp)
           }
         }
         
@@ -79,6 +98,26 @@ blast_genomes <-
             subject = subject_genomes[i],
             ...
           )
+          # remove all makeblastdb files                    
+          if (file.exists(paste0(subject_genomes[i],".nhd")))
+            file.remove(paste0(subject_genomes[i],".nhd"))  
+          if (file.exists(paste0(subject_genomes[i],".nhi")))
+            file.remove(paste0(subject_genomes[i],".nhi"))  
+          if (file.exists(paste0(subject_genomes[i],".nhr")))
+            file.remove(paste0(subject_genomes[i],".nhr"))
+          if (file.exists(paste0(subject_genomes[i],".nin")))
+            file.remove(paste0(subject_genomes[i],".nin")) 
+          if (file.exists(paste0(subject_genomes[i],".nog")))
+            file.remove(paste0(subject_genomes[i],".nog"))
+          if (file.exists(paste0(subject_genomes[i],".nog")))
+            file.remove(paste0(subject_genomes[i],".nog"))
+          if (file.exists(paste0(subject_genomes[i],".nsd")))
+            file.remove(paste0(subject_genomes[i],".nsd"))
+          if (file.exists(paste0(subject_genomes[i],".nsi")))
+            file.remove(paste0(subject_genomes[i],".nsi"))
+          if (file.exists(paste0(subject_genomes[i],".nsq")))
+            file.remove(paste0(subject_genomes[i],".nsq"))
+          
           if (!is.logical(blast_output_tmp)) {
             alig_length <- NULL
             blast_output_tmp <- dplyr::filter(blast_output_tmp, alig_length >= min_alig_length)
@@ -86,11 +125,10 @@ blast_genomes <-
             
             message("Storing results for species ", species_name," in file ", file.path(blast_output_path, output_file), " ...")
             
-            
             readr::write_excel_csv(blast_output_tmp,
                                    file.path(blast_output_path, output_file))
             
-            res[i] <- blast_output_tmp
+            res[i] <- list(blast_output_tmp)
           }
         }
         

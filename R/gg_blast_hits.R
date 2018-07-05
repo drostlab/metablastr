@@ -4,12 +4,13 @@
 #' @param type
 #' @param scope_cutoff The scope is defined as \code{1 - (abs(q_len - alig_length) / q_len))}. The \code{scope_cutoff}
 #' defines the minimum scope that is required to retain a BLAST hit. Default is \code{scope_cutoff = 0.1} (meaning that each BLAST hit must have at least 0.1 scope). 
-#' @param alpha
-#' @param scale
-#' @param xlab
-#' @param ylab
-#' @param xticks
-#' @param levels
+#' @param alpha a value passed to \code{\link[ggplot2]{aes}}specifying the transparency of distributions.
+#' @param scale the ridges scale passed to \code{\link[ggridges]{geom_density_ridges}}.
+#' @param xlab x-axis label.
+#' @param ylab y-axis label.
+#' @param xticks number of ticks on the x-axis. Default is \code{xticks = 5}.
+#' @param levels a character vector specifying the exact order of species names (levels) 
+#' that is used to \code{\link{factor}} and sort species in the \code{\link[ggridges]{geom_density_ridges}} plot.
 #' @author Hajk-Georg Drost
 #' @export
 gg_blast_hits <-

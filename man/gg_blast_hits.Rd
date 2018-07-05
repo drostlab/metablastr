@@ -13,6 +13,19 @@ gg_blast_hits(blast_tbl, type = "scope", scope_cutoff = 0.1, alpha = 0.7,
 
 \item{scope_cutoff}{The scope is defined as \code{1 - (abs(q_len - alig_length) / q_len))}. The \code{scope_cutoff}
 defines the minimum scope that is required to retain a BLAST hit. Default is \code{scope_cutoff = 0.1} (meaning that each BLAST hit must have at least 0.1 scope).}
+
+\item{alpha}{a value passed to \code{\link[ggplot2]{aes}}specifying the transparency of distributions.}
+
+\item{scale}{the ridges scale passed to \code{\link[ggridges]{geom_density_ridges}}.}
+
+\item{xlab}{x-axis label.}
+
+\item{ylab}{y-axis label.}
+
+\item{xticks}{number of ticks on the x-axis. Default is \code{xticks = 5}.}
+
+\item{levels}{a character vector specifying the exact order of species names (levels) 
+that is used to \code{\link{factor}} and sort species in the \code{\link[ggridges]{geom_density_ridges}} plot.}
 }
 \description{
 This function generates a joyplot of the \code{\link{blast_genomes}} output.

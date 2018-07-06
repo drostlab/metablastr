@@ -1,7 +1,13 @@
 #' @title Plot \code{\link{blast_genomes}} Result
 #' @description This function generates a joyplot of the \code{\link{blast_genomes}} output.  
-#' @param blast_tbl a table generated with \code{\link{blast_genomes}}.
-#' @param type
+#' @param blast_tbl a BLAST table generated with \code{\link{blast_genomes}}.
+#' @param type the type of BLAST hit visualization. Options are:
+#' \itemize{
+#' \item \code{type = "scope"} 
+#' \item \code{type = "alig_length"}
+#' \item \code{type = "evalue"}
+#' \item \code{type = "bit_score"}
+#' }
 #' @param scope_cutoff The scope is defined as \code{1 - (abs(q_len - alig_length) / q_len))}. The \code{scope_cutoff}
 #' defines the minimum scope that is required to retain a BLAST hit. Default is \code{scope_cutoff = 0.1} (meaning that each BLAST hit must have at least 0.1 scope). 
 #' @param alpha a value passed to \code{\link[ggplot2]{aes}}specifying the transparency of distributions.

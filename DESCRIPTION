@@ -22,7 +22,8 @@ Imports:
     readr (>= 1.1.0),
     biomartr,
     ggplot2,
-    ggridges
+    ggridges,
+    IRanges
 Suggests: testthat (>= 1.0.2)
 License: GPL-3
 Encoding: UTF-8

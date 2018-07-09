@@ -29,11 +29,14 @@ extract_hit_seqs_from_genomes <-
     
     if (separated_by_genome) {
       for (i in seq_len(length(subject_genomes))) {
-        message("Processing organism ", subject_genomes[i], " ...")
+        message("Processing organism ", basename(subject_genomes[i]), " ...")
         imported_genome_i <- biomartr::read_genome(subject_genomes[i])
         
+        # remove appendix *.fa from file name
+        species_refined_name <- unlist(stringr::str_split(basename(subject_genomes[i]), "[.]"))[1]
+        
         species_specific_blast_tbl <-
-          dplyr::filter(blast_tbl, species == subject_genomes[i])
+          dplyr::filter(blast_tbl, species == species_refined_name)
         
         if (nrow(species_specific_blast_tbl) > 0) {
           strand <-
@@ -42,11 +45,16 @@ extract_hit_seqs_from_genomes <-
               "+",
               "-"
             )
+          
           species_specific_blast_tbl <-
             dplyr::mutate(species_specific_blast_tbl, s_strand = strand)
           
-          chr_names <- names(imported_genome_i)
+          # only retain chromosome names that are present in both: genome and BLAST table
+          chr_names <- dplyr::intersect(names(imported_genome_i), names(table(species_specific_blast_tbl$subject_id)))
           
+          if (length(chr_names) == 0)
+            stop("It seems that the chromosome names used in the input 'blast_tbl' and in the input genome fasta file do not match. Please make sure that the chromosome names match in both cases.", call. = FALSE)
+
           # construct output file paths
           seq_file_paths[i] <- ifelse(
             is.null(path),
@@ -98,6 +106,7 @@ extract_hit_seqs_from_genomes <-
               )
             )
             
+            # store sequences in fasta files
             Biostrings::writeXStringSet(
               seqs_plus@unlistData,
               filepath = ifelse(
@@ -122,7 +131,7 @@ extract_hit_seqs_from_genomes <-
           }
         } else {
           message("Organism ",
-                  subject_genomes[i],
+                  basename(subject_genomes[i]),
                   " didn't have any BLAST hits.")
         }
       }
@@ -134,11 +143,14 @@ extract_hit_seqs_from_genomes <-
       )
       
       for (i in seq_len(length(subject_genomes))) {
-        message("Processing organism ", subject_genomes[i], " ...")
+        message("Processing organism ", basename(subject_genomes[i]), " ...")
         imported_genome_i <- biomartr::read_genome(subject_genomes[i])
         
+        # remove appendix *.fa from file name
+        species_refined_name <- unlist(stringr::str_split(basename(subject_genomes[i]), "[.]"))[1]
+        
         species_specific_blast_tbl <-
-          dplyr::filter(blast_tbl, species == subject_genomes[i])
+          dplyr::filter(blast_tbl, species == species_refined_name)
         
         if (nrow(species_specific_blast_tbl) > 0) {
           strand <-
@@ -150,7 +162,11 @@ extract_hit_seqs_from_genomes <-
           species_specific_blast_tbl <-
             dplyr::mutate(species_specific_blast_tbl, s_strand = strand)
           
-          chr_names <- names(imported_genome_i)
+          # only retain chromosome names that are present in both: genome and BLAST table
+          chr_names <- dplyr::intersect(names(imported_genome_i), names(table(species_specific_blast_tbl$subject_id)))
+          
+          if (length(chr_names) == 0)
+            stop("It seems that the chromosome names used in the input 'blast_tbl' and in the input genome fasta file do not match. Please make sure that the chromosome names match in both cases.", call. = FALSE)
           
           # for each chromosome separately
           for (j in seq_len(length(chr_names))) {
@@ -220,7 +236,7 @@ extract_hit_seqs_from_genomes <-
           }
         } else {
           message("Organism ",
-                  subject_genomes[i],
+                  basename(subject_genomes[i]),
                   " didn't have any BLAST hits.")
         }
       }

@@ -4,13 +4,15 @@
 \alias{extract_hit_seqs_from_genomes}
 \title{Extract sequences of BLAST hits in respective genomes and store it as \code{fasta} file(s)}
 \usage{
-extract_hit_seqs_from_genomes(blast_tbl, subject_genomes,
+extract_hit_seqs_from_genomes(blast_tbl, subject_genomes, file_name = NULL,
   separated_by_genome = FALSE, path = NULL)
 }
 \arguments{
 \item{blast_tbl}{a BLAST table generated with \code{\link{blast_genomes}}.}
 
 \item{subject_genomes}{a vector containing file paths to the reference genomes that shall be queried (e.g. file paths returned by \code{\link[biomartr]{meta.retrieval}}).}
+
+\item{file_name}{name of the fasta file that stores the BLAST hit sequences. This name will only be used when \code{separated_by_genome = FALSE}.}
 
 \item{separated_by_genome}{a logical value indicating whether or not hit sequences from different genomes should be stored in the same
 output \code{fasta} file \code{separated_by_genome = FALSE} (default) or in separate \code{fasta} files \code{separated_by_genome = TRUE}.}

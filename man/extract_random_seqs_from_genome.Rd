@@ -5,7 +5,7 @@
 \title{Extract random loci from a genome of interest}
 \usage{
 extract_random_seqs_from_genome(size, interval_width, subject_genome,
-  file_name = NULL)
+  file_name = NULL, append = FALSE)
 }
 \arguments{
 \item{size}{a non-negative integer giving the number of loci that shall be sampled.}
@@ -16,6 +16,9 @@ extract_random_seqs_from_genome(size, interval_width, subject_genome,
 
 \item{file_name}{a name of the output \code{fasta} file that will store the sequences of the randomly
 sampled loci.}
+
+\item{append}{shall new random sequences be added to an existing \code{file_name} (\code{append = TRUE})
+or should an exosting \code{file_name} be removed before storing new random sequences (\code{append = FALSE}; Default)?}
 }
 \description{
 This function allows users to specify a number of sequences

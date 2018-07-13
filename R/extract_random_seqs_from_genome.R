@@ -39,6 +39,9 @@ extract_random_seqs_from_genome <-
     if (length(interval_width) > 1)
       stop("Please provide only one width.", call. = FALSE)
     
+    if (file.exists(file_name))
+      file.remove(file_name)
+    
     strand <- chr <- NULL
     
         # remove appendix *.fa from file name

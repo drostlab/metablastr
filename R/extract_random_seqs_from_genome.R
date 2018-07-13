@@ -13,6 +13,8 @@
 #' @param subject_genome file path to the \code{fasta} file storing the subject genome.
 #' @param file_name a name of the output \code{fasta} file that will store the sequences of the randomly
 #' sampled loci.
+#' @param append shall new random sequences be added to an existing \code{file_name} (\code{append = TRUE})
+#'  or should an exosting \code{file_name} be removed before storing new random sequences (\code{append = FALSE}; Default)?  
 #' @author Hajk-Georg Drost
 #' @export
 
@@ -20,7 +22,8 @@ extract_random_seqs_from_genome <-
   function(size,
            interval_width,
            subject_genome,
-           file_name = NULL) {
+           file_name = NULL,
+           append = FALSE) {
     
     if (!file.exists(subject_genome))
       stop(
@@ -39,7 +42,7 @@ extract_random_seqs_from_genome <-
     if (length(interval_width) > 1)
       stop("Please provide only one width.", call. = FALSE)
     
-    if (file.exists(file_name))
+    if (file.exists(file_name) & !append)
       file.remove(file_name)
     
     strand <- chr <- NULL

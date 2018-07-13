@@ -13,6 +13,8 @@
 #' @param blast_output_path a path to a folder that will be created to store BLAST output tables for each individual query-genome search.
 #' @param min_alig_length minimum alignment length that shall be retained in the result dataset. All hit alignments with smaller
 #' hit alignment length will be removed automatically.
+#' @param evalue minimum expectation value (E) threshold for retaining hits (default: evalue = 0.00001).
+#' @param max.target.seqs maximum number of aligned sequences that shall be kept.
 #' @param update a logical value indicating whether or not pre-computed BLAST tables should be removed and re-computed (\code{update = TRUE})
 #' or imported (\code{update = FALSE}) (Default). 
 #' @param \dots additional arguments passed to \code{\link{blast_nucleotide_to_nucleotide}} or \code{\link{blast_protein_to_nucleotide}}.
@@ -21,20 +23,21 @@
 #' and retrieve the corresponding BLAST output.
 #' @export
 
-
 blast_genomes <-
   function(query,
            subject_genomes,
            blast_type = "blastn",
            blast_output_path = "blast_output",
            min_alig_length  = 30,
+           evalue = 1E-5,
+           max.target.seqs = 5000,
            update = FALSE,
            ...) {
     
     if (!is.element(blast_type, c("blastn", "tblastn")))
       stop("Please specify a blast_type that is supported by this function, e.g. blast_type = 'blastn' or blast_type = 'tblastn'.", call. = FALSE)
     
-    message("Start '",blast_type,"' search of query '", basename(query), "' against ", length(subject_genomes), " reference genomes ...")
+    message("Start '",blast_type,"' search of query '", basename(query), "' against ", length(subject_genomes), " reference genomes using evalue = ",evalue," and max.target.seqs = ",max.target.seqs," ...")
     
     if (update) {
       file.remove(blast_output_path, recursive = TRUE)
@@ -62,6 +65,8 @@ blast_genomes <-
                     blast_output_tmp <- metablastr::blast_nucleotide_to_nucleotide(
             query = query,
             subject = subject_genomes[i],
+            evalue = evalue,
+            max.target.seqs = max.target.seqs,
             ...
           )
           
@@ -103,6 +108,8 @@ blast_genomes <-
           blast_output_tmp <- metablastr::blast_protein_to_nucleotide(
             query = query,
             subject = subject_genomes[i],
+            evalue = evalue,
+            max.target.seqs = max.target.seqs,
             ...
           )
           # remove all makeblastdb files                    

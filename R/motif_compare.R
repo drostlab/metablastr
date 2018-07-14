@@ -1,6 +1,6 @@
 #' @title Count the number of motifs in a set of non-random versus random sequences 
 #' @description Compare the number of motifs in a set of non-random versus random sequences.
-#' The resulting values can then be used to test the enrichment of certain motifs in real sequneces compared to random sequences.
+#' The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences.
 #' @param real_seqs a file path to the \code{fasta} file storing the non-random set of sequences.
 #' @param random_seqs a file path to the \code{fasta} file storing the random set of sequences, e.g. generated with \code{\link{extract_random_seqs_from_genome}}.
 #' @param motifs a character vector storing a set of motifs that shall be counted within respective sequences.

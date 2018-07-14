@@ -15,7 +15,7 @@ motif_compare(real_seqs, random_seqs, motifs)
 }
 \description{
 Compare the number of motifs in a set of non-random versus random sequences.
-The resulting values can then be used to test the enrichment of certain motifs in real sequneces compared to random sequences.
+The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences.
 }
 \seealso{
 \code{\link{motif_count}}, \code{\link{extract_random_seqs_from_genome}}, \code{\link{extract_hit_seqs_from_genomes}}

@@ -54,7 +54,7 @@ extract_random_seqs_from_genome <-
         
         # only retain chromosome names that are present in both: genome and BLAST table
         chr_names <-
-          unlist(lapply(names(imported_genome_i), function(x)
+          unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x)
             unlist(stringr::str_split(x, " ")[1])))
         if (length(chr_names) == 0)
           stop("No chromosomes were found in this genome.", call. = FALSE)

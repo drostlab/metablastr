@@ -4,7 +4,8 @@
 \alias{motif_compare}
 \title{Count the number of motifs in a set of non-random versus random sequences}
 \usage{
-motif_compare(real_seqs, random_seqs, motifs)
+motif_compare(real_seqs, random_seqs, motifs, max.mismatch = 0,
+  min.mismatch = 0, ...)
 }
 \arguments{
 \item{real_seqs}{a file path to the \code{fasta} file storing the non-random set of sequences.}
@@ -12,6 +13,12 @@ motif_compare(real_seqs, random_seqs, motifs)
 \item{random_seqs}{a file path to the \code{fasta} file storing the random set of sequences, e.g. generated with \code{\link{extract_random_seqs_from_genome}}.}
 
 \item{motifs}{a character vector storing a set of motifs that shall be counted within respective sequences.}
+
+\item{max.mismatch}{the maximum number of mismatching letters allowed (see \code{\link[Biostrings]{matchPattern}} for details).}
+
+\item{min.mismatch}{the minimum number of mismatching letters allowed (see \code{\link[Biostrings]{vcountPattern}} for details).}
+
+\item{\dots}{additional arguments passed to \code{\link[Biostrings]{matchPattern}}.}
 }
 \description{
 Compare the number of motifs in a set of non-random versus random sequences.

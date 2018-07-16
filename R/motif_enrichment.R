@@ -8,12 +8,15 @@
 #' \itemize{
 #' \item \code{test = "fisher"}: Fisher's Exact Test for Count Data (see \code{link[stats]{fisher.test}} for details).
 #' }
+#' @param max.mismatch the maximum number of mismatching letters allowed (see \code{\link[Biostrings]{matchPattern}} for details).
+#' @param min.mismatch the minimum number of mismatching letters allowed (see \code{\link[Biostrings]{vcountPattern}} for details).
+#' @param \dots additional arguments passed to \code{\link[Biostrings]{matchPattern}}.
 #' @author Hajk-Georg Drost
 #' @seealso \code{\link{motif_count}}, \code{\link{extract_random_seqs_from_genome}}, \code{\link{extract_hit_seqs_from_genomes}}
 #' @export
 
 motif_enrichment <-
-  function(real_seqs, random_seqs, motifs, test = "fisher") {
+  function(real_seqs, random_seqs, motifs, test = "fisher", max.mismatch = 0, min.mismatch = 0, ...) {
     if (!is.element(test, c("fisher")))
       stop(
         "The test type '",
@@ -25,7 +28,11 @@ motif_enrichment <-
     motif_compare_tbl <-
       motif_compare(real_seqs = real_seqs,
                     random_seqs = random_seqs,
-                    motifs = motifs)
+                    motifs = motifs,
+                    max.mismatch = max.mismatch,
+                    min.mismatch = min.mismatch,
+                    ...
+                    )
     
     if (test == "fisher") {
       fisher_p_val <- function(x) {

@@ -186,11 +186,19 @@ extract_hit_seqs_from_genomes <-
       
       for (i in seq_len(length(subject_genomes))) {
         message("Processing organism ", basename(subject_genomes[i]), " ...")
-        imported_genome_i <- biomartr::read_genome(subject_genomes[i])
-        
         # remove appendix *.fa from file name
         split_name <- stringr::str_split(basename(subject_genomes[i]), "[.]")
         species_refined_name <- paste0(split_name[-length(split_name)], collapse = "[.]")
+        
+        if (!is.element(species_refined_name, available_species)) {
+          message("Organism ",
+                  species_refined_name,
+                  " didn't have any BLAST hits.")
+          invisible(return(NULL))
+        }
+        
+        imported_genome_i <- biomartr::read_genome(subject_genomes[i])
+        
         
         species_specific_blast_tbl <-
           dplyr::filter(blast_tbl, species == species_refined_name)

@@ -152,7 +152,9 @@ blast_genomes <-
       }
     }
     
+    q_len <- NULL
     final_species_hit_tbl <- dplyr::bind_rows(res)
+    final_species_hit_tbl <- dplyr::mutate(final_species_hit_tbl, scope = 1 - (abs(q_len - alig_length) / q_len))
     message("The genome BLAST process has successfully been finished.")
     return(final_species_hit_tbl)
   }

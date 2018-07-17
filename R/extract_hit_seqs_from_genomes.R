@@ -79,6 +79,7 @@ extract_hit_seqs_from_genomes <-
               dplyr::intersect(imported_genome_i_names, names(table(
                 species_specific_blast_tbl$subject_id
               )))
+            chr_names <- as.character(chr_names)
             
             print(chr_names)
             
@@ -260,6 +261,7 @@ extract_hit_seqs_from_genomes <-
               dplyr::intersect(imported_genome_i_names, names(table(
                 species_specific_blast_tbl$subject_id
               )))
+            chr_names <- as.character(chr_names)
             
             print(chr_names)
             

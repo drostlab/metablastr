@@ -44,10 +44,8 @@ extract_hit_seqs_from_genomes <-
     if (separated_by_genome) {
       for (i in seq_len(length(subject_genomes))) {
         # remove appendix *.fa from file name
-        split_name <-
-          stringr::str_split(basename(subject_genomes[i]), "[.]")
         species_refined_name <-
-          paste0(unlist(split_name[-length(split_name)]), collapse = ".")
+          unlist(stringr::str_split(basename(subject_genomes[i]), "[.]")[1])
         
         message("Processing organism ", species_refined_name, " ...")
         if (!is.element(species_refined_name, available_species)) {
@@ -225,10 +223,8 @@ extract_hit_seqs_from_genomes <-
                 basename(subject_genomes[i]),
                 " ...")
         # remove appendix *.fa from file name
-        split_name <-
-          stringr::str_split(basename(subject_genomes[i]), "[.]")
         species_refined_name <-
-          paste0(unlist(split_name[-length(split_name)]), collapse = ".")
+          unlist(stringr::str_split(basename(subject_genomes[i]), "[.]")[1])
         
         if (!is.element(species_refined_name, available_species)) {
           message("Organism ",

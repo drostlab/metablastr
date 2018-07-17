@@ -73,10 +73,12 @@ extract_hit_seqs_from_genomes <-
               unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x)
                 unlist(stringr::str_split(x, " ")[1])))
             
-            message("imported_genome_i_names: ", imported_genome_i_names)
-            message("tbl_names: ", names(table(
+            print(imported_genome_i_names)
+            print(names(table(
               species_specific_blast_tbl$subject_id
             )))
+            
+            
             # only retain chromosome names that are present in both: genome and BLAST table
             chr_names <-
               dplyr::intersect(imported_genome_i_names, names(table(
@@ -255,8 +257,8 @@ extract_hit_seqs_from_genomes <-
               unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x)
                 unlist(stringr::str_split(x, " ")[1])))
             
-            message("imported_genome_i_names: ", imported_genome_i_names)
-            message("tbl_names: ", names(table(
+            print(imported_genome_i_names)
+            print(names(table(
               species_specific_blast_tbl$subject_id
             )))
             

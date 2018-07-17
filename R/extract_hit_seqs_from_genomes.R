@@ -45,7 +45,7 @@ extract_hit_seqs_from_genomes <-
       for (i in seq_len(length(subject_genomes))) {
         # remove appendix *.fa from file name
         species_refined_name <-
-          unlist(stringr::str_split(basename(subject_genomes[i]), "[.]")[1])
+          unlist(stringr::str_split(basename(subject_genomes[i]), "[.]"))[1]
         
         message("Processing organism ", species_refined_name, " ...")
         if (!is.element(species_refined_name, available_species)) {
@@ -71,9 +71,12 @@ extract_hit_seqs_from_genomes <-
             
             imported_genome_i_names <-
               unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x)
-                unlist(stringr::str_split(x, " ")[1])))
+                unlist(stringr::str_split(x, " "))[1]))
             
-            
+            message("imported_genome_i_names: ", imported_genome_i_names)
+            message("tbl_names: ", names(table(
+              species_specific_blast_tbl$subject_id
+            )))
             # only retain chromosome names that are present in both: genome and BLAST table
             chr_names <-
               dplyr::intersect(imported_genome_i_names, names(table(
@@ -224,7 +227,7 @@ extract_hit_seqs_from_genomes <-
                 " ...")
         # remove appendix *.fa from file name
         species_refined_name <-
-          unlist(stringr::str_split(basename(subject_genomes[i]), "[.]")[1])
+          unlist(stringr::str_split(basename(subject_genomes[i]), "[.]"))[1]
         
         if (!is.element(species_refined_name, available_species)) {
           message("Organism ",
@@ -246,6 +249,15 @@ extract_hit_seqs_from_genomes <-
               )
             species_specific_blast_tbl <-
               dplyr::mutate(species_specific_blast_tbl, s_strand = strand)
+            
+            
+            message("imported_genome_i_names: ", imported_genome_i_names)
+            message("tbl_names: ", names(table(
+              species_specific_blast_tbl$subject_id
+            )))
+            imported_genome_i_names <-
+              unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x)
+                unlist(stringr::str_split(x, " "))[1]))
             
             # only retain chromosome names that are present in both: genome and BLAST table
             chr_names <-

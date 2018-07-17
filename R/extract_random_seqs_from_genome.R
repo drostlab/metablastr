@@ -47,9 +47,11 @@ extract_random_seqs_from_genome <-
     
     strand <- chr <- NULL
     
-        # remove appendix *.fa from file name
-        species_refined_name <- unlist(stringr::str_split(basename(subject_genome), "[.]"))[1]
-        message("Processing organism ", species_refined_name, " ...")
+    # remove appendix *.fa from file name
+    split_name <- stringr::str_split(basename(subject_genome), "[.]")
+    species_refined_name <- paste0(split_name[-length(split_name)], collapse = "[.]")
+    
+    message("Processing organism ", species_refined_name, " ...")
         imported_genome_i <- biomartr::read_genome(subject_genome)
         
         # only retain chromosome names that are present in both: genome and BLAST table

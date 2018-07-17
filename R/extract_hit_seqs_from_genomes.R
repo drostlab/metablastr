@@ -47,7 +47,7 @@ extract_hit_seqs_from_genomes <-
         split_name <-
           stringr::str_split(basename(subject_genomes[i]), "[.]")
         species_refined_name <-
-          paste0(split_name[-length(split_name)], collapse = "[.]")
+          paste0(unlist(split_name[-length(split_name)]), collapse = ".")
         
         message("Processing organism ", species_refined_name, " ...")
         if (!is.element(species_refined_name, available_species)) {
@@ -228,7 +228,7 @@ extract_hit_seqs_from_genomes <-
         split_name <-
           stringr::str_split(basename(subject_genomes[i]), "[.]")
         species_refined_name <-
-          paste0(split_name[-length(split_name)], collapse = "[.]")
+          paste0(unlist(split_name[-length(split_name)]), collapse = ".")
         
         if (!is.element(species_refined_name, available_species)) {
           message("Organism ",

@@ -45,8 +45,7 @@ extract_hit_seqs_from_genomes <-
           message("Organism ",
                   species_refined_name,
                   " didn't have any BLAST hits.")
-          invisible(return(NULL))
-        }
+        } else {
           
         imported_genome_i <- biomartr::read_genome(subject_genomes[i])
         
@@ -165,6 +164,7 @@ extract_hit_seqs_from_genomes <-
               append = TRUE
             )
           }
+        }
         } else {
           message("Organism ",
                   basename(subject_genomes[i]),
@@ -194,8 +194,7 @@ extract_hit_seqs_from_genomes <-
           message("Organism ",
                   species_refined_name,
                   " didn't have any BLAST hits.")
-          invisible(return(NULL))
-        }
+        } else {
         
         imported_genome_i <- biomartr::read_genome(subject_genomes[i])
         
@@ -301,6 +300,7 @@ extract_hit_seqs_from_genomes <-
               append = TRUE
             )
           }
+        }
         } else {
           message("Organism ",
                   basename(subject_genomes[i]),

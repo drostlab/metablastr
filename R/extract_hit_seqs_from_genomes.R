@@ -80,6 +80,8 @@ extract_hit_seqs_from_genomes <-
                 species_specific_blast_tbl$subject_id
               )))
             
+            print(chr_names)
+            
             if (length(chr_names) == 0)
               stop(
                 "It seems that the chromosome names used in the input 'blast_tbl' and in the input genome fasta file do not match. Please make sure that the chromosome names match in both cases.",
@@ -258,6 +260,8 @@ extract_hit_seqs_from_genomes <-
               dplyr::intersect(imported_genome_i_names, names(table(
                 species_specific_blast_tbl$subject_id
               )))
+            
+            print(chr_names)
             
             if (length(chr_names) == 0)
               stop(

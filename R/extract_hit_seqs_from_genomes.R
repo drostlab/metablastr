@@ -70,8 +70,9 @@ extract_hit_seqs_from_genomes <-
               dplyr::mutate(species_specific_blast_tbl, s_strand = strand)
             
             imported_genome_i_names <-
-              unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x)
-                unlist(stringr::str_split(x, " ")[1])))
+              unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x) {
+                return(unlist(stringr::str_split(x, " "))[1])
+              }))
             
             print(imported_genome_i_names)
             print(names(table(
@@ -254,8 +255,9 @@ extract_hit_seqs_from_genomes <-
             
         
             imported_genome_i_names <-
-              unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x)
-                unlist(stringr::str_split(x, " ")[1])))
+              unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x) {
+                return(unlist(stringr::str_split(x, " "))[1])
+              }))
             
             print(imported_genome_i_names)
             print(names(table(

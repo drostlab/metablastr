@@ -30,7 +30,7 @@ hit alignment length will be removed automatically.}
 \item{max.target.seqs}{maximum number of aligned sequences that shall be kept.}
 
 \item{update}{a logical value indicating whether or not pre-computed BLAST tables should be removed and re-computed (\code{update = TRUE})
-or imported (\code{update = FALSE}) (Default).}
+or imported from existing file (\code{update = FALSE}) (Default).}
 
 \item{\dots}{additional arguments passed to \code{\link{blast_nucleotide_to_nucleotide}} or \code{\link{blast_protein_to_nucleotide}}.}
 }

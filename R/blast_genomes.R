@@ -16,7 +16,7 @@
 #' @param evalue minimum expectation value (E) threshold for retaining hits (default: evalue = 0.00001).
 #' @param max.target.seqs maximum number of aligned sequences that shall be kept.
 #' @param update a logical value indicating whether or not pre-computed BLAST tables should be removed and re-computed (\code{update = TRUE})
-#' or imported (\code{update = FALSE}) (Default). 
+#' or imported from existing file (\code{update = FALSE}) (Default). 
 #' @param \dots additional arguments passed to \code{\link{blast_nucleotide_to_nucleotide}} or \code{\link{blast_protein_to_nucleotide}}.
 #' @author Hajk-Georg Drost
 #' @details The \code{blast_genomes} function enables users to BLAST specific query sequences against a set of reference genomes
@@ -91,9 +91,10 @@ blast_genomes <-
              file.remove(paste0(subject_genomes[i],".nsq"))
                              
           if (!is.logical(blast_output_tmp)) {
-            alig_length <- NULL
+            alig_length <- q_len <- NULL
             blast_output_tmp <- dplyr::filter(blast_output_tmp, alig_length >= min_alig_length)
             blast_output_tmp <- dplyr::mutate(blast_output_tmp, species = rep(species_name, nrow(blast_output_tmp)))
+            blast_output_tmp <- dplyr::mutate(blast_output_tmp, scope = 1 - (abs(q_len - alig_length) / q_len))
             
             message("Storing results for species ", species_name," in file ", file.path(blast_output_path, output_file), " ...")
             
@@ -133,9 +134,10 @@ blast_genomes <-
             file.remove(paste0(subject_genomes[i],".nsq"))
           
           if (!is.logical(blast_output_tmp)) {
-            alig_length <- NULL
+            alig_length <- q_len <- NULL
             blast_output_tmp <- dplyr::filter(blast_output_tmp, alig_length >= min_alig_length)
             blast_output_tmp <- dplyr::mutate(blast_output_tmp, species = rep(species_name, nrow(blast_output_tmp)))
+            blast_output_tmp <- dplyr::mutate(blast_output_tmp, scope = 1 - (abs(q_len - alig_length) / q_len))
             
             message("Storing results for species ", species_name," in file ", file.path(blast_output_path, output_file), " ...")
             
@@ -152,9 +154,7 @@ blast_genomes <-
       }
     }
     
-    q_len <- NULL
     final_species_hit_tbl <- dplyr::bind_rows(res)
-    final_species_hit_tbl <- dplyr::mutate(final_species_hit_tbl, scope = 1 - (abs(q_len - alig_length) / q_len))
     message("The genome BLAST process has successfully been finished.")
     return(final_species_hit_tbl)
   }

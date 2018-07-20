@@ -51,7 +51,7 @@ detect_homologs_proteome_to_proteome <-
     )
     
     if (update) {
-      file.remove(blast_output_path, recursive = TRUE, overwrite = TRUE)
+      fs::dir_delete(blast_output_path)
     }
     
     if (!file.exists(blast_output_path)) {

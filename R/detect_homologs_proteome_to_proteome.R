@@ -26,7 +26,7 @@ detect_homologs_proteome_to_proteome <-
            blast_output_path = "blast_output",
            min_alig_length  = 20,
            evalue = 1E-5,
-           max.target.seqs = 500,
+           max.target.seqs = 5000,
            cores = 1,
            update = FALSE,
            ...) {
@@ -51,7 +51,7 @@ detect_homologs_proteome_to_proteome <-
     )
     
     if (update) {
-      file.remove(blast_output_path, recursive = TRUE)
+      file.remove(blast_output_path, recursive = TRUE, overwrite = TRUE)
     }
     
     if (!file.exists(blast_output_path)) {

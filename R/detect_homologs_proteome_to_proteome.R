@@ -91,6 +91,26 @@ detect_homologs_proteome_to_proteome <-
           ...
         )
         
+        if (file.exists(paste0(subject_proteomes[i],".phd")))
+          file.remove(paste0(subject_proteomes[i],".phd"))  
+        if (file.exists(paste0(subject_proteomes[i],".phi")))
+          file.remove(paste0(subject_proteomes[i],".phi"))  
+        if (file.exists(paste0(subject_proteomes[i],".phr")))
+          file.remove(paste0(subject_proteomes[i],".phr"))
+        if (file.exists(paste0(subject_proteomes[i],".pin")))
+          file.remove(paste0(subject_proteomes[i],".pin")) 
+        if (file.exists(paste0(subject_proteomes[i],".pog")))
+          file.remove(paste0(subject_proteomes[i],".pog"))
+        if (file.exists(paste0(subject_proteomes[i],".pog")))
+          file.remove(paste0(subject_proteomes[i],".pog"))
+        if (file.exists(paste0(subject_proteomes[i],".psd")))
+          file.remove(paste0(subject_proteomes[i],".psd"))
+        if (file.exists(paste0(subject_proteomes[i],".psi")))
+          file.remove(paste0(subject_proteomes[i],".psi"))
+        if (file.exists(paste0(subject_proteomes[i],".psq")))
+          file.remove(paste0(subject_proteomes[i],".psq"))
+        
+        
         if (!is.logical(blast_query_vs_subject_i)) {
           alig_length <- q_len <- NULL
           blast_query_vs_subject_i <-

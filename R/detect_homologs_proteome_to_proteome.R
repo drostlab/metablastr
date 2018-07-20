@@ -42,7 +42,7 @@ detect_homologs_proteome_to_proteome <-
       "' search of query '",
       basename(query),
       "' against ",
-      length(subject_genomes),
+      length(subject_proteomes),
       " reference proteomes using evalue = ",
       evalue,
       " and max.target.seqs = ",
@@ -75,7 +75,7 @@ detect_homologs_proteome_to_proteome <-
               " (",
               i,
               "/",
-              length(subject_genomes),
+              length(subject_proteomes),
               ") ...")
       
       output_file <- paste0(species_name, "_proteome_blast.tbl")

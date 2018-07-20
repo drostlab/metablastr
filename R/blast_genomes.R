@@ -40,7 +40,7 @@ blast_genomes <-
     message("Start '",blast_type,"' search of query '", basename(query), "' against ", length(subject_genomes), " reference genomes using evalue = ",evalue," and max.target.seqs = ",max.target.seqs," ...")
     
     if (update) {
-      file.remove(blast_output_path, recursive = TRUE)
+      file.remove(blast_output_path, recursive = TRUE, overwrite = TRUE)
     }
     
     if (!file.exists(blast_output_path)) {

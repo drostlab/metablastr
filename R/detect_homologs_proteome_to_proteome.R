@@ -143,7 +143,7 @@ detect_homologs_proteome_to_proteome <-
           "' exists already and will be imported ..."
         )
         suppressMessages(res[i] <-
-                           list(readr::read_tsv(
+                           list(readr::read_csv(
                              file.path(blast_output_path, output_file)
                            )))
       }

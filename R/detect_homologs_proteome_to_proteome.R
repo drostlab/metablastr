@@ -78,7 +78,7 @@ detect_homologs_proteome_to_proteome <-
               length(subject_proteomes),
               ") ...")
       
-      output_file <- paste0(species_name, "_proteome_blast.tbl")
+      output_file <- paste0(species_name, "_proteome_blast.tsv")
       
       if (!file.exists(file.path(blast_output_path, output_file))) {
         blast_query_vs_subject_i <- blast_protein_to_protein(
@@ -130,7 +130,7 @@ detect_homologs_proteome_to_proteome <-
             " ..."
           )
           
-          readr::write_excel_csv(blast_query_vs_subject_i,
+          readr::write_tsv(blast_query_vs_subject_i,
                                  file.path(blast_output_path, output_file))
           
           res[i] <- list(blast_query_vs_subject_i)
@@ -143,7 +143,7 @@ detect_homologs_proteome_to_proteome <-
           "' exists already and will be imported ..."
         )
         suppressMessages(res[i] <-
-                           list(readr::read_csv(
+                           list(readr::read_tsv(
                              file.path(blast_output_path, output_file)
                            )))
       }

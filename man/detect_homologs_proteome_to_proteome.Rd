@@ -6,7 +6,7 @@
 \usage{
 detect_homologs_proteome_to_proteome(query, subject_proteomes,
   task = "blastp", blast_output_path = "blast_output",
-  min_alig_length = 20, evalue = 1e-05, max.target.seqs = 500,
+  min_alig_length = 20, evalue = 1e-05, max.target.seqs = 5000,
   cores = 1, update = FALSE, ...)
 }
 \arguments{

@@ -7,6 +7,7 @@
 #' @param file_name name of the fasta file that stores the BLAST hit sequences. This name will only be used when \code{separated_by_genome = FALSE}.
 #' @param separated_by_genome a logical value indicating whether or not hit sequences from different genomes should be stored in the same
 #' output \code{fasta} file \code{separated_by_genome = FALSE} (default) or in separate \code{fasta} files \code{separated_by_genome = TRUE}.
+#' @param update shall an existing \code{file_name} file be overwritten (\code{update = TRUE}; Default) or shall blast hit sequences be appended to the existing file (\code{update = FALSE})? 
 #' @param path a folder path in which corresponding \code{fasta} output files shall be stored.
 #' @author Hajk-Georg Drost
 #' @export
@@ -15,7 +16,9 @@ extract_hit_seqs_from_genomes <-
            subject_genomes,
            file_name = NULL,
            separated_by_genome = FALSE,
+           update = TRUE,
            path = NULL) {
+    
     if (any(!file.exists(subject_genomes)))
       stop(
         "At least one of the genome paths seems not to exist. Please check that all paths correspond to the correct location of the genome files.",
@@ -69,10 +72,20 @@ extract_hit_seqs_from_genomes <-
             species_specific_blast_tbl <-
               dplyr::mutate(species_specific_blast_tbl, s_strand = strand)
             
+            species_specific_blast_tbl$subject_id <- unlist(lapply(stringr::str_trim(species_specific_blast_tbl$subject_id, side = "both"), function(x) {
+              new_name <- unlist(stringr::str_split(x, " "))[1]
+              new_name <- unlist(stringr::str_replace_all(new_name,"[.]","_"))
+              return(new_name)
+            }))
+            
             imported_genome_i_names <-
               unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x) {
-                return(unlist(stringr::str_split(x, " "))[1])
+                new_name <- unlist(stringr::str_split(x, " "))[1]
+                new_name <- unlist(stringr::str_replace_all(new_name,"[.]","_"))
+                return(new_name)
               }))
+            
+            names(imported_genome_i) <- imported_genome_i_names
             
             # only retain chromosome names that are present in both: genome and BLAST table
             chr_names <-
@@ -80,8 +93,6 @@ extract_hit_seqs_from_genomes <-
                 species_specific_blast_tbl$subject_id
               )))
             chr_names <- as.character(chr_names)
-            
-            print(chr_names)
             
             if (length(chr_names) == 0)
               stop(
@@ -99,6 +110,9 @@ extract_hit_seqs_from_genomes <-
                                           path,
                                           paste0(subject_genomes[i], "_blast_tbl_sequences.fa")
                                         ))
+            
+            if (update & file.exists(seq_file_paths[i]))
+              fs::file_delete(seq_file_paths[i])
             
             # for each chromosome separately
             for (j in seq_len(length(chr_names))) {
@@ -118,92 +132,98 @@ extract_hit_seqs_from_genomes <-
                   s_strand == "minus"
                 )
               
-              if (!identical(
-                unique(species_specific_blast_tbl_plus_strand$s_len),
-                imported_genome_i[chr_names[j]]@ranges@width
-              ))
-                stop(
-                  "The chromosome length of ",
-                  chr_names[j],
-                  " (",
-                  imported_genome_i[chr_names[j]]@ranges@width,
-                  ") does not match the chromosome length s_len in the blast_tbl (",
+              if (nrow(species_specific_blast_tbl_plus_strand) > 0 & nrow(species_specific_blast_tbl_minus_strand) > 0) {
+                if (!identical(
                   unique(species_specific_blast_tbl_plus_strand$s_len),
-                  "). Thus, BLAST hit sequences cannot be extracted due to indexing shifts...",
-                  call. = FALSE
-                  
-                )
+                  imported_genome_i[chr_names[j]]@ranges@width
+                ))
+                  stop(
+                    "The chromosome length of ",
+                    chr_names[j],
+                    " (",
+                    imported_genome_i[chr_names[j]]@ranges@width,
+                    ") does not match the chromosome length s_len in the blast_tbl (",
+                    unique(species_specific_blast_tbl_plus_strand$s_len),
+                    "). Thus, BLAST hit sequences cannot be extracted due to indexing shifts...",
+                    call. = FALSE
+                    
+                  )
+              }
               
-              seqs_plus <- Biostrings::extractAt(
-                imported_genome_i[chr_names[j]],
-                at = IRanges::IRanges(
-                  start = species_specific_blast_tbl_plus_strand$s_start,
-                  end = species_specific_blast_tbl_plus_strand$s_end,
-                  names = paste0(
-                    species_specific_blast_tbl_plus_strand$species,
-                    "_",
-                    species_specific_blast_tbl_plus_strand$subject_id,
-                    "_",
-                    species_specific_blast_tbl_plus_strand$s_start,
-                    "_",
-                    species_specific_blast_tbl_plus_strand$s_end,
-                    "_strand_plus"
+              if (nrow(species_specific_blast_tbl_plus_strand) > 0) {
+                seqs_plus <- Biostrings::extractAt(
+                  imported_genome_i[chr_names[j]],
+                  at = IRanges::IRanges(
+                    start = species_specific_blast_tbl_plus_strand$s_start,
+                    end = species_specific_blast_tbl_plus_strand$s_end,
+                    names = paste0(
+                      species_specific_blast_tbl_plus_strand$species,
+                      "_",
+                      species_specific_blast_tbl_plus_strand$subject_id,
+                      "_",
+                      species_specific_blast_tbl_plus_strand$s_start,
+                      "_",
+                      species_specific_blast_tbl_plus_strand$s_end,
+                      "_strand_plus"
+                    )
                   )
                 )
-              )
-              
-              seqs_minus <- Biostrings::extractAt(
-                Biostrings::reverse(imported_genome_i[chr_names[j]]),
-                at = IRanges::IRanges(
-                  start = imported_genome_i[chr_names[j]]@ranges@width - species_specific_blast_tbl_minus_strand$s_start + 1,
-                  end = imported_genome_i[chr_names[j]]@ranges@width - species_specific_blast_tbl_minus_strand$s_end + 1,
-                  names = paste0(
-                    species_specific_blast_tbl_minus_strand$species,
-                    "_",
-                    species_specific_blast_tbl_minus_strand$subject_id,
-                    "_",
-                    species_specific_blast_tbl_minus_strand$s_start,
-                    "_",
-                    species_specific_blast_tbl_minus_strand$s_end,
-                    "_strand_minus"
-                  )
-                )
-              )
-              
-              # store sequences in fasta files
-              Biostrings::writeXStringSet(
-                seqs_plus@unlistData,
-                filepath = ifelse(
-                  is.null(path),
-                  file.path(
-                    getwd(),
-                    paste0(subject_genomes[i], "_blast_tbl_sequences.fa")
+                
+                # store sequences in fasta files
+                Biostrings::writeXStringSet(
+                  seqs_plus@unlistData,
+                  filepath = ifelse(
+                    is.null(path),
+                    file.path(
+                      getwd(),
+                      paste0(subject_genomes[i], "_blast_tbl_sequences.fa")
+                    ),
+                    file.path(
+                      path,
+                      paste0(subject_genomes[i], "_blast_tbl_sequences.fa")
+                    )
                   ),
-                  file.path(
-                    path,
-                    paste0(subject_genomes[i], "_blast_tbl_sequences.fa")
-                  )
-                ),
-                format = "fasta",
-                append = TRUE
-              )
+                  format = "fasta",
+                  append = TRUE
+                )
+              }
               
-              Biostrings::writeXStringSet(
-                seqs_minus@unlistData,
-                filepath = ifelse(
-                  is.null(path),
-                  file.path(
-                    getwd(),
-                    paste0(subject_genomes[i], "_blast_tbl_sequences.fa")
-                  ),
-                  file.path(
-                    path,
-                    paste0(subject_genomes[i], "_blast_tbl_sequences.fa")
+              if (nrow(species_specific_blast_tbl_minus_strand) > 0) {
+                seqs_minus <- Biostrings::extractAt(
+                  Biostrings::reverse(imported_genome_i[chr_names[j]]),
+                  at = IRanges::IRanges(
+                    start = imported_genome_i[chr_names[j]]@ranges@width - species_specific_blast_tbl_minus_strand$s_start + 1,
+                    end = imported_genome_i[chr_names[j]]@ranges@width - species_specific_blast_tbl_minus_strand$s_end + 1,
+                    names = paste0(
+                      species_specific_blast_tbl_minus_strand$species,
+                      "_",
+                      species_specific_blast_tbl_minus_strand$subject_id,
+                      "_",
+                      species_specific_blast_tbl_minus_strand$s_start,
+                      "_",
+                      species_specific_blast_tbl_minus_strand$s_end,
+                      "_strand_minus"
+                    )
                   )
-                ),
-                format = "fasta",
-                append = TRUE
-              )
+                )
+          
+                Biostrings::writeXStringSet(
+                  seqs_minus@unlistData,
+                  filepath = ifelse(
+                    is.null(path),
+                    file.path(
+                      getwd(),
+                      paste0(subject_genomes[i], "_blast_tbl_sequences.fa")
+                    ),
+                    file.path(
+                      path,
+                      paste0(subject_genomes[i], "_blast_tbl_sequences.fa")
+                    )
+                  ),
+                  format = "fasta",
+                  append = TRUE
+                )
+              }
             }
           }
         }
@@ -220,6 +240,9 @@ extract_hit_seqs_from_genomes <-
       seq_file_paths <- ifelse(is.null(path),
                                file.path(getwd(), file_name),
                                file.path(path, file_name))
+      
+      if (update & file.exists(seq_file_paths))
+        fs::file_delete(seq_file_paths)
       
       for (i in seq_len(length(subject_genomes))) {
         message("Processing organism ",
@@ -250,11 +273,20 @@ extract_hit_seqs_from_genomes <-
             species_specific_blast_tbl <-
               dplyr::mutate(species_specific_blast_tbl, s_strand = strand)
             
+            species_specific_blast_tbl$subject_id <- unlist(lapply(stringr::str_trim(species_specific_blast_tbl$subject_id, side = "both"), function(x) {
+              new_name <- unlist(stringr::str_split(x, " "))[1]
+              new_name <- unlist(stringr::str_replace_all(new_name,"[.]","_"))
+              return(new_name)
+            }))
         
             imported_genome_i_names <-
               unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x) {
-                return(unlist(stringr::str_split(x, " "))[1])
+                new_name <- unlist(stringr::str_split(x, " "))[1]
+                new_name <- unlist(stringr::str_replace_all(new_name,"[.]","_"))
+                return(new_name)
               }))
+            
+            names(imported_genome_i) <- imported_genome_i_names
             
             # only retain chromosome names that are present in both: genome and BLAST table
             chr_names <-
@@ -262,8 +294,6 @@ extract_hit_seqs_from_genomes <-
                 species_specific_blast_tbl$subject_id
               )))
             chr_names <- as.character(chr_names)
-            
-            print(chr_names)
             
             if (length(chr_names) == 0)
               stop(
@@ -289,79 +319,83 @@ extract_hit_seqs_from_genomes <-
                   s_strand == "minus"
                 )
               
-              if (!identical(
-                unique(species_specific_blast_tbl_plus_strand$s_len),
-                imported_genome_i[chr_names[j]]@ranges@width
-              ))
-                stop(
-                  "The chromosome length of ",
-                  chr_names[j],
-                  " (",
-                  imported_genome_i[chr_names[j]]@ranges@width,
-                  ") does not match the chromosome length s_len in the blast_tbl (",
-                  unique(species_specific_blast_tbl_plus_strand$s_len),
-                  "). Thus, BLAST hit sequences cannot be extracted due to indexing shifts...",
-                  call. = FALSE
-                  
-                )
+              if (nrow(species_specific_blast_tbl_plus_strand) > 0 & nrow(species_specific_blast_tbl_minus_strand) > 0) {
+                if (!identical(
+                  as.integer(unique(species_specific_blast_tbl_plus_strand$s_len)),
+                  as.integer(imported_genome_i[chr_names[j]]@ranges@width)
+                ))
+                  stop(
+                    "The chromosome length of ",
+                    chr_names[j],
+                    " (",
+                    imported_genome_i[chr_names[j]]@ranges@width,
+                    ") does not match the chromosome length s_len in the blast_tbl (",
+                    unique(species_specific_blast_tbl_plus_strand$s_len),
+                    "). Thus, BLAST hit sequences cannot be extracted due to indexing shifts...",
+                    call. = FALSE
+                    
+                  )
+              }
               
-              seqs_plus <- Biostrings::extractAt(
-                imported_genome_i[chr_names[j]],
-                at = IRanges::IRanges(
-                  start = species_specific_blast_tbl_plus_strand$s_start,
-                  end = species_specific_blast_tbl_plus_strand$s_end,
-                  names = paste0(
-                    species_specific_blast_tbl_plus_strand$species,
-                    "_",
-                    species_specific_blast_tbl_plus_strand$subject_id,
-                    "_",
-                    species_specific_blast_tbl_plus_strand$s_start,
-                    "_",
-                    species_specific_blast_tbl_plus_strand$s_end,
-                    "_strand_plus"
+              if (nrow(species_specific_blast_tbl_plus_strand) > 0) {
+                seqs_plus <- Biostrings::extractAt(
+                  imported_genome_i[chr_names[j]],
+                  at = IRanges::IRanges(
+                    start = species_specific_blast_tbl_plus_strand$s_start,
+                    end = species_specific_blast_tbl_plus_strand$s_end,
+                    names = paste0(
+                      species_specific_blast_tbl_plus_strand$species,
+                      "_",
+                      species_specific_blast_tbl_plus_strand$subject_id,
+                      "_",
+                      species_specific_blast_tbl_plus_strand$s_start,
+                      "_",
+                      species_specific_blast_tbl_plus_strand$s_end,
+                      "_strand_plus"
+                    )
                   )
                 )
-              )
+                Biostrings::writeXStringSet(
+                  seqs_plus@unlistData,
+                  filepath = ifelse(
+                    is.null(path),
+                    file.path(getwd(), file_name),
+                    file.path(path, file_name)
+                  ),
+                  format = "fasta",
+                  append = TRUE
+                )
+              }
               
-              seqs_minus <- Biostrings::extractAt(
-                Biostrings::reverse(imported_genome_i[chr_names[j]]),
-                at = IRanges::IRanges(
-                  start = imported_genome_i[chr_names[j]]@ranges@width - species_specific_blast_tbl_minus_strand$s_start + 1,
-                  end = imported_genome_i[chr_names[j]]@ranges@width - species_specific_blast_tbl_minus_strand$s_end + 1,
-                  names = paste0(
-                    species_specific_blast_tbl_minus_strand$species,
-                    "_",
-                    species_specific_blast_tbl_minus_strand$subject_id,
-                    "_",
-                    species_specific_blast_tbl_minus_strand$s_start,
-                    "_",
-                    species_specific_blast_tbl_minus_strand$s_end,
-                    "_strand_minus"
+              if (nrow(species_specific_blast_tbl_minus_strand) > 0){
+                seqs_minus <- Biostrings::extractAt(
+                  Biostrings::reverse(imported_genome_i[chr_names[j]]),
+                  at = IRanges::IRanges(
+                    start = imported_genome_i[chr_names[j]]@ranges@width - species_specific_blast_tbl_minus_strand$s_start + 1,
+                    end = imported_genome_i[chr_names[j]]@ranges@width - species_specific_blast_tbl_minus_strand$s_end + 1,
+                    names = paste0(
+                      species_specific_blast_tbl_minus_strand$species,
+                      "_",
+                      species_specific_blast_tbl_minus_strand$subject_id,
+                      "_",
+                      species_specific_blast_tbl_minus_strand$s_start,
+                      "_",
+                      species_specific_blast_tbl_minus_strand$s_end,
+                      "_strand_minus"
+                    )
                   )
                 )
-              )
-              
-              Biostrings::writeXStringSet(
-                seqs_plus@unlistData,
-                filepath = ifelse(
-                  is.null(path),
-                  file.path(getwd(), file_name),
-                  file.path(path, file_name)
-                ),
-                format = "fasta",
-                append = TRUE
-              )
-              
-              Biostrings::writeXStringSet(
-                seqs_minus@unlistData,
-                filepath = ifelse(
-                  is.null(path),
-                  file.path(getwd(), file_name),
-                  file.path(path, file_name)
-                ),
-                format = "fasta",
-                append = TRUE
-              )
+                Biostrings::writeXStringSet(
+                  seqs_minus@unlistData,
+                  filepath = ifelse(
+                    is.null(path),
+                    file.path(getwd(), file_name),
+                    file.path(path, file_name)
+                  ),
+                  format = "fasta",
+                  append = TRUE
+                )
+              } 
             }
           }
         }

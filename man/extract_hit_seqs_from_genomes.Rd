@@ -5,7 +5,7 @@
 \title{Extract sequences of BLAST hits in respective genomes and store it as \code{fasta} file(s)}
 \usage{
 extract_hit_seqs_from_genomes(blast_tbl, subject_genomes, file_name = NULL,
-  separated_by_genome = FALSE, path = NULL)
+  separated_by_genome = FALSE, update = TRUE, path = NULL)
 }
 \arguments{
 \item{blast_tbl}{a BLAST table generated with \code{\link{blast_genomes}}.}
@@ -16,6 +16,8 @@ extract_hit_seqs_from_genomes(blast_tbl, subject_genomes, file_name = NULL,
 
 \item{separated_by_genome}{a logical value indicating whether or not hit sequences from different genomes should be stored in the same
 output \code{fasta} file \code{separated_by_genome = FALSE} (default) or in separate \code{fasta} files \code{separated_by_genome = TRUE}.}
+
+\item{update}{shall an existing \code{file_name} file be overwritten (\code{update = TRUE}; Default) or shall blast hit sequences be appended to the existing file (\code{update = FALSE})?}
 
 \item{path}{a folder path in which corresponding \code{fasta} output files shall be stored.}
 }

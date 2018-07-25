@@ -48,16 +48,25 @@ extract_random_seqs_from_genome <-
     strand <- chr <- NULL
     
     # remove appendix *.fa from file name
-    split_name <- stringr::str_split(basename(subject_genome), "[.]")
-    species_refined_name <- paste0(split_name[-length(split_name)], collapse = "[.]")
+    split_name <- unlist(stringr::str_split(basename(subject_genome), "[.]"))
+    if (length(split_name) > 1) {
+      species_refined_name <- paste0(split_name[-length(split_name)], collapse = ".")
+    } else {
+      species_refined_name <- split_name[1]
+    }
     
     message("Processing organism ", species_refined_name, " ...")
         imported_genome_i <- biomartr::read_genome(subject_genome)
         
         # only retain chromosome names that are present in both: genome and BLAST table
         chr_names <-
-          unlist(lapply(stringr::str_trim(names(imported_genome_i), side = "both"), function(x)
-            unlist(stringr::str_split(x, " ")[1])))
+          unlist(lapply(names(imported_genome_i), function(x) {
+            new_name <- unlist(stringr::str_split(x, " "))[1]
+            new_name <- unlist(stringr::str_replace_all(new_name, "[.]", "_"))
+            new_name <- stringr::str_trim(new_name, side = "both")
+            return(new_name)
+          }))
+            
         if (length(chr_names) == 0)
           stop("No chromosomes were found in this genome.", call. = FALSE)
         

@@ -16,7 +16,7 @@ sample_chromosome_intervals <- function(chr_size, interval_width, strand, size) 
   if (!is.element(strand, c("plus", "minus")))
     stop("The 'strand' argument can only be specified as strand = 'plus' or strand = 'minus'.", call. = FALSE)
   # random start position in chromosome
-  random_start <- sample.int(chr_size, size)
+  random_start <- sample.int(chr_size - interval_width, size)
   # compute random end position in chromosome given interval width
   random_end <- random_start + interval_width - 1
   

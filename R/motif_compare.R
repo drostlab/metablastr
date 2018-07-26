@@ -13,6 +13,9 @@
 
 motif_compare <- function(real_seqs, random_seqs, motifs, max.mismatch = 0, min.mismatch = 0, ...) {
   
+  if (length(motifs) != length(unique(motifs)))
+    stop("It seems that your motif vector contains duplicates. Please remove duplicate motifs before running this functions.", call. = FALSE)
+  
   res <- vector("list", length(motifs))
   
   for(i in seq_len(length(motifs))) {

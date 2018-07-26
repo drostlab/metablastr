@@ -5,7 +5,7 @@
 \title{Test motif enrichment in a set of non-random versus random sequences}
 \usage{
 motif_enrichment(real_seqs, random_seqs, motifs, test = "fisher",
-  max.mismatch = 0, min.mismatch = 0, ...)
+  alternative = "less", max.mismatch = 0, min.mismatch = 0, ...)
 }
 \arguments{
 \item{real_seqs}{a file path to the \code{fasta} file storing the non-random set of sequences.}
@@ -18,6 +18,8 @@ motif_enrichment(real_seqs, random_seqs, motifs, test = "fisher",
 \itemize{
 \item \code{test = "fisher"}: Fisher's Exact Test for Count Data (see \code{link[stats]{fisher.test}} for details).
 }}
+
+\item{alternative}{indicates the alternative hypothesis and must be one of \code{"two.sided"}, \code{"greater"} or \code{"less"}. You can specify just the initial letter. Only used in the 2 by 2 case.}
 
 \item{max.mismatch}{the maximum number of mismatching letters allowed (see \code{\link[Biostrings]{matchPattern}} for details).}
 

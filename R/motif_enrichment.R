@@ -8,6 +8,7 @@
 #' \itemize{
 #' \item \code{test = "fisher"}: Fisher's Exact Test for Count Data (see \code{link[stats]{fisher.test}} for details).
 #' }
+#' @param alternative indicates the alternative hypothesis and must be one of \code{"two.sided"}, \code{"greater"} or \code{"less"}. You can specify just the initial letter. Only used in the 2 by 2 case.
 #' @param max.mismatch the maximum number of mismatching letters allowed (see \code{\link[Biostrings]{matchPattern}} for details).
 #' @param min.mismatch the minimum number of mismatching letters allowed (see \code{\link[Biostrings]{vcountPattern}} for details).
 #' @param \dots additional arguments passed to \code{\link[Biostrings]{matchPattern}}.
@@ -16,7 +17,14 @@
 #' @export
 
 motif_enrichment <-
-  function(real_seqs, random_seqs, motifs, test = "fisher", max.mismatch = 0, min.mismatch = 0, ...) {
+  function(real_seqs,
+           random_seqs,
+           motifs,
+           test = "fisher",
+           alternative = "less",
+           max.mismatch = 0,
+           min.mismatch = 0,
+           ...) {
     if (!is.element(test, c("fisher")))
       stop(
         "The test type '",
@@ -61,7 +69,7 @@ motif_enrichment <-
             )
           )
         
-        return(stats::fisher.test(count_tbl, alternative = "two.sided")$p.value)
+        return(stats::fisher.test(count_tbl, alternative = alternative)$p.value)
       }
       
       motif <- NULL

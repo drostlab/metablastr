@@ -1,10 +1,27 @@
-#' @title 
-#' @description 
-#' @param 
-#' @param 
-#' @param 
-gg_detect_homologs <- function(blast_tbl, type = "perc_identity", xlab = "Species", ylab = "", text_size = 18, y_ticks = 8) {
-  
+#' @title Plot \code{detect_homologs_genome_to_genome} or \code{detect_homologs_proteome_to_proteome} Result
+#' @description This function generates a boxplot of different types of the \code{\link{detect_homologs_proteome_to_proteome}} output.
+#' @param blast_tbl a BLAST table generated with \code{\link{detect_homologs_proteome_to_proteome}}.
+#' @param type the type of BLAST hit visualization. Options are:
+#' \itemize{
+#' \item \code{type = "perc_identity"}: visualize the alignment identity in percent for each BLAST hit.
+#' \item \code{type = "alig_length"}: visualize the alignment length for each BLAST hit.
+#' \item \code{type = "scope"}: visualize the length homology to the initial query for each BLAST hit.
+#' }
+#' @param xlab x-axis label.
+#' @param ylab y-axis label.
+#' @param text_size size of label text.
+#' @param y_ticks number of ticks on the y-axis.
+#' @author Hajk-Georg Drost
+#' @export
+
+gg_detect_homologs <-
+  function(blast_tbl,
+           type = "perc_identity",
+           xlab = "Species",
+           ylab = "",
+           text_size = 18,
+           y_ticks = 8) {
+    
   if (!is.element(type, c("perc_identity", "alig_length", "scope")))
     stop("Please choose available types: type = 'perc_identity' ; type = 'alig_length' ; type = 'scope'.", call. = FALSE)
   

@@ -86,11 +86,8 @@ extract_random_seqs_from_genome <-
               size = 1
             )
             
-            if (sample_i != "cancel_chromosome") {
-              sample_i <- dplyr::mutate(sample_i, chr = chr_names[sample_chromsome])
-              res[i] <- list(sample_i)
-            }
-            
+            sample_i <- dplyr::mutate(sample_i, chr = chr_names[sample_chromsome])
+            res[i] <- list(sample_i)
           }
           
           if (sample_strand == 2){
@@ -101,14 +98,14 @@ extract_random_seqs_from_genome <-
               size = 1
             )
             
-            if (sample_i != "cancel_chromosome") {
-            sample_i <- dplyr::mutate(sample_i, chr = chr_names[sample_chromsome])
-            res[i] <- list(sample_i)
-            }
+                sample_i <-
+                  dplyr::mutate(sample_i, chr = chr_names[sample_chromsome])
+                res[i] <- list(sample_i)
           }
         }
         
         random_coordinates <- dplyr::bind_rows(res)
+        random_coordinates <- na.omit(random_coordinates)
         
           # for each chromosome separately
           for (j in seq_len(length(chr_names))) {

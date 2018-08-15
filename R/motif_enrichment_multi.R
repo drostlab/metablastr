@@ -1,3 +1,9 @@
+#' @title 
+#' @description 
+#' @param 
+#' @param 
+#' @param 
+
 motif_enrichment_multi <-
   function(blast_tbl,
            subject_genomes,
@@ -11,8 +17,8 @@ motif_enrichment_multi <-
            ...) {
     species_names <- names(table(blast_tbl$species))
     res <- vector("list", length(species_names))
-    species <- NULL
-    
+    species <- fisher_pval <- NULL
+
     for (i in seq_len(length(species_names))) {
       species_blast_tbl <-
         dplyr::filter(blast_tbl, species == species_names[i])
@@ -55,19 +61,16 @@ motif_enrichment_multi <-
         ...
       )
       
-      fisher_pval <- NULL
       species_motif_enrichment <-
         dplyr::mutate(
           species_motif_enrichment,
           status = ifelse(fisher_pval <= 0.01, "significant", "not significant")
         )
       
-      # species_motif_enrichment <-
-      #   dplyr::mutate(species_motif_enrichment,
-      #                 species = rep(species_names[i], nrow(species_motif_enrichment)))
+      species_tbl <- tibble::tibble(species = rep(species_names[i], nrow(species_motif_enrichment)))
       
       species_motif_enrichment <-
-        dplyr::select(species_motif_enrichment, species, 1:(ncol(species_motif_enrichment) - 1))
+        dplyr::bind_cols(species_tbl, species_motif_enrichment)
       
       res[i] <- list(species_motif_enrichment)
     }

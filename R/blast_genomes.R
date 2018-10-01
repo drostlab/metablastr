@@ -14,7 +14,7 @@
 #' @param min_alig_length minimum alignment length that shall be retained in the result dataset. All hit alignments with smaller
 #' hit alignment length will be removed automatically.
 #' @param evalue minimum expectation value (E) threshold for retaining hits (default: evalue = 0.00001).
-#' @param max.target.seqs maximum number of aligned sequences that shall be kept.
+#' @param max.target.seqs maximum number of aligned sequences that shall be retained. Please be aware that \code{max.target.seqs} selects best hits based on the database entry and not by the best e-value. See details here: https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty833/5106166 .
 #' @param update a logical value indicating whether or not pre-computed BLAST tables should be removed and re-computed (\code{update = TRUE})
 #' or imported from existing file (\code{update = FALSE}) (Default). 
 #' @param \dots additional arguments passed to \code{\link{blast_nucleotide_to_nucleotide}} or \code{\link{blast_protein_to_nucleotide}}.

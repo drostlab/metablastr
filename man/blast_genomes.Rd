@@ -27,7 +27,7 @@ hit alignment length will be removed automatically.}
 
 \item{evalue}{minimum expectation value (E) threshold for retaining hits (default: evalue = 0.00001).}
 
-\item{max.target.seqs}{maximum number of aligned sequences that shall be kept.}
+\item{max.target.seqs}{maximum number of aligned sequences that shall be retained. Please be aware that \code{max.target.seqs} selects best hits based on the database entry and not by the best e-value. See details here: https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty833/5106166 .}
 
 \item{update}{a logical value indicating whether or not pre-computed BLAST tables should be removed and re-computed (\code{update = TRUE})
 or imported from existing file (\code{update = FALSE}) (Default).}

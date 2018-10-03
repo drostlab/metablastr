@@ -2,7 +2,7 @@
 #' @description Run cds to cds BLAST searches to detect homologous cds sequences
 #' in a set of subject cds files.
 #' @param query path to input file in fasta format.
-#' @param subject_proteomes a character vector containing paths to subject files in fasta format.
+#' @param subject_cds a character vector containing paths to subject files in fasta format.
 #' @param task nucleotide search task option. Options are:
 #' \itemize{
 #' \item \code{task = "blastn"} : Standard nucleotide-nucleotide comparisons (default) - Traditional BLASTN requiring an exact match of 11.
@@ -32,7 +32,7 @@ detect_homologs_cds_to_cds <-
            cores = 1,
            update = FALSE,
            ...) {
-    if (!all(file.exists(subject_proteomes)))
+    if (!all(file.exists(subject_cds)))
       stop(
         "It seems that at least one cds file path does not exist. Please check that all subject_cds comprise file paths leading to a .fasta file containing cds sequences.",
         call. = FALSE
@@ -44,7 +44,7 @@ detect_homologs_cds_to_cds <-
       "' search of query '",
       basename(query),
       "' against ",
-      length(subject_proteomes),
+      length(subject_cds),
       " reference cds using evalue = ",
       evalue,
       " and max.target.seqs = ",
@@ -58,7 +58,7 @@ detect_homologs_cds_to_cds <-
     
     if (!file.exists(blast_output_path)) {
       message(
-        "BLAST results for each individual proteome search will be stored at '",
+        "BLAST results for each individual cds search will be stored at '",
         blast_output_path,
         "'."
       )
@@ -80,7 +80,7 @@ detect_homologs_cds_to_cds <-
               length(subject_cds),
               ") ...")
       
-      output_file <- paste0(species_name, "_proteome_blast.tsv")
+      output_file <- paste0(species_name, "_cds_blast.tsv")
       
       if (!file.exists(file.path(blast_output_path, output_file))) {
         blast_query_vs_subject_i <- blast_nucleotide_to_nucleotide(

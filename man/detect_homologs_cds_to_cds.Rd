@@ -12,6 +12,8 @@ detect_homologs_cds_to_cds(query, subject_cds, task = "blastn",
 \arguments{
 \item{query}{path to input file in fasta format.}
 
+\item{subject_cds}{a character vector containing paths to subject files in fasta format.}
+
 \item{task}{nucleotide search task option. Options are:
 \itemize{
 \item \code{task = "blastn"} : Standard nucleotide-nucleotide comparisons (default) - Traditional BLASTN requiring an exact match of 11.
@@ -34,8 +36,6 @@ detect_homologs_cds_to_cds(query, subject_cds, task = "blastn",
 \item{update}{a logical value indicating whether or not pre-computed BLAST tables should be removed and re-computed (\code{update = TRUE}) or imported from existing file (\code{update = FALSE}) (Default).}
 
 \item{\dots}{additional arguments passed to \code{\link{blast_nucleotide_to_nucleotide}}.}
-
-\item{subject_proteomes}{a character vector containing paths to subject files in fasta format.}
 }
 \description{
 Run cds to cds BLAST searches to detect homologous cds sequences

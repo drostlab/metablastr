@@ -15,9 +15,12 @@
 retrieve_best_hits <- function(blast_tbl, min_qcovhsp = 50) {
   
   alig_length <- qcovhsp <- bit_score <- species <- query_id <- NULL
+  
+  blast_tbl <- dplyr::filter(blast_tbl, qcovhsp >= min_qcovhsp)
+  
   filter_best_hits <- function(x) {
     res <-
-      dplyr::filter(x, max(alig_length), qcovhsp >= min_qcovhsp, max(bit_score))
+      dplyr::filter(x, max(alig_length), max(bit_score))
     return(res)
   }
   

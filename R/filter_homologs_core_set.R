@@ -73,6 +73,8 @@ filter_homologs_core_set <- function(blast_tbl, min_qcovhsp = 50) {
   blast_tbl_processed_hit_in_all_species <-
     dplyr::filter(blast_tbl_processed, !is.na(query_id))
   
+  message("Number of core best hits shared across all species after filtering: ", nrow(blast_tbl_processed_hit_in_all_species))
+  
   if (nrow(blast_tbl_processed_hit_in_all_species) == 0) {
     stop(
       "The filter process resultet in 0 best hits. Please provide more liberal filter criteria to retrieve a core set of hits shared across all species.",

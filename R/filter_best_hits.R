@@ -12,12 +12,24 @@
 #' @author Hajk-Georg Drost
 #' @export
 
-retrieve_best_hits <- function(blast_tbl, min_qcovhsp = 50) {
+filter_best_hits <- function(blast_tbl, min_qcovhsp = 50) {
+  
+  if (!dplyr::between(min_qcovhsp, 0, 100))
+    stop("Please provide a min_qcovhsp value between 0 and 100.", call. = FALSE)
+  
+  if (nrow(blast_tbl) == 0)
+    stop("Please provide a blast_tbl that contains at least one row.", call. = FALSE)
   
   alig_length <- qcovhsp <- bit_score <- species <- query_id <- NULL
   
+  message("Retrieving best blast hits using the following criteria: ")
+  message(" 1) the query coverage ('qcovhsp') of the hit must be at least greater than ", qcovhsp)
+  message(" 2) select the blast hit with maximum 'alig_length'")
+  message(" 3) select the blast hit that in addition has the maximum bit_score")
+  message("--------")
+  message("Number of hits before filtering: ", nrow(blast_tbl))
   blast_tbl <- dplyr::filter(blast_tbl, qcovhsp >= min_qcovhsp)
-  
+
   filter_best_hits <- function(x) {
     res <-
       dplyr::filter(x, max(alig_length), max(bit_score))
@@ -25,6 +37,12 @@ retrieve_best_hits <- function(blast_tbl, min_qcovhsp = 50) {
   }
   
   best_hit_df <- dplyr::do(dplyr::group_by(blast_tbl, species, query_id), filter_best_hits(.))
+  
+  message("Number of best hits after filtering: ", nrow(blast_tbl))
+  
+  if (nrow(best_hit_df) == 0)
+    stop("The filter process resultet in 0 best hits. Please provide more liberal filter criteria to retrieve a best hit table.", call. = FALSE)
+  
   return(best_hit_df)
 }
 

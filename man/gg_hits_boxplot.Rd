@@ -5,7 +5,8 @@
 \title{Boxplot of a \code{blast_tbl} generated with \code{detect_homologs_genome_to_genome} or \code{detect_homologs_proteome_to_proteome}}
 \usage{
 gg_hits_boxplot(blast_tbl, x_type = "species", y_type = "qcovhsp",
-  xlab = x_type, ylab = y_type, text_size = 18, y_ticks = 8)
+  xlab = x_type, ylab = y_type, title = "", text_size = 18,
+  y_ticks = 8)
 }
 \arguments{
 \item{blast_tbl}{a BLAST table generated with \code{\link{detect_homologs_proteome_to_proteome}}.}
@@ -26,6 +27,8 @@ gg_hits_boxplot(blast_tbl, x_type = "species", y_type = "qcovhsp",
 \item{xlab}{x-axis label.}
 
 \item{ylab}{y-axis label.}
+
+\item{title}{plot title.}
 
 \item{text_size}{size of label text.}
 

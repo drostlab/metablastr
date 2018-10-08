@@ -19,7 +19,7 @@ filter_homologs_core_set <- function(blast_tbl, min_qcovhsp = 50) {
   message("Step 1: --- Retrieve best blast hits via filter_best_hits() ---")
   # retrieve only best hits as defined in ?filter_best_hits
   out_name_blast_tbl_processed <-
-    file.path(tempdir(), paste0("blast_tbl_processed_", ids::random_id()))
+    file.path(tempdir(), paste0("blast_tbl_processed_min_qcovhsp_10.tsv"))
   
   if (file.exists(out_name_blast_tbl_processed))
     blast_tbl_processed <-
@@ -27,17 +27,22 @@ filter_homologs_core_set <- function(blast_tbl, min_qcovhsp = 50) {
   
   if (!file.exists(out_name_blast_tbl_processed)) {
     blast_tbl_processed <-
-      filter_best_hits(blast_tbl, min_qcovhsp = min_qcovhsp)
+      filter_best_hits(blast_tbl, min_qcovhsp = 10)
     message("The best hit blast table was stored at '",
             out_name_blast_tbl_processed,
             "'")
     readr::write_tsv(blast_tbl_processed, out_name_blast_tbl_processed)
   }
   
+  qcovhsp <- NULL
+  blast_tbl_processed <- filter(blast_tbl_processed, qcovhsp >= min_qcovhsp)
+  message("Number of best hits after filtering: ", nrow(blast_tbl_processed))
+  
+  message("Step 2: --- Retrieve core set of query hits shared across all species ---")
   # total number of species in the BLAST table
   total_n_species <-
     length(names(table(unique(
-      blast_tbl_processed$species
+      blast_tbl$species
     ))))
   
   if (length(total_n_species) == 0 || is.na(total_n_species))
@@ -46,9 +51,8 @@ filter_homologs_core_set <- function(blast_tbl, min_qcovhsp = 50) {
       call. = FALSE
     )
   
-  message("Step 2: --- Retrieve core set of query hits shared across all species ---")
   # create empty row
-  col_names_df <- names(blast_tbl_processed)
+  col_names_df <- names(blast_tbl)
   tmp_NULL_df <- vector("list", length(col_names_df))
   names(tmp_NULL_df) <- col_names_df
   tmp_NULL_df <- lapply(tmp_NULL_df, function(x)
@@ -57,7 +61,7 @@ filter_homologs_core_set <- function(blast_tbl, min_qcovhsp = 50) {
   
   
   filter_species_hits <- function(x) {
-    n_species <- length(names(table(unique(x$species))))
+    n_species <- length(names(table(unique(as.character(x$species)))))
     if (n_species == total_n_species) {
       return(x)
     } else {
@@ -71,7 +75,7 @@ filter_homologs_core_set <- function(blast_tbl, min_qcovhsp = 50) {
               filter_species_hits(.))
   
   blast_tbl_processed_hit_in_all_species <-
-    dplyr::filter(blast_tbl_processed, !is.na(query_id))
+    dplyr::filter(blast_tbl_processed_hit_in_all_species, !is.na(query_id))
   
   message("Number of core best hits shared across all species after filtering: ", nrow(blast_tbl_processed_hit_in_all_species))
   

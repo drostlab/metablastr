@@ -8,14 +8,14 @@
 #' \item max(bit_score): only the hit having the highest bit-score is retained.  
 #' }  
 #' @param blast_tbl a BLAST table generated with \code{\link{detect_homologs_proteome_to_proteome}} or \code{\link{detect_homologs_cds_to_cds}}.
-#' @param min_qcovhsp minimum query coverage of the hit in percent \code{0..100} that shall be retained. Default value is set to \code{min_qcovhsp = 50} (= a best hit alignment must have at least 50% query coverage).
+#' @param min_qcovhsp minimum query coverage of the hit in percent \code{10..100} that shall be retained. Default value is set to \code{min_qcovhsp = 50} (= a best hit alignment must have at least 50% query coverage).
 #' @author Hajk-Georg Drost
 #' @export
 
 filter_best_hits <- function(blast_tbl, min_qcovhsp = 50) {
   
-  if (!dplyr::between(min_qcovhsp, 0, 100))
-    stop("Please provide a min_qcovhsp value between 0 and 100.", call. = FALSE)
+  if (!dplyr::between(min_qcovhsp, 10, 100))
+    stop("Please provide a min_qcovhsp value between 10 and 100.", call. = FALSE)
   
   if (nrow(blast_tbl) == 0)
     stop("Please provide a blast_tbl that contains at least one row.", call. = FALSE)
@@ -38,7 +38,7 @@ filter_best_hits <- function(blast_tbl, min_qcovhsp = 50) {
   
   best_hit_df <- dplyr::do(dplyr::group_by(blast_tbl, species, query_id), filter_best_hits(.))
   
-  message("Number of best hits after filtering: ", nrow(blast_tbl))
+  message("Number of best hits after filtering: ", nrow(best_hit_df))
   
   if (nrow(best_hit_df) == 0)
     stop("The filter process resultet in 0 best hits. Please provide more liberal filter criteria to retrieve a best hit table.", call. = FALSE)

@@ -16,29 +16,9 @@
 #'
 filter_homologs_core_set <- function(blast_tbl, min_qcovhsp = 50) {
   message("Retrieve core set of homologs (= query hits shared across all species).")
-  message("Step 1: --- Retrieve best blast hits via filter_best_hits() ---")
-  # retrieve only best hits as defined in ?filter_best_hits
-  out_name_blast_tbl_processed <-
-    file.path(tempdir(), paste0("blast_tbl_processed_min_qcovhsp_10.tsv"))
+  qcovhsp <- query_id <- NULL
+  blast_tbl_processed <- filter(blast_tbl, qcovhsp >= min_qcovhsp)
   
-  if (file.exists(out_name_blast_tbl_processed))
-    blast_tbl_processed <-
-    suppressMessages(readr::read_tsv(out_name_blast_tbl_processed))
-  
-  if (!file.exists(out_name_blast_tbl_processed)) {
-    blast_tbl_processed <-
-      filter_best_hits(blast_tbl, min_qcovhsp = 10)
-    message("The best hit blast table was stored at '",
-            out_name_blast_tbl_processed,
-            "'")
-    readr::write_tsv(blast_tbl_processed, out_name_blast_tbl_processed)
-  }
-  
-  qcovhsp <- NULL
-  blast_tbl_processed <- filter(blast_tbl_processed, qcovhsp >= min_qcovhsp)
-  message("Number of best hits after filtering: ", nrow(blast_tbl_processed))
-  
-  message("Step 2: --- Retrieve core set of query hits shared across all species ---")
   # total number of species in the BLAST table
   total_n_species <-
     length(names(table(unique(
@@ -71,11 +51,11 @@ filter_homologs_core_set <- function(blast_tbl, min_qcovhsp = 50) {
   
   query_id <- NULL
   blast_tbl_processed_hit_in_all_species <-
-    dplyr::do(dplyr::group_by(blast_tbl_processed, query_id),
+    dplyr::do(dplyr::group_by(blast_tbl_processed, gene_name),
               filter_species_hits(.))
   
   blast_tbl_processed_hit_in_all_species <-
-    dplyr::filter(blast_tbl_processed_hit_in_all_species, !is.na(query_id))
+    dplyr::filter(blast_tbl_processed_hit_in_all_species, !is.na(gene_name))
   
   message("Number of core best hits shared across all species after filtering: ", nrow(blast_tbl_processed_hit_in_all_species))
   

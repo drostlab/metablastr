@@ -18,7 +18,7 @@
 #' \itemize{
 #' \item \code{task = "blastn"} : Standard nucleotide-nucleotide comparisons (default) - Traditional BLASTN requiring an exact match of 11.
 #' \item \code{task = "blastn-short"} : Optimized nucleotide-nucleotide comparisons for query sequences shorter than 50 nucleotides.
-#' \item \code{task = "dc-megablast"} : Discontiguous megablast used to find more distant (e.g., interspecies) sequences.
+#' \item \code{task = "dc-megablast"} : Discontiguous megablast used to find somewhat distant sequences.
 #' \item \code{task = "megablast"} : Traditional megablast used to find very similar (e.g., intraspecies or closely related species) sequences.
 #' \item \code{task = "rmblastn"}
 #' }

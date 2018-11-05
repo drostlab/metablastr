@@ -32,7 +32,7 @@ filter_best_hits <- function(blast_tbl, min_qcovhsp = 50) {
 
   filter_best_hits <- function(x) {
     res <-
-      dplyr::filter(x, max(alig_length), max(bit_score))
+      dplyr::filter(x, alig_length == max(alig_length), bit_score == max(bit_score))
     return(res)
   }
   

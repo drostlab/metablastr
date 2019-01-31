@@ -26,8 +26,8 @@ Available options are:
  @author Hajk-Georg Drost
  @seealso \code{\link{blast_protein_to_protein}}, \code{\link{blast_nucleotide_to_protein}},
  \code{\link{blast_nucleotide_to_nucleotide}}
- @importFrom RPostgreSQL
- @export}
+ @export
+ @importFrom RPostgreSQL}
 }
 \description{
 When performing BLAST searches with the \code{blast_*()} functions,

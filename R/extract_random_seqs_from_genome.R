@@ -85,6 +85,7 @@ extract_random_seqs_from_genome <-
               strand = "plus",
               size = 1
             )
+            
             sample_i <- dplyr::mutate(sample_i, chr = chr_names[sample_chromsome])
             res[i] <- list(sample_i)
           }
@@ -96,12 +97,15 @@ extract_random_seqs_from_genome <-
               strand = "minus",
               size = 1
             )
-            sample_i <- dplyr::mutate(sample_i, chr = chr_names[sample_chromsome])
-            res[i] <- list(sample_i)
+            
+                sample_i <-
+                  dplyr::mutate(sample_i, chr = chr_names[sample_chromsome])
+                res[i] <- list(sample_i)
           }
         }
         
         random_coordinates <- dplyr::bind_rows(res)
+        random_coordinates <- na.omit(random_coordinates)
         
           # for each chromosome separately
           for (j in seq_len(length(chr_names))) {

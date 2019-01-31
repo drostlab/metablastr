@@ -20,8 +20,8 @@
 #'  @author Hajk-Georg Drost
 #'  @seealso \code{\link{blast_protein_to_protein}}, \code{\link{blast_nucleotide_to_protein}},
 #'  \code{\link{blast_nucleotide_to_nucleotide}}
-#'  @importFrom RPostgreSQL
 #'  @export
+#'  @importFrom RPostgreSQL
 
 read_blast <- function(file, out.format, postgres.user = NULL) {
 

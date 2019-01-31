@@ -15,8 +15,19 @@ sample_chromosome_intervals <- function(chr_size, interval_width, strand, size) 
   
   if (!is.element(strand, c("plus", "minus")))
     stop("The 'strand' argument can only be specified as strand = 'plus' or strand = 'minus'.", call. = FALSE)
+  
+  if (chr_size - interval_width < 0) {
+    message("It seems that the chromosome length is smaller than the sampled locus. Thus, this chromosome will be omitted.")
+    res <-
+      tibble::tibble(start = NA,
+                     end = NA,
+                     width = NA,
+                     strand = NA)
+    return(res)
+    }
+  
   # random start position in chromosome
-  random_start <- sample.int(chr_size - interval_width, size)
+  random_start <- sample.int(ifelse((chr_size - interval_width) == 0,1, chr_size - interval_width), size)
   # compute random end position in chromosome given interval width
   random_end <- random_start + interval_width - 1
   

@@ -24,7 +24,8 @@ Imports:
     ggplot2,
     ggridges,
     IRanges,
-    fs
+    fs,
+    ids
 Suggests: testthat (>= 1.0.2)
 License: GPL-3
 Encoding: UTF-8

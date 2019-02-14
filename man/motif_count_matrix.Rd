@@ -4,7 +4,8 @@
 \alias{motif_count_matrix}
 \title{Count the number of motifs in a set of sequences and generate a motif count matrix}
 \usage{
-motif_count_matrix(file, motifs, max.mismatch = 0, min.mismatch = 0, ...)
+motif_count_matrix(file, motifs, max.mismatch = 0, min.mismatch = 0,
+  ...)
 }
 \arguments{
 \item{file}{a file path to the \code{fasta} file storing the sequences of interest.}

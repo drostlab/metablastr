@@ -4,9 +4,9 @@
 \alias{blast_rpsblast}
 \title{Perform Reverse PSI-BLAST searches (rpsblast)}
 \usage{
-blast_rpsblast(query, db, db.alias, prep.db = FALSE, output.path = NULL,
-  db.import = FALSE, postgres.user = NULL, evalue = 0.001,
-  out.format = "csv", cores = 1, blast.path = NULL)
+blast_rpsblast(query, db, db.alias, prep.db = FALSE,
+  output.path = NULL, db.import = FALSE, postgres.user = NULL,
+  evalue = 0.001, out.format = "csv", cores = 1, blast.path = NULL)
 }
 \arguments{
 \item{query}{path to input file in fasta format.}

@@ -4,9 +4,10 @@
 \alias{gg_blast_hits}
 \title{Plot \code{\link{blast_genomes}} Result}
 \usage{
-gg_blast_hits(blast_tbl, type = "scope", scope_cutoff = 0.1, alpha = 0.7,
-  scale = 4, xlab = "Query", ylab = "Density over Number of BLAST Hits",
-  xticks = 5, levels = NULL)
+gg_blast_hits(blast_tbl, type = "scope", scope_cutoff = 0.1,
+  alpha = 0.7, scale = 4, xlab = "Query",
+  ylab = "Density over Number of BLAST Hits", xticks = 5,
+  levels = NULL)
 }
 \arguments{
 \item{blast_tbl}{a BLAST table generated with \code{\link{blast_genomes}}.}

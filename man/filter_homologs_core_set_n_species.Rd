@@ -4,7 +4,8 @@
 \alias{filter_homologs_core_set_n_species}
 \title{Retrieve a core set of best hits that is shared across at least N species}
 \usage{
-filter_homologs_core_set_n_species(blast_tbl, min_qcovhsp = 50, n_species)
+filter_homologs_core_set_n_species(blast_tbl, min_qcovhsp = 50,
+  n_species)
 }
 \arguments{
 \item{blast_tbl}{a BLAST table generated with \code{\link{detect_homologs_proteome_to_proteome}} or \code{\link{detect_homologs_cds_to_cds}}.}

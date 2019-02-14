@@ -4,8 +4,8 @@
 \alias{motif_compare_multi}
 \title{Count the number of motifs in a set of non-random versus random sequences for multiple species}
 \usage{
-motif_compare_multi(blast_tbl, subject_genomes, size, interval_width, motifs,
-  max.mismatch = 0, min.mismatch = 0, ...)
+motif_compare_multi(blast_tbl, subject_genomes, size, interval_width,
+  motifs, max.mismatch = 0, min.mismatch = 0, ...)
 }
 \description{
 Compare the number of motifs in a set of non-random versus random sequences. The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences. Each enrichment analysis is performed for a set of different species/genomes.

@@ -6,8 +6,8 @@
 \usage{
 detect_homologs_cds_to_cds(query, subject_cds, task = "blastn",
   blast_output_path = "blast_output", min_alig_length = 60,
-  evalue = 1e-05, max.target.seqs = 5000, cores = 1, update = FALSE,
-  ...)
+  evalue = 1e-05, max.target.seqs = 5000, cores = 1,
+  update = FALSE, ...)
 }
 \arguments{
 \item{query}{path to input file in fasta format.}

@@ -20,7 +20,7 @@ filter_best_hits <- function(blast_tbl, min_qcovhsp = 50) {
   if (nrow(blast_tbl) == 0)
     stop("Please provide a blast_tbl that contains at least one row.", call. = FALSE)
   
-  alig_length <- qcovhsp <- bit_score <- species <- query_id <- NULL
+  alig_length <- qcovhsp <- bitscore <- species <- query_id <- NULL
   
   message("Retrieving best blast hits using the following criteria: ")
   message(" 1) the query coverage ('qcovhsp') of the hit must be at least greater than ", qcovhsp)
@@ -31,8 +31,17 @@ filter_best_hits <- function(blast_tbl, min_qcovhsp = 50) {
   blast_tbl <- dplyr::filter(blast_tbl, qcovhsp >= min_qcovhsp)
 
   filter_best_hits <- function(x) {
-    res <-
-      dplyr::filter(x, alig_length == max(alig_length), bit_score == max(bit_score))
+    min_val <- min(x$bit_score)
+    bitscore <- alig_length <- NULL
+    res <- dplyr::filter(x, bitscore == min_val)
+    if (nrow(res) > 1) {
+      max_len <- max(res$alig_length)
+      res <- dplyr::filter(res, alig_length == max_len)
+    }
+    
+    if (nrow(res) > 1) 
+      res <- dplyr::slice(res, 1)
+    
     return(res)
   }
   

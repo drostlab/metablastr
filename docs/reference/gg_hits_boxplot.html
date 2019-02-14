@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List available BLAST output formats — list_outformats • metablastr</title>
+<title>Boxplot of a <code>blast_tbl</code> generated with <code>detect_homologs_genome_to_genome</code> or <code>detect_homologs_proteome_to_proteome</code> — gg_hits_boxplot • metablastr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="List available BLAST output formats — list_outformats" />
+<meta property="og:title" content="Boxplot of a <code>blast_tbl</code> generated with <code>detect_homologs_genome_to_genome</code> or <code>detect_homologs_proteome_to_proteome</code> — gg_hits_boxplot" />
 
-<meta property="og:description" content="Available BLAST output formats are listed as they can
-be specified as out.format argument in any blast_* function." />
+<meta property="og:description" content="This function generates a boxplot of different types of the detect_homologs_proteome_to_proteome output." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -95,37 +94,72 @@ be specified as out.format argument in any blast_* function." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List available BLAST output formats</h1>
+    <h1>Boxplot of a <code>blast_tbl</code> generated with <code>detect_homologs_genome_to_genome</code> or <code>detect_homologs_proteome_to_proteome</code></h1>
     
-    <div class="hidden name"><code>list_outformats.Rd</code></div>
+    <div class="hidden name"><code>gg_hits_boxplot.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Available BLAST output formats are listed as they can
-be specified as <code>out.format</code> argument in any <code>blast_*</code> function.</p>
+    <p>This function generates a boxplot of different types of the <code><a href='detect_homologs_proteome_to_proteome.html'>detect_homologs_proteome_to_proteome</a></code> output.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>list_outformats</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>gg_hits_boxplot</span>(<span class='no'>blast_tbl</span>, <span class='kw'>x_type</span> <span class='kw'>=</span> <span class='st'>"species"</span>, <span class='kw'>y_type</span> <span class='kw'>=</span> <span class='st'>"qcovhsp"</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='no'>x_type</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='no'>y_type</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>text_size</span> <span class='kw'>=</span> <span class='fl'>18</span>,
+  <span class='kw'>y_ticks</span> <span class='kw'>=</span> <span class='fl'>8</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>blast_tbl</th>
+      <td><p>a BLAST table generated with <code><a href='detect_homologs_proteome_to_proteome.html'>detect_homologs_proteome_to_proteome</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>x_type</th>
+      <td><p>variable thah shall be visualized on the x-axis. E.g.:</p><ul>
+<li><p><code>type = "species"</code>: the species in which blast hits were found (Default)</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>y_type</th>
+      <td><p>variable thah shall be visualized on the y-axis. E.g.:</p><ul>
+<li><p><code>type = "qcovhsp"</code>: query coverage of the respective blast hit (Default)</p></li>
+<li><p><code>type = "perc_identity"</code>: visualize the alignment identity in percent for each BLAST hit.</p></li>
+<li><p><code>type = "alig_length"</code>: visualize the alignment length for each BLAST hit.</p></li>
+<li><p><code>type = "scope"</code>: visualize the length homology to the initial query for each BLAST hit.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>xlab</th>
+      <td><p>x-axis label.</p></td>
+    </tr>
+    <tr>
+      <th>ylab</th>
+      <td><p>y-axis label.</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>plot title.</p></td>
+    </tr>
+    <tr>
+      <th>text_size</th>
+      <td><p>size of label text.</p></td>
+    </tr>
+    <tr>
+      <th>y_ticks</th>
+      <td><p>number of ticks on the y-axis.</p></td>
+    </tr>
+    </table>
+    
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># list available BLAST output formats</span>
-<span class='fu'>list_outformats</span>()</div><div class='output co'>#&gt;  [1] "pair"              "qa.ident"          "qa.nonident"      
-#&gt;  [4] "fq.ident"          "fq.nonident"       "xml"              
-#&gt;  [7] "tab"               "tab.comment"       "ASN.1.text"       
-#&gt; [10] "ASN.1.binary"      "csv"               "ASN.1"            
-#&gt; [13] "json.seq.aln"      "json.blast.multi"  "xml2.blast.multi" 
-#&gt; [16] "json.blast.single" "xml2.blast.single" "SAM"              
-#&gt; [19] "report"           </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
 
     <h2>Author</h2>
     <p>Hajk-Georg Drost</p>

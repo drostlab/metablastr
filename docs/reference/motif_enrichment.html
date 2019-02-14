@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Import BLAST output file — read_blast • metablastr</title>
+<title>Test motif enrichment in a set of non-random versus random sequences — motif_enrichment • metablastr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,11 +30,10 @@
 
 
 
-<meta property="og:title" content="Import BLAST output file — read_blast" />
+<meta property="og:title" content="Test motif enrichment in a set of non-random versus random sequences — motif_enrichment" />
 
-<meta property="og:description" content="When performing BLAST searches with the blast_*() functions,
-the corresponding BLAST output file can be imported into the current R session using this function.
-All output formats given by BLAST are supported (see e.g. description for details)." />
+<meta property="og:description" content="Compare the number of motifs in a set of non-random versus random sequences.
+The resulting values are then tested for enrichment of certain motifs in real sequences compared to random sequences. Several tests statistics and approaches are available to quantify significant motif enrichment." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -96,49 +95,63 @@ All output formats given by BLAST are supported (see e.g. description for detail
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Import BLAST output file</h1>
+    <h1>Test motif enrichment in a set of non-random versus random sequences</h1>
     
-    <div class="hidden name"><code>read_blast.Rd</code></div>
+    <div class="hidden name"><code>motif_enrichment.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>When performing BLAST searches with the <code>blast_*()</code> functions,
-the corresponding BLAST output file can be imported into the current R session using this function.
-All output formats given by BLAST are supported (see e.g. description for details).</p>
+    <p>Compare the number of motifs in a set of non-random versus random sequences.
+The resulting values are then tested for enrichment of certain motifs in real sequences compared to random sequences. Several tests statistics and approaches are available to quantify significant motif enrichment.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>read_blast</span>(<span class='no'>file</span>, <span class='no'>out.format</span>, <span class='kw'>postgres.user</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>motif_enrichment</span>(<span class='no'>real_seqs</span>, <span class='no'>random_seqs</span>, <span class='no'>motifs</span>, <span class='kw'>test</span> <span class='kw'>=</span> <span class='st'>"fisher"</span>,
+  <span class='kw'>alternative</span> <span class='kw'>=</span> <span class='st'>"less"</span>, <span class='kw'>max.mismatch</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>min.mismatch</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>path to BLAST output file.</p></td>
+      <th>real_seqs</th>
+      <td><p>a file path to the <code>fasta</code> file storing the non-random set of sequences.</p></td>
     </tr>
     <tr>
-      <th>out.format</th>
-      <td><p>a character string specifying the output format of the BLAST output that shall be imported.
-Available options are:</p><ul>
-<li><p><code>out.format = "postgres"</code> : store BLAST output as Postgres database and generate postgres database connection.</p></li>
-<li><p><code>out.format = "xml"</code> : XML</p></li>
-<li><p><code>out.format = "tsv"</code> : Tabular separated file</p></li>
-<li><p><code>out.format = "csv"</code> : Comma-separated values</p></li>
-<li><p><code>out.format = "json.seq.aln"</code> : Seqalign (JSON)</p></li>
-<li><p><code>out.format = "json.blast.multi"</code> : Multiple-file BLAST JSON</p></li>
-<li><p><code>out.format = "xml2.blast.multi"</code> : Multiple-file BLAST XML2</p></li>
-<li><p><code>out.format = "json.blast.single"</code> : Single-file BLAST JSON</p></li>
-<li><p><code>out.format = "xml2.blast.single"</code> : Single-file BLAST XML2</p></li>
-</ul><p>@param postgres.user specify username for RPostgreSQL connection.
- @author Hajk-Georg Drost
- @seealso <code><a href='blast_protein_to_protein.html'>blast_protein_to_protein</a></code>, <code><a href='blast_nucleotide_to_protein.html'>blast_nucleotide_to_protein</a></code>,
- <code><a href='blast_nucleotide_to_nucleotide.html'>blast_nucleotide_to_nucleotide</a></code>
- @export
- @importFrom RPostgreSQL</p></td>
+      <th>random_seqs</th>
+      <td><p>a file path to the <code>fasta</code> file storing the random set of sequences, e.g. generated with <code><a href='extract_random_seqs_from_genome.html'>extract_random_seqs_from_genome</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>motifs</th>
+      <td><p>a character vector storing a set of motifs that shall be counted within respective sequences.</p></td>
+    </tr>
+    <tr>
+      <th>test</th>
+      <td><p>tests statistics and models to quantify significant motif enrichment. Options are:</p><ul>
+<li><p><code>test = "fisher"</code>: Fisher's Exact Test for Count Data (see <code>link[stats]{fisher.test}</code> for details).</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>alternative</th>
+      <td><p>indicates the alternative hypothesis and must be one of <code>"two.sided"</code>, <code>"greater"</code> or <code>"less"</code>. You can specify just the initial letter. Only used in the 2 by 2 case.</p></td>
+    </tr>
+    <tr>
+      <th>max.mismatch</th>
+      <td><p>the maximum number of mismatching letters allowed (see <code><a href='https://www.rdocumentation.org/packages/Biostrings/topics/matchPattern'>matchPattern</a></code> for details).</p></td>
+    </tr>
+    <tr>
+      <th>min.mismatch</th>
+      <td><p>the minimum number of mismatching letters allowed (see <code><a href='https://www.rdocumentation.org/packages/Biostrings/topics/matchPattern'>vcountPattern</a></code> for details).</p></td>
+    </tr>
+    <tr>
+      <th>&#8230;</th>
+      <td><p>additional arguments passed to <code><a href='https://www.rdocumentation.org/packages/Biostrings/topics/matchPattern'>matchPattern</a></code>.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='motif_count.html'>motif_count</a></code>, <code><a href='extract_random_seqs_from_genome.html'>extract_random_seqs_from_genome</a></code>, <code><a href='extract_hit_seqs_from_genomes.html'>extract_hit_seqs_from_genomes</a></code></p></div>
     
 
   </div>
@@ -146,8 +159,12 @@ Available options are:</p><ul>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
+    <h2>Author</h2>
+    <p>Hajk-Georg Drost</p>
   </div>
 </div>
 

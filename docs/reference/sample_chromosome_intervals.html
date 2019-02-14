@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List available BLAST output formats — list_outformats • metablastr</title>
+<title>Helper function to sample random intervals of length <code>interval_width</code> from chromosomes — sample_chromosome_intervals • metablastr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,10 @@
 
 
 
-<meta property="og:title" content="List available BLAST output formats — list_outformats" />
+<meta property="og:title" content="Helper function to sample random intervals of length <code>interval_width</code> from chromosomes — sample_chromosome_intervals" />
 
-<meta property="og:description" content="Available BLAST output formats are listed as they can
-be specified as out.format argument in any blast_* function." />
+<meta property="og:description" content="This function samples a random locus given the chromosome lenght (chr_size) 
+and interval_width from a chromosome" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -95,37 +95,52 @@ be specified as out.format argument in any blast_* function." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List available BLAST output formats</h1>
+    <h1>Helper function to sample random intervals of length <code>interval_width</code> from chromosomes</h1>
     
-    <div class="hidden name"><code>list_outformats.Rd</code></div>
+    <div class="hidden name"><code>sample_chromosome_intervals.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Available BLAST output formats are listed as they can
-be specified as <code>out.format</code> argument in any <code>blast_*</code> function.</p>
+    <p>This function samples a random locus given the chromosome lenght (<code>chr_size</code>) 
+and <code>interval_width</code> from a chromosome</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>list_outformats</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>sample_chromosome_intervals</span>(<span class='no'>chr_size</span>, <span class='no'>interval_width</span>, <span class='no'>strand</span>, <span class='no'>size</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>chr_size</th>
+      <td><p>an integer value defining the length of the chromosome.</p></td>
+    </tr>
+    <tr>
+      <th>interval_width</th>
+      <td><p>the length of the interval that shall be sampled.</p></td>
+    </tr>
+    <tr>
+      <th>strand</th>
+      <td><p>from which strand should the interval be sampled? Options
+are:</p><ul>
+<li><p><code>strand = "plus"</code></p></li>
+<li><p><code>strand = "minus"</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>size</th>
+      <td><p>a non-negative integer giving the number of loci that shall be sampled.</p></td>
+    </tr>
+    </table>
+    
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># list available BLAST output formats</span>
-<span class='fu'>list_outformats</span>()</div><div class='output co'>#&gt;  [1] "pair"              "qa.ident"          "qa.nonident"      
-#&gt;  [4] "fq.ident"          "fq.nonident"       "xml"              
-#&gt;  [7] "tab"               "tab.comment"       "ASN.1.text"       
-#&gt; [10] "ASN.1.binary"      "csv"               "ASN.1"            
-#&gt; [13] "json.seq.aln"      "json.blast.multi"  "xml2.blast.multi" 
-#&gt; [16] "json.blast.single" "xml2.blast.single" "SAM"              
-#&gt; [19] "report"           </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
 
     <h2>Author</h2>
     <p>Hajk-Georg Drost</p>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List available BLAST output formats — list_outformats • metablastr</title>
+<title>Extract random loci from a genome of interest — extract_random_seqs_from_genome • metablastr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,16 @@
 
 
 
-<meta property="og:title" content="List available BLAST output formats — list_outformats" />
+<meta property="og:title" content="Extract random loci from a genome of interest — extract_random_seqs_from_genome" />
 
-<meta property="og:description" content="Available BLAST output formats are listed as they can
-be specified as out.format argument in any blast_* function." />
+<meta property="og:description" content="This function allows users to specify a number of sequences
+of a specified length that shall be randomly sampled from the genome.
+The sampling rule is as follows:
+For each locus independently sample:
+1) choose randomly (equal probability: see sample.int for details) from which of the given chromosomes the locus shall be sampled (replace = TRUE).
+2) choose randomly (equal probability: see sample.int for details) from which strand (plus or minus) the locus shall be sampled (replace = TRUE).
+3) randomly choose (equal probability: see sample.int the starting position of the locus in the sampled chromosome and strand (replace = TRUE).
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -95,37 +101,61 @@ be specified as out.format argument in any blast_* function." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List available BLAST output formats</h1>
+    <h1>Extract random loci from a genome of interest</h1>
     
-    <div class="hidden name"><code>list_outformats.Rd</code></div>
+    <div class="hidden name"><code>extract_random_seqs_from_genome.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Available BLAST output formats are listed as they can
-be specified as <code>out.format</code> argument in any <code>blast_*</code> function.</p>
+    <p>This function allows users to specify a number of sequences
+of a specified length that shall be randomly sampled from the genome.
+The sampling rule is as follows:
+For each locus independently sample:</p><ul>
+<li><p>1) choose randomly (equal probability: see <code><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample.int</a></code> for details) from which of the given chromosomes the locus shall be sampled (<code>replace = TRUE</code>).</p></li>
+<li><p>2) choose randomly (equal probability: see <code><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample.int</a></code> for details) from which strand (plus or minus) the locus shall be sampled (<code>replace = TRUE</code>).</p></li>
+<li><p>3) randomly choose (equal probability: see <code><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample.int</a></code> the starting position of the locus in the sampled chromosome and strand (<code>replace = TRUE</code>).</p></li>
+</ul>
     
     </div>
 
-    <pre class="usage"><span class='fu'>list_outformats</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>extract_random_seqs_from_genome</span>(<span class='no'>size</span>, <span class='no'>interval_width</span>, <span class='no'>subject_genome</span>,
+  <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>size</th>
+      <td><p>a non-negative integer giving the number of loci that shall be sampled.</p></td>
+    </tr>
+    <tr>
+      <th>interval_width</th>
+      <td><p>the length of the locus that shall be sampled.</p></td>
+    </tr>
+    <tr>
+      <th>subject_genome</th>
+      <td><p>file path to the <code>fasta</code> file storing the subject genome.</p></td>
+    </tr>
+    <tr>
+      <th>file_name</th>
+      <td><p>a name of the output <code>fasta</code> file that will store the sequences of the randomly
+sampled loci.</p></td>
+    </tr>
+    <tr>
+      <th>append</th>
+      <td><p>shall new random sequences be added to an existing <code>file_name</code> (<code>append = TRUE</code>)
+or should an exosting <code>file_name</code> be removed before storing new random sequences (<code>append = FALSE</code>; Default)?</p></td>
+    </tr>
+    </table>
+    
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># list available BLAST output formats</span>
-<span class='fu'>list_outformats</span>()</div><div class='output co'>#&gt;  [1] "pair"              "qa.ident"          "qa.nonident"      
-#&gt;  [4] "fq.ident"          "fq.nonident"       "xml"              
-#&gt;  [7] "tab"               "tab.comment"       "ASN.1.text"       
-#&gt; [10] "ASN.1.binary"      "csv"               "ASN.1"            
-#&gt; [13] "json.seq.aln"      "json.blast.multi"  "xml2.blast.multi" 
-#&gt; [16] "json.blast.single" "xml2.blast.single" "SAM"              
-#&gt; [19] "report"           </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
 
     <h2>Author</h2>
     <p>Hajk-Georg Drost</p>

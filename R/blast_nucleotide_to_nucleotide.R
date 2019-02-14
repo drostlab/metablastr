@@ -69,7 +69,8 @@
 #'  blast_test
 #' }
 #' 
-#' @seealso \code{\link{blast_protein_to_protein}}, \code{\link{blast_nucleotide_to_protein}}
+#' @seealso \code{\link{blast_protein_to_protein}}, \code{\link{blast_nucleotide_to_protein}}, 
+#' \code{\link{blast_protein_to_nucleotide}}, \code{\link{blast_best}}
 #' @export
 
 blast_nucleotide_to_nucleotide <- function(query, 
@@ -83,7 +84,7 @@ blast_nucleotide_to_nucleotide <- function(query,
                           evalue   = 1E-3,
                           out.format = "csv", 
                           cores = 1,
-                          max.target.seqs = 500,
+                          max.target.seqs = 10000,
                           db.soft.mask = FALSE,
                           db.hard.mask = FALSE,
                           blast.path = NULL) {

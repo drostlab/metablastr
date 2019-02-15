@@ -1,10 +1,13 @@
 #' @title Count the number of motifs in a set of non-random versus random sequences for multiple species
 #' @description Compare the number of motifs in a set of non-random versus random sequences. The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences. Each enrichment analysis is performed for a set of different species/genomes.
-#' @param 
-#' @param 
-#' @param 
-#' @param 
-#' @param 
+#' @param blast_tbl
+#' @param subject_genomes
+#' @param size
+#' @param interval_width
+#' @param motifs
+#' @param max.mismatch
+#' @param min.mismatch
+#' @param \ellipsis
 #' @author Hajk-Georg Drost
 #' @export
 motif_compare_multi <-

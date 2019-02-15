@@ -1,4 +1,4 @@
 library(testthat)
-library(blastr)
+library(metablastr)
 
-test_check("blastr")
+test_check("metablastr")

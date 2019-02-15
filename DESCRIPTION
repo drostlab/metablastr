@@ -25,7 +25,8 @@ Imports:
     ggridges,
     IRanges,
     fs
-Suggests: testthat (>= 1.0.2)
+Suggests: 
+    testthat
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

@@ -88,6 +88,10 @@ blast_protein_to_protein <- function(query,
       }
     }
     
+    # make sure that input files contain the correct sequence type    
+    file_contains_aa(query, "query")  
+    file_contains_aa(subject, "subject")
+  
     # determine the number of cores on a multicore machine
     multi.cores <- parallel::detectCores()
     

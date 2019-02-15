@@ -87,6 +87,10 @@ blast_protein_to_nucleotide <- function(query,
       stop("Only output formats: 'xml', 'tab', or 'csv' can be imported.", call. = FALSE)
   }
   
+  # make sure that input files contain the correct sequence type    
+  file_contains_aa(query, "query")  
+  file_contains_dna(subject, "subject")
+  
   # determine the number of cores on a multicore machine
   multi.cores <- parallel::detectCores()
   

@@ -100,8 +100,11 @@ blast_nucleotide_to_nucleotide <- function(query,
     
     if (!is.element(strand, c("both", "plus", "minus")))
         stop("Please specify a strand option that is supported by BLAST: strand = 'both', strand = 'plus', strand = 'minus'.")
-        
     
+    # make sure that input files contain the correct sequence type    
+    file_contains_dna(query, "query")  
+    file_contains_dna(subject, "subject")
+  
     # determine the number of cores on a multicore machine
     multi.cores <- parallel::detectCores()
     

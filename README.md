@@ -90,6 +90,7 @@ https://github.com/HajkD/metablastr/issues
 - `blast_protein_to_nucleotide()`: Perform Protein to Nucleotide BLAST Searches (TBLASTN)
 - `blast_best_hit()`: Retrieve only the best BLAST hit for each query
 - `blast_best_reciprocal_hit()`: Retrieve only the best reciprocal BLAST hit for each query
+- `blast_rpsblast`: Perform Reverse PSI-BLAST searches (rpsblast)
 - `read_blast()`: Import BLAST output into R session (in memory) or via `PostgresSQL` database connection.
 
 ### BLAST against common NCBI databases 
@@ -107,7 +108,13 @@ https://github.com/HajkD/metablastr/issues
 
 
 ### BLAST against a set of organisms
+
 - `blast_genomes()`: Perfrom BLAST Searches Against a Set of Genomes
+- `detect_homologs_cds_to_cds()`: Perform CDS to CDS BLAST Searches against a set of CDS files
+- `detect_homologs_proteome_to_proteome()`: Perform Proteome to Proteome BLAST Searches against a set of Proteomes
+- `extract_hit_seqs_from_genomes()`: Extract sequences of BLAST hits in respective genomes and store it as 'fasta' file(s)
+- `extract_random_seqs_from_genome()`: Extract random loci from a genome of interest
+- `sample_chromosome_intervals()`: Helper function to sample random intervals of length 'interval_width' from chromosomes
 
 ### Analyze BLAST Report
 

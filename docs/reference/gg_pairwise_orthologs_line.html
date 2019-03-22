@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Count the number of motifs in a set of non-random versus random sequences for multiple species — motif_compare_multi • metablastr</title>
+<title>Plot number of pairwise orthologs for multiple species comparisons — gg_pairwise_orthologs_line • metablastr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Count the number of motifs in a set of non-random versus random sequences for multiple species — motif_compare_multi" />
+<meta property="og:title" content="Plot number of pairwise orthologs for multiple species comparisons — gg_pairwise_orthologs_line" />
 
-<meta property="og:description" content="Compare the number of motifs in a set of non-random versus random sequences. The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences. Each enrichment analysis is performed for a set of different species/genomes." />
+<meta property="og:description" content="Visualizes pairwise orthologs for multiple species comparisons as line graph." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,25 +106,56 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Count the number of motifs in a set of non-random versus random sequences for multiple species</h1>
+    <h1>Plot number of pairwise orthologs for multiple species comparisons</h1>
     
-    <div class="hidden name"><code>motif_compare_multi.Rd</code></div>
+    <div class="hidden name"><code>gg_pairwise_orthologs_line.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Compare the number of motifs in a set of non-random versus random sequences. The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences. Each enrichment analysis is performed for a set of different species/genomes.</p>
+    <p>Visualizes pairwise orthologs for multiple species comparisons as line graph.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>motif_compare_multi</span>(<span class='no'>blast_tbl</span>, <span class='no'>subject_genomes</span>, <span class='no'>size</span>, <span class='no'>interval_width</span>,
-  <span class='no'>motifs</span>, <span class='kw'>max.mismatch</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>min.mismatch</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
-        
+    <pre class="usage"><span class='fu'>gg_pairwise_orthologs_line</span>(<span class='no'>ortho_summary</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Subject Species"</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Number of reciprocal best hit orthologs"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>vline</span> <span class='kw'>=</span> <span class='fl'>7000</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='fl'>24000</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ortho_summary</th>
+      <td><p>a <code>data.frame</code> storing the <code>subject_species</code> in the first column and the number of orthologs named <code>n_orthologs</code> in the second column.</p></td>
+    </tr>
+    <tr>
+      <th>xlab</th>
+      <td><p>label of x-axis.</p></td>
+    </tr>
+    <tr>
+      <th>ylab</th>
+      <td><p>label of y-axis.</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>plot title.</p></td>
+    </tr>
+    <tr>
+      <th>vline</th>
+      <td><p>plot a line characterizing the core set.</p></td>
+    </tr>
+    <tr>
+      <th>ymax</th>
+      <td><p>max value of y-axis.</p></td>
+    </tr>
+    </table>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
                 </ul>
 
     <h2>Author</h2>

@@ -46,6 +46,8 @@ Together, the `metablastr` package may enable a new level of data-driven genomic
 research by providing the computational tools and data science standards needed
 to perform reproducible research at scale.
 
+I happily welcome anyone who wishes to contribute to this project :) Just drop me an email.
+
 ### Install `metablastr`
 
 ### For Linux Users:

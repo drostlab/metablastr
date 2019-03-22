@@ -176,7 +176,7 @@ blast_protein_to_nucleotide <- function(query,
                               out.format = "postgres",
                               postgres.user = postgres.user)
       message("\n")
-      message("BLAST search finished! A PostgreSQL  database connection to the BLAST output file has been generated. The BLAST output file can be found at: ", output_blast)
+      message("BLAST search finished! A PostgreSQL database connection to the BLAST output file has been generated. The BLAST output file can be found at: ", output_blast)
       return(blast_tbl)
     } else {
       blast_tbl <- read_blast(file = output_read_blast, 

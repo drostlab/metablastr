@@ -71,7 +71,7 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Installing metablastr and all sequence search tools</h1>
-                        <h4 class="author">Vignette Author</h4>
+                        <h4 class="author">Hajk-Georg Drost</h4>
             
             <h4 class="date">2019-03-22</h4>
       
@@ -82,10 +82,84 @@
 
     
     
-
+<div id="install-sequence-search-tools-used-by-metablastr" class="section level2">
+<h2 class="hasAnchor">
+<a href="#install-sequence-search-tools-used-by-metablastr" class="anchor"></a>Install sequence search tools used by <code>metablastr</code>
+</h2>
+<p>We recommend using the <code>Conda</code>, <code>Miniconda</code> or <code>Bioconda</code> infrastructure to load and install all search tools, because it will automatically resolve version conflicts and will make your life much easier.</p>
+</div>
+<div id="miniconda-conda-and-bioconda" class="section level2">
+<h2 class="hasAnchor">
+<a href="#miniconda-conda-and-bioconda" class="anchor"></a>Miniconda, Conda, and Bioconda</h2>
+<div id="installing-miniconda-a-small-version-of-anaconda" class="section level3">
+<h3 class="hasAnchor">
+<a href="#installing-miniconda-a-small-version-of-anaconda" class="anchor"></a>Installing Miniconda (a small version of Anaconda)</h3>
+<p>To install conda and bioconda users first need to <a href="https://conda.io/miniconda.html">install Miniconda</a>.</p>
+<div id="install-on-linux" class="section level4">
+<h4 class="hasAnchor">
+<a href="#install-on-linux" class="anchor"></a>Install on Linux</h4>
+<pre><code># download installation script
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+# run installation script
+bash Miniconda3-latest-Linux-x86_64.sh</code></pre>
+<p>Follow the following procedures:</p>
+<p>The installer prompts “In order to continue the installation process, please review the license agreement.” Click Enter to view license terms.</p>
+<p>Scroll to the bottom of the license terms and enter “Yes” to agree.</p>
+<p>The installer prompts you to click Enter to accept the default install location, CTRL-C to cancel the installation, or specify an alternate installation directory. If you accept the default install location, the installer displays “PREFIX=/home/<user>/anaconda&lt;2 or 3&gt;” and continues the installation. It may take a few minutes to complete.</user></p>
+<p>The installer prompts “Do you wish the installer to prepend the Anaconda&lt;2 or 3&gt; install location to PATH in your <code>/home/&lt;user&gt;/.bashrc ?</code>” Enter Yes.</p>
+<p>NOTE: If you enter “No”, you must manually add the path to Anaconda or conda will not work. See FAQ.</p>
+<p>The installer describes Microsoft VS Code and asks if you would like to install VS Code. Enter yes or no. If you selected yes, follow the instructions on screen to complete the VS Code installation.</p>
+<p>NOTE: Installing VS Code with the Anaconda installer requires an internet connection. Offline users may be able to find an offline VS Code installer from Microsoft.</p>
+<p>The installer finishes and displays “Thank you for installing Anaconda&lt;2 or 3&gt;!”</p>
+<p>Close and open your terminal window for the installation to take effect, or you can enter the command source <code>/home/&lt;user&gt;/.bashrc</code>.</p>
+<p>Details here: <a href="http://docs.anaconda.com/anaconda/install/linux/" class="uri">http://docs.anaconda.com/anaconda/install/linux/</a></p>
+<p>See also issue here: <a href="https://github.com/scrapy/scrapy/issues/3141#issuecomment-368690842" class="uri">https://github.com/scrapy/scrapy/issues/3141#issuecomment-368690842</a></p>
+<p>Now users can type <code>conda</code> in the command line. E.g.</p>
+<pre><code>conda update conda</code></pre>
+<p>Next run to update user rights:</p>
+<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="fu">sudo</span> chown -R <span class="op">&lt;</span>user<span class="op">&gt;</span>:<span class="op">&lt;</span>user<span class="op">&gt;</span> /usr/local/miniconda3</code></pre></div>
+</div>
+</div>
+<div id="using-conda" class="section level3">
+<h3 class="hasAnchor">
+<a href="#using-conda" class="anchor"></a>Using Conda</h3>
+<p>Install packages like this (<code>conda intsall [...]</code>):</p>
+<pre><code>conda install numpy</code></pre>
+<p>Or search for available packages like this:</p>
+<pre><code>conda search PACKAGENAME</code></pre>
+<p>Learn more by <a href="https://conda.io/docs/user-guide/getting-started.html">Getting Started with Conda</a> and <a href="https://conda.io/docs/user-guide/cheatsheet.html">download the conda cheatsheet</a>.</p>
+<p>Here are the full <a href="https://conda.io/docs/">Conda Docs</a>.</p>
+</div>
+<div id="installing-bioconda" class="section level3">
+<h3 class="hasAnchor">
+<a href="#installing-bioconda" class="anchor"></a>Installing Bioconda</h3>
+<p>Here are the detailed <a href="https://bioconda.github.io/">Bioconda installation instructions</a>.</p>
+<pre><code>conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge</code></pre>
+<p>After installing conda you will need to add the bioconda channel as well as the other channels bioconda depends on. It is important to add them in this order so that the priority is set correctly (that is, conda-forge is highest priority).</p>
+<p>The conda-forge channel contains many general-purpose packages not already found in the defaults channel.</p>
+</div>
+</div>
+<div id="installing-search-tools-using-bioconda" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installing-search-tools-using-bioconda" class="anchor"></a>Installing search tools using Bioconda</h2>
+<p>Now users can downlaod and istall the search tools as follows:</p>
+<pre><code>conda install -c bioconda blast diamond ac-diamond mmseqs2 last
+conda install -c ostrokach-forge hh-suite</code></pre>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#install-sequence-search-tools-used-by-metablastr">Install sequence search tools used by <code>metablastr</code></a></li>
+      <li><a href="#miniconda-conda-and-bioconda">Miniconda, Conda, and Bioconda</a></li>
+      <li><a href="#installing-search-tools-using-bioconda">Installing search tools using Bioconda</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

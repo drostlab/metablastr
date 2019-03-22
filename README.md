@@ -10,8 +10,8 @@ access and retrieve this data automatically using the R package [biomartr](https
 and the next step is to harness this wealth of sequence diversity to explore
 and detect novel patterns of evolvability, variation, and disease emergence.
 
-The same way in which the R package [biomartr](https://github.com/ropensci/biomartr)
-__solves the problem of retrieving this vast amount of biological sequence data__ in a standardized and computationally reproducible way,
+The R package [biomartr](https://github.com/ropensci/biomartr)
+__solves the problem of retrieving this vast amount of biological sequence data__ in a standardized and computationally reproducible way and
 the `metablastr` package aims to __solve the problem of performing massive scale
 sequence searches__ in a standardized and computationally reproducible way. 
 

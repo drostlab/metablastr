@@ -65,7 +65,7 @@ library(devtools)
 install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 ```
 
-__Please follow the [Installation Vignette]() to install all standalone sequence search tools.__
+__Please follow the [Installation Vignette](https://hajkd.github.io/metablastr/articles/installation.html) to install all standalone sequence search tools.__
 
 ### Quick start
 

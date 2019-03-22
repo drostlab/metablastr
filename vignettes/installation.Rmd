@@ -114,7 +114,8 @@ The conda-forge channel contains many general-purpose packages not already found
 Now users can downlaod and istall the search tools as follows:
 
 ```
-conda install -c bioconda blast diamond ac-diamond mmseqs2 last
+conda install -c bioconda blast diamond mmseqs2 last
+conda install -c bioconda/label/cf201901 ac-diamond
 conda install -c ostrokach-forge hh-suite
 ```
 

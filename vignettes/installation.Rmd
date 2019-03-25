@@ -115,7 +115,11 @@ Now users can downlaod and istall the search tools as follows:
 
 ```
 conda install -c bioconda blast diamond mmseqs2 last
+```
+
+Please be aware that ... and ... are only available from `conda` for `Linux` machines.
+
+```
 conda install -c bioconda/label/cf201901 ac-diamond
 conda install -c ostrokach-forge hh-suite
 ```
-

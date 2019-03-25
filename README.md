@@ -31,7 +31,6 @@ sequence searches and sequence comparisons between thousands of genomes.
 Examples include:
 
 - [DIAMOND](https://github.com/bbuchfink/diamond)
-- [AC-DIAMOND](https://github.com/Maihj/AC-DIAMOND)
 - [MMSeqs2](https://github.com/soedinglab/MMseqs2)
 - [HH-suite3](https://github.com/soedinglab/hh-suite)
 - [LAST+](https://github.com/hallamlab/LAST-Plus)

@@ -1,6 +1,8 @@
 # metablastr
 
-### An easy-to-use framework to perform massive sequence searches with R
+## An easy-to-use framework to perform massive sequence searches with R
+
+### Motivation 
 
 The exponentially growing number of available sequences in biological databases
 revolutionizes the way modern life science research is conducted. Approximately
@@ -35,6 +37,7 @@ Examples include:
 - [HH-suite3](https://github.com/soedinglab/hh-suite)
 - [LAST+](https://github.com/hallamlab/LAST-Plus)
 
+### Short package description  
 
 The `metablastr` package harnesses the power of these search tools by providing interface functions between R and the standalone (command line tool) versions
 of these programs. In addition to providing interface functions, `metablastr` provides a scalable database backend infrastructure

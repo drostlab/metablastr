@@ -24,7 +24,8 @@ Imports:
     ggplot2,
     ggridges,
     IRanges,
-    fs
+    fs,
+    rtracklayer
 Suggests: 
     testthat,
     knitr,

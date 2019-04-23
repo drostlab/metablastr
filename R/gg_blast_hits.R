@@ -14,6 +14,7 @@
 #' @param scale the ridges scale passed to \code{\link[ggridges]{geom_density_ridges}}.
 #' @param xlab x-axis label.
 #' @param ylab y-axis label.
+#' @param title figure title which will be concatenated with the number of BLAST hits available in the inpit \code{blast_tbl}.
 #' @param xticks number of ticks on the x-axis. Default is \code{xticks = 5}.
 #' @param levels a character vector specifying the exact order of species names (levels) 
 #' that is used to \code{\link{factor}} and sort species in the \code{\link[ggridges]{geom_density_ridges}} plot.
@@ -27,6 +28,7 @@ gg_blast_hits <-
            scale = 4,
            xlab = "Query",
            ylab = "Density over Number of BLAST Hits",
+           title = "Total number of BLAST hits: ",
            xticks = 5,
            levels = NULL
            ) {
@@ -37,7 +39,7 @@ gg_blast_hits <-
         "' is not a valid type option. Please consult the documentation for details."
       )
     
-    q_len <- alig_length <- scope <- species <- NULL
+    q_len <- alig_length <- scope <- bit_score <- species <- evalue <- NULL
     blast_tbl <-
       dplyr::mutate(blast_tbl, scope = 1 - (abs(q_len - alig_length) / q_len))
     
@@ -52,7 +54,8 @@ gg_blast_hits <-
             x = scope * 100,
             y = species,
             fill = species,
-            alpha = alpha
+            alpha = alpha,
+            height = ..density..
           )
         )
     }
@@ -65,7 +68,8 @@ gg_blast_hits <-
             x = alig_length,
             y = species,
             fill = species,
-            alpha = alpha
+            alpha = alpha,
+            height = ..density..
           )
         )
     }
@@ -78,7 +82,8 @@ gg_blast_hits <-
             x = evalue,
             y = species,
             fill = species,
-            alpha = alpha
+            alpha = alpha,
+            height = ..density..
           )
         )
     }
@@ -91,14 +96,20 @@ gg_blast_hits <-
             x = bit_score,
             y = species,
             fill = species,
-            alpha = alpha
+            alpha = alpha,
+            height = ..density..
           )
         )
     }
     
     p <- p +
-      ggridges::geom_density_ridges(scale = scale, show.legend = FALSE) + ggridges::theme_ridges() +
-      ggridges::theme_ridges(font_size = 13, grid = TRUE)  +
+      ggridges::geom_density_ridges(scale = scale,
+                                    show.legend = FALSE,
+                                    alpha = alpha,
+                                    size = 1.5,
+                                    stat = "density", trim = TRUE) + ggridges::theme_ridges() +
+      ggridges::theme_ridges(font_size = 13, grid = TRUE)  + 
+      ggsci::scale_colour_lancet() + ggsci::scale_fill_lancet() +
       ggplot2::labs(x = xlab,
                     y = ylab) +
       ggplot2::theme(legend.text = ggplot2::element_text(size = 18)) +
@@ -112,7 +123,7 @@ gg_blast_hits <-
           colour = "black",
           face = "bold"
         )
-      ) + ggplot2::ggtitle(paste0("Total number of BLAST hits: ", nrow(
+      ) + ggplot2::ggtitle(paste0(title, nrow(
         dplyr::filter(blast_tbl, scope >= scope_cutoff)
       ))) +
       ggplot2::theme(axis.text.x = ggplot2::element_text(

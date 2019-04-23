@@ -6,8 +6,8 @@
 \usage{
 gg_blast_hits(blast_tbl, type = "scope", scope_cutoff = 0.1,
   alpha = 0.7, scale = 4, xlab = "Query",
-  ylab = "Density over Number of BLAST Hits", xticks = 5,
-  levels = NULL)
+  ylab = "Density over Number of BLAST Hits",
+  title = "Total number of BLAST hits: ", xticks = 5, levels = NULL)
 }
 \arguments{
 \item{blast_tbl}{a BLAST table generated with \code{\link{blast_genomes}}.}
@@ -30,6 +30,8 @@ defines the minimum scope that is required to retain a BLAST hit. Default is \co
 \item{xlab}{x-axis label.}
 
 \item{ylab}{y-axis label.}
+
+\item{title}{figure title which will be concatenated with the number of BLAST hits available in the inpit \code{blast_tbl}.}
 
 \item{xticks}{number of ticks on the x-axis. Default is \code{xticks = 5}.}
 

@@ -66,36 +66,57 @@ extract_upstream_promotor_seqs <- function(organism,
     rtracklayer::import(annotation_file)
   }, error = function(e) stop ("The function 'rtracklayer::import()' was unable to import the specified annotation file. Could it be that your file is still in *.gz format. Please unzip your files before use.", call. = FALSE))
   
+  if(!file.exists(paste0(genome_file, ".fai"))) {
+    message("Generate genome index file for ", genome_file)
+    tryCatch(
+      Rsamtools::indexFa(genome_file),
+      error = function(e) {
+        warning("The function Rsamtools::indexFa() is not able to generate a fasta index.", call. = FALSE)
+        message("Running samtools directly to generate genome index file for ", genome_file)
+        is_samtools_installed()
+        system(paste("samtools faidx ", genome_file))
+      }
+    )
+  }
+  
+  fasta_idx <- Rsamtools::FaFile(genome_file)
+  
+  message("If present, then unassigned strand information ('*') will be replaced by '", replaceUnstranded,"'.")
+  # if strand information is missing replace with "+" or "-", defined in replaceUnstranded
   if (sum(as.character(annotation@strand@values) %in% c("+", "-")) == 0) {
     if (!is.element(replaceUnstranded, c("+", "-"))) {
-      stop(
-        "The parameter \"replaceUnstranded\" can only assigned to the values \"+\" or \"-\""
-      )
+      stop("The parameter \"replaceUnstranded\" can only assigned to the values \"+\" or \"-\"")
     }
     annotation@strand[which(as.character(annotation@strand) %in% "*")] <-
       replaceUnstranded
   }
   
+  message("Running quality control on imported annotation file by removing multipart transcripts that have different strand information ...")
+  
+  ID <- NULL
+  annotation_clean <- dplyr::do(dplyr::group_by(as.data.frame(annotation), ID), remove_multipart_transcripts(.))
+  
   message("Generating TxDbFromGRanges ...")
   
   tryCatch({
   gr_db <-
-    GenomicFeatures::makeTxDbFromGRanges(gr = annotation)
+    GenomicFeatures::makeTxDbFromGRanges(
+      GenomicRanges::makeGRangesFromDataFrame(
+        annotation_clean,
+        keep.extra.columns = TRUE,
+        seqnames.field = "seqnames"
+      )
+    )
   }, error = function(e) stop ("The function 'GenomicFeatures::makeTxDbFromGRanges()' was unable to generate a TxDbFromGRanges. There might be a corrupt entry in the specified annotation file ", annotation_file, "'.", call. = FALSE))
   
   message("Extracting gene loci ...")
   genes <- GenomicFeatures::genes(x = gr_db)
   
-  tryCatch({
-  Rsamtools::indexFa(genome_file)
-  fa_seqs <- Rsamtools::FaFile(genome_file)
-  }, error = function(e) stop ("The function 'Rsamtools::indexFa' was unable to generate a index file from your 'genome_file'.", call. = FALSE))
-  
   message("Extracting promotor loci ", promotor_width, "bp upstream of TSS ..")
   
   tryCatch({
   seqs <-
-    GenomicFeatures::extractUpstreamSeqs(x = fa_seqs, genes = genes, width = promotor_width)
+    GenomicFeatures::extractUpstreamSeqs(x = fasta_idx, genes = genes, width = promotor_width)
   }, error = function(e) stop ("The function 'GenomicFeatures::extractUpstreamSeqs()' was unable to extract upstream promotor sequences from your 'genome_file'. Could it be that your file is still in *.gz format. Please unzip your files before use.", call. = FALSE))
   
   if (is.null(file_name))
@@ -107,5 +128,6 @@ extract_upstream_promotor_seqs <- function(organism,
     filepath = file_name
   )
   
+  RSQLite::dbDisconnect(gr_db$conn)
   return(file_name)
 }

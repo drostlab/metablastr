@@ -7,6 +7,29 @@
 gg_species_dnds_blast_tbl(blast_tbl, type, order, xlab = "", ylab = "",
   title = "")
 }
+\arguments{
+\item{blast_tbl}{a \code{blast_tbl}.}
+
+\item{type}{type of sustitution rate quantification that shall be visualized on the y-axis. Options are:
+\itemize{
+\item \code{type = "dN"}
+\item \code{type = "dS"}
+\item \code{type = "dNdS"}
+\item \code{type = "dN+dS"}
+}}
+
+\item{order}{a character vector specifying the order of the species using their scientific names (which have to match the species names stored in the \code{subject_species}
+column of the input \code{blast_tbl}).}
+
+\item{xlab}{label of x-axis.}
+
+\item{ylab}{label of y-axis.}
+
+\item{title}{title label.}
+}
 \description{
-Plot pairwise dN, dS, or dNdS distributions of orthologous genes
+This function enables users
+}
+\author{
+Hajk-Georg Drost
 }

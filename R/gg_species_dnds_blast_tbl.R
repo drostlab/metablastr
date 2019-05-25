@@ -1,11 +1,21 @@
 #' @title Plot pairwise dN, dS, or dNdS distributions of orthologous genes
-#' @description 
-#' @param blast_tbl
-#' @param type
-#' @param order
-#' @param xlab
-#' @param ylab
-#' @param title
+#' @description This function enables users 
+#' @param blast_tbl a \code{blast_tbl}.
+#' @param type type of sustitution rate quantification that shall be visualized on the y-axis. Options are:
+#' \itemize{
+#' \item \code{type = "dN"}
+#' \item \code{type = "dS"}
+#' \item \code{type = "dNdS"}
+#' \item \code{type = "dN+dS"}
+#' }
+#' @param order a character vector specifying the order of the species using their scientific names (which have to match the species names stored in the \code{subject_species}
+#' column of the input \code{blast_tbl}). 
+#' @param xlab label of x-axis.
+#' @param ylab label of y-axis.
+#' @param title title label.
+#' @author Hajk-Georg Drost
+#' @export
+
 gg_species_dnds_blast_tbl <- function(blast_tbl, type, order, xlab = "", ylab = "", title = "") {
   
   if (!is.element(type, c("dN", "dS", "dNdS", "dN+dS")))

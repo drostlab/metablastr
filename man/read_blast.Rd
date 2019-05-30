@@ -21,16 +21,19 @@ Available options are:
  \item \code{out.format = "xml2.blast.multi"} : Multiple-file BLAST XML2
  \item \code{out.format = "json.blast.single"} : Single-file BLAST JSON
  \item \code{out.format = "xml2.blast.single"} : Single-file BLAST XML2
- }
- @param postgres.user specify username for RPostgreSQL connection.
- @author Hajk-Georg Drost
- @seealso \code{\link{blast_protein_to_protein}}, \code{\link{blast_nucleotide_to_protein}},
- \code{\link{blast_nucleotide_to_nucleotide}}
- @export
- @importFrom RPostgreSQL}
+ }}
+
+\item{postgres.user}{specify username for RPostgreSQL connection.}
 }
 \description{
 When performing BLAST searches with the \code{blast_*()} functions,
 the corresponding BLAST output file can be imported into the current R session using this function.
 All output formats given by BLAST are supported (see e.g. description for details).
+}
+\seealso{
+\code{\link{blast_protein_to_protein}}, \code{\link{blast_nucleotide_to_protein}},
+\code{\link{blast_nucleotide_to_nucleotide}}
+}
+\author{
+Hajk-Georg Drost
 }

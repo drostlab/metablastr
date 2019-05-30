@@ -8,7 +8,8 @@
 #' correct sequence type then an error is thrown.
 #' @examples 
 #' # test an dna file
-#' file_contains_dna(file = system.file('seqs/qry_nn.fa', package = 'metablastr'), input_type = "query")
+#' file_contains_dna(file = system.file('seqs/qry_nn.fa', package = 'metablastr'), 
+#'                   input_type = "query")
 #' @export
 
 file_contains_dna <- function(file, input_type) {

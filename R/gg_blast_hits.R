@@ -39,7 +39,7 @@ gg_blast_hits <-
         "' is not a valid type option. Please consult the documentation for details."
       )
     
-    q_len <- alig_length <- scope <- bit_score <- species <- evalue <- NULL
+    q_len <- alig_length <- scope <- bit_score <- species <- evalue <- ..density.. <- NULL
     blast_tbl <-
       dplyr::mutate(blast_tbl, scope = 1 - (abs(q_len - alig_length) / q_len))
     

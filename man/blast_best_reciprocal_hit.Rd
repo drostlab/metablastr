@@ -25,6 +25,14 @@ Options are:
 \item \code{search_type = "protein_to_protein"}
 }}
 
+\item{strand}{Query DNA strand(s) to search against database/subject.
+Options are:
+\itemize{
+\item \code{strand = "both"} (Default): query against both DNA strands.
+\item \code{strand = "minus"} : query against minus DNA strand.
+\item \code{strand = "plus"} : query against plus DNA strand.
+}}
+
 \item{output.path}{path to folder at which BLAST output table shall be stored. 
 Default is \code{output.path = NULL} (hence \code{getwd()} is used).}
 

@@ -5,6 +5,7 @@ gg_shared_genes <- function(shared_genes_tbl,
                             text_size = 18,
                             y_ticks = 8) {
   
+  min_species <- n_genes <- NULL
   p <- ggplot2::ggplot(shared_genes_tbl, ggplot2::aes(x = factor(min_species, levels = 1:max(shared_genes_tbl$min_species)), y = n_genes)) +
     ggplot2::geom_bar(stat = "identity", fill = "#2D2D2D") +
     ggplot2::facet_grid(. ~ qcovhsp) +

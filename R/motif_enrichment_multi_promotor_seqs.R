@@ -18,7 +18,7 @@
 #' @param min.mismatch minimum number of mismatches that are allowed between the sequence motif and the matching region in the sampled sequence.
 #' @param ... additional arguments passed to \code{\link{motif_compare}}.
 #' @author Hajk-Georg Drost
-#' @seealso \code{\link{motif_count}}, \code{\link{motif_count_multi}}, \code{\link{motif_compare_multi_promotor_seqs}}, \code{\link{motif_compare}}, 
+#' @seealso \code{\link{motif_count}}, \code{\link{motif_compare_multi_promotor_seqs}}, \code{\link{motif_compare}}, 
 #' \code{\link{motif_enrichment}}
 
 motif_enrichment_multi_promotor_seqs <-

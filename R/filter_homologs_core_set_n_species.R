@@ -9,16 +9,19 @@
 #' \item max(bit_score): only the hit having the highest bit-score is retained.
 #' }
 #' @param blast_tbl a BLAST table generated with \code{\link{detect_homologs_proteome_to_proteome}} or \code{\link{detect_homologs_cds_to_cds}}.
-#' @param min_qcovhsp minimum query coverage of the hit in percent \code{0..100} that shall be retained. Default value is set to \code{min_qcovhsp = 50} (= a best hit alignment must have at least 50% query coverage).
+#' @param min_qcovhsp minimum query coverage of the hit in percent \code{0..100} that shall be retained. Default value is set to \code{min_qcovhsp = 50} (= a best hit alignment must have at least 50 percent query coverage).
 #' @param n_species minimum number of species in which a query sequence needs to generates valid blast hits. 
 #' @author Hajk-Georg Drost
 #' @seealso \code{\link{filter_best_hits}}, \code{\link{filter_homologs_core_set}}
 #' @export
 
 filter_homologs_core_set_n_species <- function(blast_tbl, min_qcovhsp = 50, n_species) {
+  
   message("Retrieve core set of homologs (= query hits shared across ",n_species," species).")
-  qcovhsp <- query_id <- NULL
-  blast_tbl_processed <- filter(blast_tbl, qcovhsp >= min_qcovhsp)
+  
+  qcovhsp <- query_id <- '.' <- NULL
+  
+  blast_tbl_processed <- dplyr::filter(blast_tbl, qcovhsp >= min_qcovhsp)
   
   # total number of species in the BLAST table
   total_n_species <-
@@ -50,7 +53,7 @@ filter_homologs_core_set_n_species <- function(blast_tbl, min_qcovhsp = 50, n_sp
     }
   }
   
-  query_id <- NULL
+  query_id <- gene_name <- NULL
   blast_tbl_processed_hit_in_all_species <-
     dplyr::do(dplyr::group_by(blast_tbl_processed, gene_name),
               filter_species_hits(.))

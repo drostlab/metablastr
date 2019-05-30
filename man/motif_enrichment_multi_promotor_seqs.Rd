@@ -42,7 +42,7 @@ Compare the number of motifs in a set of non-random versus randomly sampled gene
 The resulting values are then used to statistically assess the enrichment of certain motifs in real sequences compared to randomly sampled gene promotor sequences.
 }
 \seealso{
-\code{\link{motif_count}}, \code{\link{motif_count_multi}}, \code{\link{motif_compare_multi_promotor_seqs}}, \code{\link{motif_compare}}, 
+\code{\link{motif_count}}, \code{\link{motif_compare_multi_promotor_seqs}}, \code{\link{motif_compare}}, 
 \code{\link{motif_enrichment}}
 }
 \author{

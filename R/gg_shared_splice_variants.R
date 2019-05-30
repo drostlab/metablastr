@@ -5,6 +5,8 @@ gg_shared_splice_variants <- function(shared_genes_tbl,
                             text_size = 18,
                             y_ticks = 8) {
   
+  min_species <- n_splice_var <- NULL
+    
   p <- ggplot2::ggplot(shared_genes_tbl, ggplot2::aes(x = factor(min_species, levels = 1:max(shared_genes_tbl$min_species)), y = n_splice_var)) +
     ggplot2::geom_bar(stat = "identity", fill = "#00A087B2") +
     ggplot2::facet_grid(. ~ qcovhsp) +

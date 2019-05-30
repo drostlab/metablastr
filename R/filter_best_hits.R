@@ -1,7 +1,6 @@
 #' @title Retrieve the best hits across species from a BLAST table
 #' @description This function aims to retrieve the best blast hits for each query sequence
 #' by filtering a \code{blast_tbl} using the following criteria.
-#' 
 #' A best hit is defined as (fulfilling all three critaria):
 #' \itemize{
 #'  \item \code{maximum alig_length}: only the hit having the longest alignment length is retained.
@@ -9,8 +8,10 @@
 #'  \item \code{maximum bit_score}: only the hit having the highest bit-score is retained.  
 #' }  
 #' @param blast_tbl a BLAST table generated with \code{\link{detect_homologs_proteome_to_proteome}} or \code{\link{detect_homologs_cds_to_cds}}.
-#' @param min_qcovhsp minimum query coverage of the hit in percent \code{10 to 100} that shall be retained. Default value is set to \code{min_qcovhsp = 50} (= a best hit alignment must have at least 50% query coverage).
+#' @param min_qcovhsp minimum query coverage of the hit in percent \code{10 to 100} that shall be retained. Default value is set to \code{min_qcovhsp = 50} (= a best hit alignment must have at least 50 percent query coverage).
 #' @author Hajk-Georg Drost
+#' @seealso \code{\link{filter_homologs_core_set}}, \code{\link{gg_blast_hits}}, \code{\link{blast_nucleotide_to_nucleotide}},
+#' \code{\link{blast_protein_to_protein}}
 #' @export
 
 filter_best_hits <- function(blast_tbl, min_qcovhsp = 50) {
@@ -21,7 +22,7 @@ filter_best_hits <- function(blast_tbl, min_qcovhsp = 50) {
   if (nrow(blast_tbl) == 0)
     stop("Please provide a blast_tbl that contains at least one row.", call. = FALSE)
   
-  alig_length <- qcovhsp <- bitscore <- species <- query_id <- NULL
+  alig_length <- qcovhsp <- bitscore <- species <- query_id <- '.' <- NULL
   
   message("Retrieving best blast hits using the following criteria: ")
   message(" 1) the query coverage ('qcovhsp') of the hit must be at least greater than ", qcovhsp)

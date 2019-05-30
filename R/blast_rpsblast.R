@@ -39,7 +39,10 @@
 #' \dontrun{
 #' db_path <- '/home/Cdd'
 #' db_alias <- 'myCdd'
-#' rps_test <- blast_rpsblast(query = system.file('seqs/sbj_aa.fa', package = 'metablastr'), db = db_path, db.alias = db_alias, prep.db = FALSE)
+#' rps_test <- blast_rpsblast(query = system.file('seqs/sbj_aa.fa', package = 'metablastr'), 
+#'                            db = db_path, 
+#'                            db.alias = db_alias, 
+#'                            prep.db = FALSE)
 #' }
 
 blast_rpsblast <- function(query,
@@ -62,6 +65,8 @@ blast_rpsblast <- function(query,
             stop("Only output formats: 'xml', 'tab', or 'csv' can be imported.", call. = FALSE)
     }
     
+    db_alias <- NULL
+  
     # determine the number of cores on a multicore machine
     multi.cores <- parallel::detectCores()
     
@@ -152,27 +157,35 @@ blast_rpsblast <- function(query,
                                     file = output_rpsblast,
                                     delim = ',',
                                     col_names = FALSE,
-                                    col_type = readr::cols(
-                                    X1 = col_character(),
-                                    X2 = col_character(),
-                                    X3 = col_double(),
-                                    X4 = col_integer(),
-                                    X5 = col_integer(),
-                                    X6 = col_integer(),
-                                    X7 = col_integer(),
-                                    X8 = col_integer(),
-                                    X9 = col_integer(),
-                                    X10 = col_integer(),
-                                    X11 = col_double(),
-                                    X12 = col_double()))
+                                    col_types = readr::cols(
+                                    X1 = readr::col_character(),
+                                    X2 = readr::col_character(),
+                                    X3 = readr::col_double(),
+                                    X4 = readr::col_integer(),
+                                    X5 = readr::col_integer(),
+                                    X6 = readr::col_integer(),
+                                    X7 = readr::col_integer(),
+                                    X8 = readr::col_integer(),
+                                    X9 = readr::col_integer(),
+                                    X10 = readr::col_integer(),
+                                    X11 = readr::col_double(),
+                                    X12 = readr::col_double()))
     
     
-    colnames(rpsblast_csv) <- c('query_id', 'subject_id',
-                    'perc_identity', 'alig_length',
-                    'mismatches', 'gap_openings',
-                    'q_start', 'q_end',
-                    's_start', 's_end', 
-                    'e_value', 'bit_score')
+        colnames(rpsblast_csv) <- c(
+          'query_id',
+          'subject_id',
+          'perc_identity',
+          'alig_length',
+          'mismatches',
+          'gap_openings',
+          'q_start',
+          'q_end',
+          's_start',
+          's_end',
+          'e_value',
+          'bit_score'
+        )
     message("\n")
     message("rpsblast search finished! The rpsblast output file was imported into the running R session. The output file has been stored at: ", output_rpsblast)
     return(rpsblast_csv)

@@ -68,7 +68,7 @@
 #' }
 #' 
 #' @seealso \code{\link{blast_nucleotide_to_nucleotide}}, \code{\link{blast_protein_to_protein}}, 
-#' \code{\link{blast_protein_to_nucleotide}}, \code{\link{blast_best}}
+#' \code{\link{blast_protein_to_nucleotide}}, \code{\link{blast_best_hit}}
 #' @export
 
 blast_nucleotide_to_protein <- function(query, 

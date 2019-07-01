@@ -29,7 +29,8 @@ motif_enrichment(real_seqs, random_seqs, motifs, test = "fisher",
 }
 \description{
 Compare the number of motifs in a set of non-random versus random sequences.
-The resulting values are then tested for enrichment of certain motifs in real sequences compared to random sequences. Several tests statistics and approaches are available to quantify significant motif enrichment.
+The resulting values are then tested for enrichment of certain motifs in real sequences compared to random sequences. 
+Several tests statistics and approaches are available to quantify significant motif enrichment.
 }
 \seealso{
 \code{\link{motif_count}}, \code{\link{extract_random_seqs_from_genome}}, \code{\link{extract_hit_seqs_from_genomes}}

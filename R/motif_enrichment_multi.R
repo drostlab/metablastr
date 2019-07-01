@@ -1,8 +1,21 @@
-#' @title 
-#' @description 
-#' @param 
-#' @param 
-#' @param 
+#' @title Statistical assessment of motif enrichments in a set of non-random versus randomly sampled genomic sequences for multiple species
+#' @description Compare the number of motifs in a set of non-random versus random sequences genomic sequences within a set of subject genomes. 
+#' The resulting values are then used to statistically assess the enrichment of certain motifs in real sequences compared to randomly sampled genomic sequences. 
+#' @param blast_tbl a blast_table.
+#' @param subject_genomes a character vector storing the file paths to the subject genomes that shall be used as subject references.
+#' @param test \itemize{
+#' \item \code{test = "fisher"}: Fisher's Exact Test for Count Data (see \code{link[stats]{fisher.test}} for details).
+#' }
+#' @param alternative indicates the alternative hypothesis and must be one of \code{"two.sided"}, \code{"greater"} or \code{"less"}. You can specify just the initial letter. Only used in the 2 by 2 case.
+#' @param size total number of sequences that shall be sampled per subject genome.
+#' @param interval_width length of the sequence in which motifs shall be detected.
+#' @param motifs a character vector storing (case sensitive) motif sequences for which abundance in the sampled sequences shall be assessed.
+#' @param max.mismatch the maximum number of mismatching letters allowed (see \code{\link[Biostrings]{matchPattern}} for details).
+#' @param min.mismatch the minimum number of mismatching letters allowed (see \code{\link[Biostrings]{vcountPattern}} for details).
+#' @param ... additional arguments passed to \code{\link{motif_enrichment}}.
+#' @author Hajk-Georg Drost
+#' @seealso \code{\link{motif_count}}, \code{\link{motif_compare_multi_promotor_seqs}}, \code{\link{motif_compare}}, 
+#' \code{\link{motif_enrichment}}
 
 motif_enrichment_multi <-
   function(blast_tbl,

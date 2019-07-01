@@ -105,7 +105,7 @@ extract_random_seqs_from_genome <-
         }
         
         random_coordinates <- dplyr::bind_rows(res)
-        random_coordinates <- na.omit(random_coordinates)
+        random_coordinates <- stats::na.omit(random_coordinates)
         
           # for each chromosome separately
           for (j in seq_len(length(chr_names))) {

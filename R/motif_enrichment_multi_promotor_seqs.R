@@ -1,14 +1,31 @@
-#' @title 
-#' @description 
-#' @param 
-#' @param 
-#' @param 
+#' @title Statistical assessment of motif enrichments in a set of non-random versus randomly sampled gene promotor sequences for multiple species
+#' @description Compare the number of motifs in a set of non-random versus randomly sampled gene promotor sequences within a set of subject genomes. 
+#' The resulting values are then used to statistically assess the enrichment of certain motifs in real sequences compared to randomly sampled gene promotor sequences. 
+#' @param blast_tbl a blast_table.
+#' @param subject_genomes a character vector storing the file paths to the subject genomes that shall be used as subject references.
+#' @param annotation_files a character vector storing the file paths to the subject annotation files in \code{.gff} format that match the subject genomes.
+#' @param annotation_format the annotation format. Options are:
+#' \itemize{
+#' \item \code{annotation_format = "gff"}
+#' }
+#' @param test \itemize{
+#' \item \code{test = "fisher"}: Fisher's Exact Test for Count Data (see \code{link[stats]{fisher.test}} for details).
+#' }
+#' @param alternative indicates the alternative hypothesis and must be one of \code{"two.sided"}, \code{"greater"} or \code{"less"}. You can specify just the initial letter. Only used in the 2 by 2 case.
+#' @param interval_width total number of sequences that shall be sampled per subject genome.
+#' @param motifs a character vector storing (case sensitive) motif sequences for which abundance in the sampled sequences shall be assessed.
+#' @param max.mismatch maximum number of mismatches that are allowed between the sequence motif and the matching region in the sampled sequence.
+#' @param min.mismatch minimum number of mismatches that are allowed between the sequence motif and the matching region in the sampled sequence.
+#' @param ... additional arguments passed to \code{\link{motif_compare}}.
+#' @author Hajk-Georg Drost
+#' @seealso \code{\link{motif_count}}, \code{\link{motif_compare_multi_promotor_seqs}}, \code{\link{motif_compare}}, 
+#' \code{\link{motif_enrichment}}
 
 motif_enrichment_multi_promotor_seqs <-
   function(blast_tbl,
            subject_genomes,
            annotation_files,
-           annotation_format = "gtf",
+           annotation_format = "gff",
            test = "fisher",
            alternative = "two.sided",
            interval_width,

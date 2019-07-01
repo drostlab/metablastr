@@ -9,7 +9,7 @@ filter_homologs_core_set(blast_tbl, min_qcovhsp = 50)
 \arguments{
 \item{blast_tbl}{a BLAST table generated with \code{\link{detect_homologs_proteome_to_proteome}} or \code{\link{detect_homologs_cds_to_cds}}.}
 
-\item{min_qcovhsp}{minimum query coverage of the hit in percent \code{0..100} that shall be retained. Default value is set to \code{min_qcovhsp = 50} (= a best hit alignment must have at least 50% query coverage).}
+\item{min_qcovhsp}{minimum query coverage of the hit in percent \code{0..100} that shall be retained. Default value is set to \code{min_qcovhsp = 50} (= a best hit alignment must have at least 50 percent query coverage).}
 }
 \description{
 This function aims to retrieve a core set of best blast hits for each query sequence that is shared across all species. In other words, only query sequences

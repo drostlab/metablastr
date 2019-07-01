@@ -17,6 +17,13 @@
 #' \item \code{search_type = "protein_to_nucleotide"}
 #' \item \code{search_type = "protein_to_protein"}
 #' }
+#' @param strand Query DNA strand(s) to search against database/subject.
+#' Options are:
+#' \itemize{
+#' \item \code{strand = "both"} (Default): query against both DNA strands.
+#' \item \code{strand = "minus"} : query against minus DNA strand.
+#' \item \code{strand = "plus"} : query against plus DNA strand.
+#' }
 #' @param output.path path to folder at which BLAST output table shall be stored. 
 #' Default is \code{output.path = NULL} (hence \code{getwd()} is used).
 #' @param is.subject.db logical specifying whether or not the \code{subject} file is a file in fasta format (\code{is.subject.db = FALSE}; default)
@@ -95,20 +102,33 @@
 #' 
 #' @seealso \code{\link{blast_nucleotide_to_nucleotide}}, \code{\link{blast_protein_to_protein}},
 #' \code{\link{blast_nucleotide_to_protein}}, \code{\link{blast_protein_to_nucleotide}},
-#' \code{\link{test_best_reciprocal_hit}}
+#' \code{\link{blast_best_reciprocal_hit}}
 #' @export
 
-blast_best_hit <- function(query, subject, search_type = "nucleotide_to_nucleotide", strand = "both",
-                       output.path = NULL, is.subject.db = FALSE, task = "blastn",
-                       db.import = FALSE, postgres.user = NULL, evalue = 0.001,
-                       out.format = "csv", cores = 1, max.target.seqs = 10000,
-                       db.soft.mask = FALSE, db.hard.mask = FALSE, blast.path = NULL) {
+blast_best_hit <-
+  function(query,
+           subject,
+           search_type = "nucleotide_to_nucleotide",
+           strand = "both",
+           output.path = NULL,
+           is.subject.db = FALSE,
+           task = "blastn",
+           db.import = FALSE,
+           postgres.user = NULL,
+           evalue = 0.001,
+           out.format = "csv",
+           cores = 1,
+           max.target.seqs = 10000,
+           db.soft.mask = FALSE,
+           db.hard.mask = FALSE,
+           blast.path = NULL) {
+    
   
   if (!is.element(search_type, c("nucleotide_to_nucleotide", "nucleotide_to_protein", "protein_to_nucleotide", "protein_to_protein")))
     stop("Please provide a search_type that is supported by this function. Options are search_type = 'nucleotide_to_nucleotide'; search_type = 'nucleotide_to_protein'; ",
          "search_type = 'protein_to_nucleotide'; search_type = 'protein_to_nucleotide'", call. = FALSE)
   
-  
+  '.' <- NULL
   get_best_hit <- function(x) {
     min_val <- min(x$evalue)
     evalue <- alig_length <- NULL

@@ -2,14 +2,43 @@
 % Please edit documentation in R/motif_compare_multi_promotor_seqs.R
 \name{motif_compare_multi_promotor_seqs}
 \alias{motif_compare_multi_promotor_seqs}
-\title{Count the number of motifs in a set of non-random versus random sequences for multiple species}
+\title{Count the number of motifs in a set of non-random versus randomly drawn gene promotor sequences for multiple species}
 \usage{
 motif_compare_multi_promotor_seqs(blast_tbl, subject_genomes,
   annotation_files, annotation_format = "gff", interval_width, motifs,
   max.mismatch = 0, min.mismatch = 0, ...)
 }
+\arguments{
+\item{blast_tbl}{a blast_table.}
+
+\item{subject_genomes}{a character vector storing the file paths to the subject genomes that shall be used as subject references.}
+
+\item{annotation_files}{a character vector storing the file paths to the subject annotation files in \code{.gff} format that match the subject genomes.}
+
+\item{annotation_format}{the annotation format. Options are:
+\itemize{
+\item \code{annotation_format = "gff"}
+}}
+
+\item{interval_width}{total number of sequences that shall be sampled per subject genome.}
+
+\item{motifs}{a character vector storing (case sensitive) motif sequences for which abundance in the sampled sequences shall be assessed.}
+
+\item{max.mismatch}{maximum number of mismatches that are allowed between the sequence motif and the matching region in the sampled sequence.}
+
+\item{min.mismatch}{minimum number of mismatches that are allowed between the sequence motif and the matching region in the sampled sequence.}
+
+\item{...}{additional arguments passed to \code{\link{motif_compare}}.}
+}
 \description{
-Compare the number of motifs in a set of non-random versus random sequences. The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences. Each enrichment analysis is performed for a set of different species/genomes.
+Compare the number of motifs in a set of non-random versus random promotor sequences. Internally, promotor sequences
+are extracted upstream from the transcription start site (TSS) and have the length specified in \code{interval_width}.
+The resulting motif count values can then be used to test the enrichment of certain motifs in real sequences compared to randomly drawn gene promotor sequences. 
+Each enrichment analysis is performed for a set of different species or genomes.
+}
+\seealso{
+\code{\link{motif_count}}, \code{\link{motif_compare}}, \code{\link{motif_compare_multi}}, 
+\code{\link{motif_enrichment}}, \code{\link{motif_enrichment_multi}}
 }
 \author{
 Hajk-Georg Drost

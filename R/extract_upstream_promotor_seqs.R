@@ -64,9 +64,9 @@ extract_upstream_promotor_seqs <- function(organism,
   tryCatch({
   annotation <-
     rtracklayer::import(annotation_file)
-  }, error = function(e) stop ("The function 'rtracklayer::import()' was unable to import the specified annotation file. Could it be that your file is still in *.gz format. Please unzip your files before use.", call. = FALSE))
+  }, error = function(e) stop("The function 'rtracklayer::import()' was unable to import the specified annotation file. Could it be that your file is still in *.gz format. Please unzip your files before use.", call. = FALSE))
   
-  if(!file.exists(paste0(genome_file, ".fai"))) {
+  if (!file.exists(paste0(genome_file, ".fai"))) {
     message("Generate genome index file for ", genome_file)
     tryCatch(
       Rsamtools::indexFa(genome_file),
@@ -93,7 +93,7 @@ extract_upstream_promotor_seqs <- function(organism,
   
   message("Running quality control on imported annotation file by removing multipart transcripts that have different strand information ...")
   
-  ID <- NULL
+  ID <- '.' <- NULL
   annotation_clean <- dplyr::do(dplyr::group_by(as.data.frame(annotation), ID), remove_multipart_transcripts(.))
   
   message("Generating TxDbFromGRanges ...")
@@ -107,7 +107,7 @@ extract_upstream_promotor_seqs <- function(organism,
         seqnames.field = "seqnames"
       )
     )
-  }, error = function(e) stop ("The function 'GenomicFeatures::makeTxDbFromGRanges()' was unable to generate a TxDbFromGRanges. There might be a corrupt entry in the specified annotation file ", annotation_file, "'.", call. = FALSE))
+  }, error = function(e) stop("The function 'GenomicFeatures::makeTxDbFromGRanges()' was unable to generate a TxDbFromGRanges. There might be a corrupt entry in the specified annotation file ", annotation_file, "'.", call. = FALSE))
   
   message("Extracting gene loci ...")
   genes <- GenomicFeatures::genes(x = gr_db)
@@ -117,7 +117,7 @@ extract_upstream_promotor_seqs <- function(organism,
   tryCatch({
   seqs <-
     GenomicFeatures::extractUpstreamSeqs(x = fasta_idx, genes = genes, width = promotor_width)
-  }, error = function(e) stop ("The function 'GenomicFeatures::extractUpstreamSeqs()' was unable to extract upstream promotor sequences from your 'genome_file'. Could it be that your file is still in *.gz format. Please unzip your files before use.", call. = FALSE))
+  }, error = function(e) stop("The function 'GenomicFeatures::extractUpstreamSeqs()' was unable to extract upstream promotor sequences from your 'genome_file'. Could it be that your file is still in *.gz format. Please unzip your files before use.", call. = FALSE))
   
   if (is.null(file_name))
     file_name <- file.path(getwd(), paste0(unlist(stringr::str_replace_all(organism, " ", "_")), "_all_genes_promotor_seqs_", promotor_width, ".fa"))

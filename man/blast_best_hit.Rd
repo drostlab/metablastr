@@ -25,6 +25,14 @@ Options are:
 \item \code{search_type = "protein_to_protein"}
 }}
 
+\item{strand}{Query DNA strand(s) to search against database/subject.
+Options are:
+\itemize{
+\item \code{strand = "both"} (Default): query against both DNA strands.
+\item \code{strand = "minus"} : query against minus DNA strand.
+\item \code{strand = "plus"} : query against plus DNA strand.
+}}
+
 \item{output.path}{path to folder at which BLAST output table shall be stored. 
 Default is \code{output.path = NULL} (hence \code{getwd()} is used).}
 
@@ -126,7 +134,7 @@ blast_best_test <- blast_best_hit(
 \seealso{
 \code{\link{blast_nucleotide_to_nucleotide}}, \code{\link{blast_protein_to_protein}},
 \code{\link{blast_nucleotide_to_protein}}, \code{\link{blast_protein_to_nucleotide}},
-\code{\link{test_best_reciprocal_hit}}
+\code{\link{blast_best_reciprocal_hit}}
 }
 \author{
 Hajk-Georg Drost

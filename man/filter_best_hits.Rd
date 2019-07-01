@@ -9,7 +9,7 @@ filter_best_hits(blast_tbl, min_qcovhsp = 50)
 \arguments{
 \item{blast_tbl}{a BLAST table generated with \code{\link{detect_homologs_proteome_to_proteome}} or \code{\link{detect_homologs_cds_to_cds}}.}
 
-\item{min_qcovhsp}{minimum query coverage of the hit in percent \code{10 to 100} that shall be retained. Default value is set to \code{min_qcovhsp = 50} (= a best hit alignment must have at least 50% query coverage).}
+\item{min_qcovhsp}{minimum query coverage of the hit in percent \code{10 to 100} that shall be retained. Default value is set to \code{min_qcovhsp = 50} (= a best hit alignment must have at least 50 percent query coverage).}
 }
 \description{
 This function aims to retrieve the best blast hits for each query sequence
@@ -20,6 +20,10 @@ A best hit is defined as (fulfilling all three critaria):
  \item \code{qcovhsp >= min_qcovhsp}: only hits that have a query coverage of at least \code{min_qcovhsp} are retained.
  \item \code{maximum bit_score}: only the hit having the highest bit-score is retained.  
 }
+}
+\seealso{
+\code{\link{filter_homologs_core_set}}, \code{\link{gg_blast_hits}}, \code{\link{blast_nucleotide_to_nucleotide}},
+\code{\link{blast_protein_to_protein}}
 }
 \author{
 Hajk-Georg Drost

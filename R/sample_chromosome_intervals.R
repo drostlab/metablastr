@@ -9,7 +9,7 @@
 #' \item \code{strand = "plus"}
 #' \item \code{strand = "minus"}
 #' }
-#' @param size a non-negative integer giving the number of loci that shall be sampled.
+#' @param size a non-negative integer giving the number of sequences that shall be sampled from random genomic loci.
 #' @author Hajk-Georg Drost
 sample_chromosome_intervals <- function(chr_size, interval_width, strand, size) {
   
@@ -31,6 +31,7 @@ sample_chromosome_intervals <- function(chr_size, interval_width, strand, size) 
   # compute random end position in chromosome given interval width
   random_end <- random_start + interval_width - 1
   
+  start <- end <- NULL
   if (strand == "plus") {
     res <-
       tibble::tibble(start = random_start,

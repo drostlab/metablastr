@@ -16,12 +16,11 @@
 #'  \item \code{out.format = "json.blast.single"} : Single-file BLAST JSON
 #'  \item \code{out.format = "xml2.blast.single"} : Single-file BLAST XML2
 #'  }
-#'  @param postgres.user specify username for RPostgreSQL connection.
-#'  @author Hajk-Georg Drost
-#'  @seealso \code{\link{blast_protein_to_protein}}, \code{\link{blast_nucleotide_to_protein}},
-#'  \code{\link{blast_nucleotide_to_nucleotide}}
-#'  @export
-#'  @importFrom RPostgreSQL
+#' @param postgres.user specify username for RPostgreSQL connection.
+#' @author Hajk-Georg Drost
+#' @seealso \code{\link{blast_protein_to_protein}}, \code{\link{blast_nucleotide_to_protein}},
+#' \code{\link{blast_nucleotide_to_nucleotide}}
+#' @export
 
 read_blast <- function(file, out.format, postgres.user = NULL) {
 
@@ -63,7 +62,7 @@ read_blast <- function(file, out.format, postgres.user = NULL) {
        if (is.null(postgres.user))
            stop("Please specify a 'postgres.user' to import BLAST output into PostgresSQL database.", call. = FALSE)
        
-       require(RPostgreSQL)
+       #require(RPostgreSQL)
      
        postgres_filename <- paste0(unlist(stringr::str_split(basename(file),"[.]"))[1],"_postgres")
        

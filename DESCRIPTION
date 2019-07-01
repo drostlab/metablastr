@@ -8,17 +8,24 @@ Authors@R: c(person("Hajk-Georg", "Drost",
                 person("Anna", "Gogleva", email = "anna.gogleva@slcu.cam.ac.uk", role = c("aut", "ctb")))
 Description: This package provides interface functions for users to perform local Basic Local Alignment Search Tool (BLAST) searches. The search results can be efficiently imported into the R session. 
 Depends:
-    R (>= 3.3.2)
+    R (>= 3.3)
 Imports:
     seqinr (>= 3.3-3),
     parallel (>= 3.0.2),
     dplyr (>= 0.3.0.2),
     doParallel (>= 1.0.8),
+    RPostgreSQL (>= 0.4-1),
+    Biostrings,
+    GenomicFeatures,
+    GenomicRanges,
+    Rsamtools,
+    ggsci,
+    scales,
+    tibble,
     foreach (>= 1.4.2),
     RSQLite (>= 0.11.4),
     stringr (>= 0.6.2),
     DBI (>= 0.3.1),
-    RPostgreSQL (>= 0.4-1),
     readr (>= 1.1.0),
     biomartr,
     ggplot2,

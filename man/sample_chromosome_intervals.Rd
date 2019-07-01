@@ -18,7 +18,7 @@ are:
 \item \code{strand = "minus"}
 }}
 
-\item{size}{a non-negative integer giving the number of loci that shall be sampled.}
+\item{size}{a non-negative integer giving the number of sequences that shall be sampled from random genomic loci.}
 }
 \description{
 This function samples a random locus given the chromosome lenght (\code{chr_size}) 

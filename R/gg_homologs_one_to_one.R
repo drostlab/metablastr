@@ -18,7 +18,7 @@ gg_homologs_one_to_one <- function(blast_tbl,
   
   species <- query_id <- n_hits <- NULL
   
-  blast_tbl_summary <- dplyr::group_by(blast_tbl, species, query_id) %>% dplyr::summarize(n_hits = dplyr::n())
+  blast_tbl_summary <- dplyr::summarize(dplyr::group_by(blast_tbl, species, query_id), n_hits = dplyr::n())
   blast_tbl_summary <- dplyr::filter(blast_tbl_summary, n_hits == 1)
   p <- ggplot2::ggplot(
     blast_tbl_summary,

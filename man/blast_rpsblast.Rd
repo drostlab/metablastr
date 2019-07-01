@@ -59,7 +59,10 @@ Run rpsblast (Reverse PSI-BLAST) searches a query sequence against a database of
 \dontrun{
 db_path <- '/home/Cdd'
 db_alias <- 'myCdd'
-rps_test <- blast_rpsblast(query = system.file('seqs/sbj_aa.fa', package = 'metablastr'), db = db_path, db.alias = db_alias, prep.db = FALSE)
+rps_test <- blast_rpsblast(query = system.file('seqs/sbj_aa.fa', package = 'metablastr'), 
+                           db = db_path, 
+                           db.alias = db_alias, 
+                           prep.db = FALSE)
 }
 }
 \seealso{

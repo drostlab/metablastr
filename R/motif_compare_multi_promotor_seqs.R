@@ -1,16 +1,25 @@
-#' @title Count the number of motifs in a set of non-random versus random sequences for multiple species
-#' @description Compare the number of motifs in a set of non-random versus random sequences. The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences. Each enrichment analysis is performed for a set of different species/genomes.
-#' @param blast_tbl
-#' @param subject_genomes
-#' @param annotation_files
-#' @param annotation_format
-#' @param interval_width
-#' @param motifs
-#' @param max.mismatch
-#' @param min.mismatch
-#' @param \ellipsis
+#' @title Count the number of motifs in a set of non-random versus randomly drawn gene promotor sequences for multiple species
+#' @description Compare the number of motifs in a set of non-random versus random promotor sequences. Internally, promotor sequences
+#' are extracted upstream from the transcription start site (TSS) and have the length specified in \code{interval_width}.
+#' The resulting motif count values can then be used to test the enrichment of certain motifs in real sequences compared to randomly drawn gene promotor sequences. 
+#' Each enrichment analysis is performed for a set of different species or genomes.
+#' @param blast_tbl a blast_table.
+#' @param subject_genomes a character vector storing the file paths to the subject genomes that shall be used as subject references.
+#' @param annotation_files a character vector storing the file paths to the subject annotation files in \code{.gff} format that match the subject genomes.
+#' @param annotation_format the annotation format. Options are:
+#' \itemize{
+#' \item \code{annotation_format = "gff"}
+#' }
+#' @param interval_width total number of sequences that shall be sampled per subject genome.
+#' @param motifs a character vector storing (case sensitive) motif sequences for which abundance in the sampled sequences shall be assessed.
+#' @param max.mismatch maximum number of mismatches that are allowed between the sequence motif and the matching region in the sampled sequence.
+#' @param min.mismatch minimum number of mismatches that are allowed between the sequence motif and the matching region in the sampled sequence.
+#' @param ... additional arguments passed to \code{\link{motif_compare}}.
 #' @author Hajk-Georg Drost
+#' @seealso \code{\link{motif_count}}, \code{\link{motif_compare}}, \code{\link{motif_compare_multi}}, 
+#' \code{\link{motif_enrichment}}, \code{\link{motif_enrichment_multi}}
 #' @export
+
 motif_compare_multi_promotor_seqs <-
   function(blast_tbl,
            subject_genomes,

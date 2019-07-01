@@ -21,7 +21,8 @@ Check whether input file contains dna as required.
 }
 \examples{
 # test an dna file
-file_contains_dna(file = system.file('seqs/qry_nn.fa', package = 'metablastr'), input_type = "query")
+file_contains_dna(file = system.file('seqs/qry_nn.fa', package = 'metablastr'), 
+                  input_type = "query")
 }
 \author{
 Hajk-Georg Drost

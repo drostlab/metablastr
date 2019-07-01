@@ -14,12 +14,31 @@ file_contains_aa <- function(file, input_type) {
   if (!is.element(input_type, c("query", "subject")))
     stop("Please provide a valid input_type.", call. = FALSE)
   
-  alphabet <- Biostrings::uniqueLetters(Biostrings::readBStringSet(filepath = file, nrec = 1))
-  if (any((!is.element(stringr::str_to_upper(alphabet), Biostrings::AA_ALPHABET))))
-    stop("Please provide the correct sequence type for the ", input_type, " file. The correct sequence type is: AMINO ACIDS.", call. = FALSE)
+  alphabet <-
+    unique(stringr::str_to_upper(Biostrings::uniqueLetters(
+      Biostrings::readBStringSet(filepath = file, nrec = 1)
+    )))
   
-  if (any(!is.element(c("Q", "E"), stringr::str_to_upper(alphabet))))
+  if (any((!is.element(stringr::str_to_upper(alphabet), Biostrings::AA_ALPHABET)))) {
+    message("Your ",
+            input_type,
+            " file contains the folowing letters: '",
+            alphabet,
+            "'.")
+    message("However, these letters shoould be present: ", Biostrings::AA_ALPHABET, ".")
     stop("Please provide the correct sequence type for the ", input_type, " file. The correct sequence type is: AMINO ACIDS.", call. = FALSE)
+  }
+    
+  
+  if (any(!is.element(c("Q", "E"), stringr::str_to_upper(alphabet)))) {
+    message("Your ",
+            input_type,
+            " file contains the folowing letters: '",
+            alphabet,
+            "'.")
+    message("However, these letters shoould be present: ", Biostrings::AA_ALPHABET, ", Q, E.")
+    stop("Please provide the correct sequence type for the ", input_type, " file. The correct sequence type is: AMINO ACIDS.", call. = FALSE)
+  }
 }
 
 

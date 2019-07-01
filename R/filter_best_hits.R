@@ -2,10 +2,10 @@
 #' @description This function aims to retrieve the best blast hits for each query sequence
 #' by filtering a \code{blast_tbl} using the following criteria.
 #' A best hit is defined as (fulfilling all three critaria):
-#' \itemize {
+#' \itemize{
 #'  \item \code{maximum alig_length}: only the hit having the longest alignment length is retained.
 #'  \item \code{qcovhsp >= min_qcovhsp}: only hits that have a query coverage of at least \code{min_qcovhsp} are retained.
-#'  \item \code{maximum bit_score}: only the hit having the highest bit-score is retained.  
+#'  \item \code{maximum bit_score}: only the hit having the highest bit-score is retained.
 #' }  
 #' @param blast_tbl a BLAST table generated with \code{\link{detect_homologs_proteome_to_proteome}} or \code{\link{detect_homologs_cds_to_cds}}.
 #' @param min_qcovhsp minimum query coverage of the hit in percent \code{10 to 100} that shall be retained. Default value is set to \code{min_qcovhsp = 50} (= a best hit alignment must have at least 50 percent query coverage).

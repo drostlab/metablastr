@@ -1,9 +1,8 @@
 #' @title Retrieve the best hits across species from a BLAST table
 #' @description This function aims to retrieve the best blast hits for each query sequence
 #' by filtering a \code{blast_tbl} using the following criteria.
-#' 
 #' A best hit is defined as (fulfilling all three critaria):
-#' \itemize{
+#' \itemize {
 #'  \item \code{maximum alig_length}: only the hit having the longest alignment length is retained.
 #'  \item \code{qcovhsp >= min_qcovhsp}: only hits that have a query coverage of at least \code{min_qcovhsp} are retained.
 #'  \item \code{maximum bit_score}: only the hit having the highest bit-score is retained.  

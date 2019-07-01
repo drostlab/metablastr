@@ -16,7 +16,7 @@ This function aims to retrieve a core set of best blast hits for each query sequ
 that generated blast hits in all species in the input \code{blast_tbl} were retained.
 by filtering a \code{blast_tbl} using the following criteria.
 A best hit is defined as (fulfilling all three critaria):
-\itemize {
+\itemize{
 \item max(alig_length): only the hit having the longest alignment length is retained.
 \item \code{qcovhsp >= min_qcovhsp}: only hits that have a query coverage of at least \code{min_qcovhsp} are retained.
 \item max(bit_score): only the hit having the highest bit-score is retained.

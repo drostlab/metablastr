@@ -2,13 +2,8 @@
 #' @description This function aims to retrieve a core set of best blast hits for each query sequence that is shared across all species. In other words, only query sequences
 #' that generated blast hits in all species in the input \code{blast_tbl} were retained.
 #' by filtering a \code{blast_tbl} using the following criteria.
-<<<<<<< HEAD
 #' A best hit is defined as (fulfilling all three critaria):
 #' \itemize {
-=======
-#' A best hit is defined as (fulfilling all three critaria)
-#' \itemize{
->>>>>>> 68b190ede2470a1f667e5bca858ad29f1be5bba2
 #' \item max(alig_length): only the hit having the longest alignment length is retained.
 #' \item \code{qcovhsp >= min_qcovhsp}: only hits that have a query coverage of at least \code{min_qcovhsp} are retained.
 #' \item max(bit_score): only the hit having the highest bit-score is retained.

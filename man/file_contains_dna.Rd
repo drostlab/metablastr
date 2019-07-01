@@ -13,7 +13,7 @@ file_contains_dna(file, input_type)
 }
 \value{
 When a file contains the correct sequence type then this function
-will only execute without any output. In case a file does not contains the 
+will only execute without any output. In case a file does not contains the
 correct sequence type then an error is thrown.
 }
 \description{
@@ -21,7 +21,7 @@ Check whether input file contains dna as required.
 }
 \examples{
 # test an dna file
-file_contains_dna(file = system.file('seqs/qry_nn.fa', package = 'metablastr'), 
+file_contains_dna(file = system.file('seqs/qry_nn.fa', package = 'metablastr'),
                   input_type = "query")
 }
 \author{

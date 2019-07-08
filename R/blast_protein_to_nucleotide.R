@@ -166,7 +166,7 @@ blast_protein_to_nucleotide <- function(query,
       ifelse(db.soft.mask, " -db_soft_mask", ""),
       ifelse(db.hard.mask, " -db_hard_mask", ""),
       paste0( " -task ", task),
-      paste0(" -outfmt '", outformat2num(out.format = out.format), " qseqid sseqid pident nident length mismatch gapopen gaps positive ppos qstart qend qlen qcovs qcovhsp sstart send slen evalue bitscore score'")
+      paste0(' -outfmt "', outformat2num(out.format = out.format), ' qseqid sseqid pident nident length mismatch gapopen gaps positive ppos qstart qend qlen qcovs qcovhsp sstart send slen evalue bitscore score"')
     )
   )
   

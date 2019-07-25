@@ -28,7 +28,7 @@ file_contains_dna <- function(file, input_type) {
               alphabet,
               "'.")
       message("However, these letters shoould be present: ", "'ACGT' or 'ACGNT'", ".")
-      stop(
+      warning(
         "Please provide the correct sequence type for the ",
         input_type,
         " file. The correct sequence type is: DNA.",

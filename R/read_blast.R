@@ -124,14 +124,18 @@ read_blast <- function(file, out.format, postgres.user = NULL) {
                                            "X11" = readr::col_integer(),
                                            "X12" = readr::col_integer(),
                                            "X13" = readr::col_integer(),
-                                           "X14" = readr::col_integer(),
-                                           "X15" = readr::col_integer(),
+                                           "X14" = readr::col_double(),
+                                           "X15" = readr::col_double(),
                                            "X16" = readr::col_integer(),
-                                           "X17" = readr::col_double(),
-                                           "X18" = readr::col_double(),
-                                           "X19" = readr::col_double()
+                                           "X17" = readr::col_integer(),
+                                           "X18" = readr::col_integer(),
+                                           "X19" = readr::col_double(),
+                                           "X20" = readr::col_number(),
+                                           "X21" = readr::col_double()
                                        ))
         if (nrow(blast_csv) > 0) {
+          if (ncol(blast_csv) != length(blast_outfmt_colnames()))
+            stop("Tne number of blast output columns and the number of column names does not match! Please check what might have gone wrong.", call. = FALSE)
           colnames(blast_csv) <- blast_outfmt_colnames()
           return(blast_csv)
         } else {

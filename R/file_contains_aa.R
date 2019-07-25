@@ -26,7 +26,7 @@ file_contains_aa <- function(file, input_type) {
             alphabet,
             "'.")
     message("However, these letters shoould be present: ", Biostrings::AA_ALPHABET, ".")
-    stop("Please provide the correct sequence type for the ", input_type, " file. The correct sequence type is: AMINO ACIDS.", call. = FALSE)
+    warning("Please provide the correct sequence type for the ", input_type, " file. The correct sequence type is: AMINO ACIDS.", call. = FALSE)
   }
     
   
@@ -37,7 +37,7 @@ file_contains_aa <- function(file, input_type) {
             alphabet,
             "'.")
     message("However, these letters shoould be present: ", Biostrings::AA_ALPHABET, ", Q, E.")
-    stop("Please provide the correct sequence type for the ", input_type, " file. The correct sequence type is: AMINO ACIDS.", call. = FALSE)
+    warning("Please provide the correct sequence type for the ", input_type, " file. The correct sequence type is: AMINO ACIDS.", call. = FALSE)
   }
 }
 

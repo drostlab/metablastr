@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Count the number of motifs in a set of non-random versus random sequences for multiple species — motif_compare_multi • metablastr</title>
+<title>Count the number of motifs in a set of non-random versus randomly sampled genomic sequences for multiple species — motif_compare_multi • metablastr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
 
 
-<meta property="og:title" content="Count the number of motifs in a set of non-random versus random sequences for multiple species — motif_compare_multi" />
+<meta property="og:title" content="Count the number of motifs in a set of non-random versus randomly sampled genomic sequences for multiple species — motif_compare_multi" />
 
-<meta property="og:description" content="Compare the number of motifs in a set of non-random versus random sequences. The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences. Each enrichment analysis is performed for a set of different species/genomes." />
+<meta property="og:description" content="Compare the number of motifs in a set of non-random versus random sequences within a set of subject genomes. 
+The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences. 
+Each enrichment analysis is performed for a set of different species or genomes." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,26 +108,73 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Count the number of motifs in a set of non-random versus random sequences for multiple species</h1>
+    <h1>Count the number of motifs in a set of non-random versus randomly sampled genomic sequences for multiple species</h1>
     
     <div class="hidden name"><code>motif_compare_multi.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Compare the number of motifs in a set of non-random versus random sequences. The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences. Each enrichment analysis is performed for a set of different species/genomes.</p>
+    <p>Compare the number of motifs in a set of non-random versus random sequences within a set of subject genomes. 
+The resulting values can then be used to test the enrichment of certain motifs in real sequences compared to random sequences. 
+Each enrichment analysis is performed for a set of different species or genomes.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>motif_compare_multi</span>(<span class='no'>blast_tbl</span>, <span class='no'>subject_genomes</span>, <span class='no'>size</span>, <span class='no'>interval_width</span>,
   <span class='no'>motifs</span>, <span class='kw'>max.mismatch</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>min.mismatch</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
-        
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>blast_tbl</th>
+      <td><p>a blast_table.</p></td>
+    </tr>
+    <tr>
+      <th>subject_genomes</th>
+      <td><p>a character vector storing the file paths to the subject genomes that shall be used as subject references.</p></td>
+    </tr>
+    <tr>
+      <th>size</th>
+      <td><p>total number of sequences that shall be sampled per subject genome.</p></td>
+    </tr>
+    <tr>
+      <th>interval_width</th>
+      <td><p>length of the sequence in which motifs shall be detected.</p></td>
+    </tr>
+    <tr>
+      <th>motifs</th>
+      <td><p>a character vector storing (case sensitive) motif sequences for which abundance in the sampled sequences shall be assessed.</p></td>
+    </tr>
+    <tr>
+      <th>max.mismatch</th>
+      <td><p>maximum number of mismatches that are allowed between the sequence motif and the matching region in the sampled sequence.</p></td>
+    </tr>
+    <tr>
+      <th>min.mismatch</th>
+      <td><p>minimum number of mismatches that are allowed between the sequence motif and the matching region in the sampled sequence.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional arguments passed to <code><a href='motif_compare.html'>motif_compare</a></code>.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='motif_count.html'>motif_count</a></code>, <code><a href='motif_compare_multi_promotor_seqs.html'>motif_compare_multi_promotor_seqs</a></code>, <code><a href='motif_compare.html'>motif_compare</a></code>, 
+<code><a href='motif_enrichment.html'>motif_enrichment</a></code>, <code><a href='motif_enrichment_multi.html'>motif_enrichment_multi</a></code></p></div>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
     <h2>Author</h2>
     <p>Hajk-Georg Drost</p>

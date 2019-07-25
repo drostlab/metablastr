@@ -31,6 +31,14 @@
 
 
 <meta property="og:title" content="Retrieve the best hits across species from a BLAST table — filter_best_hits" />
+
+<meta property="og:description" content="This function aims to retrieve the best blast hits for each query sequence
+by filtering a blast_tbl using the following criteria.
+A best hit is defined as (fulfilling all three critaria):
+maximum alig_length: only the hit having the longest alignment length is retained.
+qcovhsp &amp;gt;= min_qcovhsp: only hits that have a query coverage of at least min_qcovhsp are retained.
+maximum bit_score: only the hit having the highest bit-score is retained.
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -110,7 +118,15 @@
     </div>
 
     <div class="ref-description">
-
+    
+    <p>This function aims to retrieve the best blast hits for each query sequence
+by filtering a <code>blast_tbl</code> using the following criteria.
+A best hit is defined as (fulfilling all three critaria):</p><ul>
+<li><p><code>maximum alig_length</code>: only the hit having the longest alignment length is retained.</p></li>
+<li><p><code>qcovhsp &gt;= min_qcovhsp</code>: only hits that have a query coverage of at least <code>min_qcovhsp</code> are retained.</p></li>
+<li><p><code>maximum bit_score</code>: only the hit having the highest bit-score is retained.</p></li>
+</ul>
+    
     </div>
 
     <pre class="usage"><span class='fu'>filter_best_hits</span>(<span class='no'>blast_tbl</span>, <span class='kw'>min_qcovhsp</span> <span class='kw'>=</span> <span class='fl'>50</span>)</pre>
@@ -124,9 +140,14 @@
     </tr>
     <tr>
       <th>min_qcovhsp</th>
-      <td><p>minimum query coverage of the hit in percent <code>10 to 100</code> that shall be retained. Default value is set to <code>min_qcovhsp = 50</code> (= a best hit alignment must have at least 50<!-- % query coverage).} --></p></td>
+      <td><p>minimum query coverage of the hit in percent <code>10 to 100</code> that shall be retained. Default value is set to <code>min_qcovhsp = 50</code> (= a best hit alignment must have at least 50 percent query coverage).</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='filter_homologs_core_set.html'>filter_homologs_core_set</a></code>, <code><a href='gg_blast_hits.html'>gg_blast_hits</a></code>, <code><a href='blast_nucleotide_to_nucleotide.html'>blast_nucleotide_to_nucleotide</a></code>,
+<code><a href='blast_protein_to_protein.html'>blast_protein_to_protein</a></code></p></div>
     
 
   </div>
@@ -134,8 +155,12 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
+    <h2>Author</h2>
+    <p>Hajk-Georg Drost</p>
   </div>
 </div>
 

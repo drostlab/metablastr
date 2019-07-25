@@ -31,6 +31,15 @@
 
 
 <meta property="og:title" content="Retrieve a core set of best hits that is shared across species — filter_homologs_core_set" />
+
+<meta property="og:description" content="This function aims to retrieve a core set of best blast hits for each query sequence that is shared across all species. In other words, only query sequences
+that generated blast hits in all species in the input blast_tbl were retained.
+by filtering a blast_tbl using the following criteria.
+A best hit is defined as (fulfilling all three critaria):
+max(alig_length): only the hit having the longest alignment length is retained.
+qcovhsp &amp;gt;= min_qcovhsp: only hits that have a query coverage of at least min_qcovhsp are retained.
+max(bit_score): only the hit having the highest bit-score is retained.
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -110,7 +119,16 @@
     </div>
 
     <div class="ref-description">
-
+    
+    <p>This function aims to retrieve a core set of best blast hits for each query sequence that is shared across all species. In other words, only query sequences
+that generated blast hits in all species in the input <code>blast_tbl</code> were retained.
+by filtering a <code>blast_tbl</code> using the following criteria.
+A best hit is defined as (fulfilling all three critaria):</p><ul>
+<li><p>max(alig_length): only the hit having the longest alignment length is retained.</p></li>
+<li><p><code>qcovhsp &gt;= min_qcovhsp</code>: only hits that have a query coverage of at least <code>min_qcovhsp</code> are retained.</p></li>
+<li><p>max(bit_score): only the hit having the highest bit-score is retained.</p></li>
+</ul>
+    
     </div>
 
     <pre class="usage"><span class='fu'>filter_homologs_core_set</span>(<span class='no'>blast_tbl</span>, <span class='kw'>min_qcovhsp</span> <span class='kw'>=</span> <span class='fl'>50</span>)</pre>
@@ -124,9 +142,13 @@
     </tr>
     <tr>
       <th>min_qcovhsp</th>
-      <td><p>minimum query coverage of the hit in percent <code>0..100</code> that shall be retained. Default value is set to <code>min_qcovhsp = 50</code> (= a best hit alignment must have at least 50<!-- % query coverage).} --></p></td>
+      <td><p>minimum query coverage of the hit in percent <code>0..100</code> that shall be retained. Default value is set to <code>min_qcovhsp = 50</code> (= a best hit alignment must have at least 50 percent query coverage).</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='filter_best_hits.html'>filter_best_hits</a></code></p></div>
     
 
   </div>
@@ -134,8 +156,12 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
+    <h2>Author</h2>
+    <p>Hajk-Georg Drost</p>
   </div>
 </div>
 

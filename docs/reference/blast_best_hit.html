@@ -156,6 +156,15 @@ Options are:</p><ul>
 </ul></td>
     </tr>
     <tr>
+      <th>strand</th>
+      <td><p>Query DNA strand(s) to search against database/subject.
+Options are:</p><ul>
+<li><p><code>strand = "both"</code> (Default): query against both DNA strands.</p></li>
+<li><p><code>strand = "minus"</code> : query against minus DNA strand.</p></li>
+<li><p><code>strand = "plus"</code> : query against plus DNA strand.</p></li>
+</ul></td>
+    </tr>
+    <tr>
       <th>output.path</th>
       <td><p>path to folder at which BLAST output table shall be stored. 
 Default is <code>output.path = NULL</code> (hence <code><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd()</a></code> is used).</p></td>
@@ -253,7 +262,7 @@ Available options are:</p><ul>
 
     <div class='dont-index'><p><code><a href='blast_nucleotide_to_nucleotide.html'>blast_nucleotide_to_nucleotide</a></code>, <code><a href='blast_protein_to_protein.html'>blast_protein_to_protein</a></code>,
 <code><a href='blast_nucleotide_to_protein.html'>blast_nucleotide_to_protein</a></code>, <code><a href='blast_protein_to_nucleotide.html'>blast_protein_to_nucleotide</a></code>,
-<code>test_best_reciprocal_hit</code></p></div>
+<code><a href='blast_best_reciprocal_hit.html'>blast_best_reciprocal_hit</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

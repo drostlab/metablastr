@@ -111,25 +111,25 @@
 <div id="for-all-systems-install-metablastr-by-typing" class="section level3">
 <h3 class="hasAnchor">
 <a href="#for-all-systems-install-metablastr-by-typing" class="anchor"></a>For all systems install <code>metablastr</code> by typing</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-<span class="co"># install the current version of metablastr on your system</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(devtools)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"HajkD/metablastr"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># install the current version of metablastr on your system</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(devtools)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"HajkD/metablastr"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><strong>Please follow the <a href="https://hajkd.github.io/metablastr/articles/installation.html">Installation Vignette</a> to install all standalone sequence search tools.</strong></p>
 </div>
 <div id="quick-start" class="section level3">
 <h3 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick start</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(metablastr)
-<span class="co"># run blastn (nucleotide to nucleotide search) between example query and subject sequences</span>
-blast_test &lt;-<span class="st"> </span><span class="kw"><a href="reference/blast_nucleotide_to_nucleotide.html">blast_nucleotide_to_nucleotide</a></span>(
-                 <span class="dt">query   =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">'seqs/qry_nn.fa'</span>, <span class="dt">package =</span> <span class="st">'metablastr'</span>),
-                 <span class="dt">subject =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">'seqs/sbj_nn.fa'</span>, <span class="dt">package =</span> <span class="st">'metablastr'</span>),
-                 <span class="dt">output.path =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>(),
-                 <span class="dt">db.import  =</span> <span class="ot">FALSE</span>)
-                 
-<span class="co"># look at BLAST results</span>
-blast_test</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(metablastr)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co"># run blastn (nucleotide to nucleotide search) between example query and subject sequences</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">blast_test &lt;-<span class="st"> </span><span class="kw"><a href="reference/blast_nucleotide_to_nucleotide.html">blast_nucleotide_to_nucleotide</a></span>(</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">                 <span class="dt">query   =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">'seqs/qry_nn.fa'</span>, <span class="dt">package =</span> <span class="st">'metablastr'</span>),</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">                 <span class="dt">subject =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">'seqs/sbj_nn.fa'</span>, <span class="dt">package =</span> <span class="st">'metablastr'</span>),</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">                 <span class="dt">output.path =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>(),</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">                 <span class="dt">db.import  =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">                 </a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co"># look at BLAST results</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">blast_test</a></code></pre></div>
 <pre><code>   query_id     subject_id perc_identity num_ident_match… alig_length mismatches
    &lt;chr&gt;        &lt;chr&gt;              &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;      &lt;int&gt;
  1 333554|PACi… AT1G01010…          84.2              640         760         63

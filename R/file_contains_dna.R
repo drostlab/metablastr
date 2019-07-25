@@ -24,10 +24,10 @@ file_contains_dna <- function(file, input_type) {
     if (!any(is.element(alphabet, c("ACGNT", "ACGT")))) {
       message("Your ",
               input_type,
-              " file contains the folowing letters: '",
+              " file contains the following letters: '",
               alphabet,
               "'.")
-      message("However, these letters shoould be present: ", "'ACGT' or 'ACGNT'", ".")
+      message("However, these letters should be present: ", "'ACGT' or 'ACGNT'", ".")
       warning(
         "Please provide the correct sequence type for the ",
         input_type,

@@ -22,10 +22,10 @@ file_contains_aa <- function(file, input_type) {
   if (any((!is.element(stringr::str_to_upper(alphabet), Biostrings::AA_ALPHABET)))) {
     message("Your ",
             input_type,
-            " file contains the folowing letters: '",
+            " file contains the following letters: '",
             alphabet,
             "'.")
-    message("However, these letters shoould be present: ", Biostrings::AA_ALPHABET, ".")
+    message("However, these letters should be present: ", Biostrings::AA_ALPHABET, ".")
     warning("Please provide the correct sequence type for the ", input_type, " file. The correct sequence type is: AMINO ACIDS.", call. = FALSE)
   }
     

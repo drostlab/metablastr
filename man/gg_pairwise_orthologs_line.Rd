@@ -6,7 +6,7 @@
 \usage{
 gg_pairwise_orthologs_line(ortho_summary, xlab = "Subject Species",
   ylab = "Number of reciprocal best hit orthologs", title = "",
-  vline = 7000, ymax = 24000)
+  vline = NULL, ymax = NULL)
 }
 \arguments{
 \item{ortho_summary}{a \code{data.frame} storing the \code{subject_species} in the first column and the number of orthologs named \code{n_orthologs} in the second column.}
@@ -17,9 +17,9 @@ gg_pairwise_orthologs_line(ortho_summary, xlab = "Subject Species",
 
 \item{title}{plot title.}
 
-\item{vline}{plot a line characterizing the core set.}
+\item{vline}{plot a line characterizing the core set. Default is \code{vline = NULL} meaning that no vline is drawn.}
 
-\item{ymax}{max value of y-axis.}
+\item{ymax}{max value of y-axis. Default is \code{ymax = NULL} meaning that the largest value within the dataset will be used to determine y-max.}
 }
 \description{
 Visualizes pairwise orthologs for multiple species comparisons as line graph.

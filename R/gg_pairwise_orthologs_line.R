@@ -4,8 +4,8 @@
 #' @param xlab label of x-axis.
 #' @param ylab label of y-axis.
 #' @param title plot title.
-#' @param vline plot a line characterizing the core set.
-#' @param ymax max value of y-axis.
+#' @param vline plot a line characterizing the core set. Default is \code{vline = NULL} meaning that no vline is drawn.
+#' @param ymax max value of y-axis. Default is \code{ymax = NULL} meaning that the largest value within the dataset will be used to determine y-max.
 #' @author Hajk-Georg Drost
 #' @export
 
@@ -14,21 +14,32 @@ gg_pairwise_orthologs_line <-
            xlab = "Subject Species",
            ylab = "Number of reciprocal best hit orthologs",
            title = "",
-           vline = 7000,
-           ymax = 24000) {
+           vline = NULL,
+           ymax = NULL) {
+    
+    if (names(ortho_summary)[1] != "subject_species" || names(ortho_summary)[2] != "n_orthologs")
+      stop("Please provide a ortho_summary data.frame or tibble with 2 columns and column names: 'subject_species' and 'n_orthologs'.", call. = FALSE)
     
     subject_species <- n_orthologs <- NULL
     
     p <- ggplot2::ggplot(ortho_summary,
                          ggplot2::aes(x = subject_species,
                                       y = n_orthologs,
-                                      group = 1)) + ggplot2::geom_line(size = 2) + ggplot2::geom_point(size = 4) + ggplot2::geom_abline(
-                                        intercept = vline,
-                                        size = 2,
-                                        col = "darkred",
-                                        alpha = 0.4
-                                      ) +
-      ggplot2::geom_text(
+                                      group = 1)) + ggplot2::geom_line(size = 2) + ggplot2::geom_point(size = 4)
+      
+      if (!is.null(vline)) {
+        p <- p + ggplot2::geom_abline(
+          intercept = vline,
+          size = 2,
+          col = "darkred",
+          alpha = 0.4
+        )
+      }
+      
+    if (is.null(ymax))
+      ymax <- round(max(ortho_summary$n_orthologs) + (max(ortho_summary$n_orthologs) * 0.15), 0)
+    
+      p <- p + ggplot2::geom_text(
         ggplot2::aes(label = n_orthologs),
         hjust = 0,
         vjust = -1.5,

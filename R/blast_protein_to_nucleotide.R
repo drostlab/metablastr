@@ -118,14 +118,18 @@ blast_protein_to_nucleotide <- function(query,
     file.path(ifelse(is.null(output.path), ws_wrap(getwd()), ws_wrap(output.path)),
               paste0(unlist(stringr::str_split(
                 basename(query), "[.]"
-              ))[1], ".blast_tbl"))
+              ))[1],"_",unlist(stringr::str_split(
+                basename(subject), "[.]"
+              ))[1],"_",task,"_eval_",evalue, ".blast_tbl"))
   
   # output_blast without ws_wrap()
   output_read_blast <-
     file.path(ifelse(is.null(output.path), getwd(), output.path),
               paste0(unlist(stringr::str_split(
                 basename(query), "[.]"
-              ))[1], ".blast_tbl"))
+              ))[1],"_",unlist(stringr::str_split(
+                basename(subject), "[.]"
+              ))[1],"_",task,"_eval_",evalue, ".blast_tbl"))
   
   
   # format subject into database

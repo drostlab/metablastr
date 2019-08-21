@@ -1,5 +1,5 @@
 #' @title Plot pairwise dN, dS, or dNdS distributions of orthologous genes
-#' @description This function enables users 
+#' @description This function enables users to plot pairwise dN, dS, or dNdS distributions of orthologous genes.
 #' @param blast_tbl a \code{blast_tbl}.
 #' @param type type of sustitution rate quantification that shall be visualized on the y-axis. Options are:
 #' \itemize{

@@ -28,7 +28,7 @@ column of the input \code{blast_tbl}).}
 \item{title}{title label.}
 }
 \description{
-This function enables users
+This function enables users to plot pairwise dN, dS, or dNdS distributions of orthologous genes.
 }
 \author{
 Hajk-Georg Drost

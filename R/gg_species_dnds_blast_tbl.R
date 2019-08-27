@@ -1,11 +1,11 @@
-#' @title Plot pairwise dN, dS, or dNdS distributions of orthologous genes
-#' @description This function enables users to plot pairwise dN, dS, or dNdS distributions of orthologous genes.
+#' @title Plot pairwise dN, dS, or dN/dS distributions of orthologous genes
+#' @description This function enables users to plot pairwise dN, dS, or dN/dS distributions of orthologous genes.
 #' @param blast_tbl a \code{blast_tbl}.
 #' @param type type of sustitution rate quantification that shall be visualized on the y-axis. Options are:
 #' \itemize{
 #' \item \code{type = "dN"}
 #' \item \code{type = "dS"}
-#' \item \code{type = "dNdS"}
+#' \item \code{type = "dN/dS"}
 #' \item \code{type = "dN+dS"}
 #' }
 #' @param order a character vector specifying the order of the species using their scientific names (which have to match the species names stored in the \code{subject_species}
@@ -23,7 +23,7 @@ gg_species_dnds_blast_tbl <- function(blast_tbl, type, order, xlab = "", ylab = 
   
   subject_species <- dN <- dS <- dNdS <- dN_plus_dS <- ..density.. <- NULL
   
-  if (type == "dNdS") {
+  if (type == "dN/dS") {
     p <-
       ggplot2::ggplot(
         blast_tbl,

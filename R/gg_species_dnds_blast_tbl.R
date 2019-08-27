@@ -18,8 +18,8 @@
 
 gg_species_dnds_blast_tbl <- function(blast_tbl, type, order, xlab = "", ylab = "", title = "") {
   
-  if (!is.element(type, c("dN", "dS", "dNdS", "dN+dS")))
-    stop("Please specify a type that is supported by this function. E.g. dN, dS, dN+dS, or dNdS.", call. = FALSE)
+  if (!is.element(type, c("dN", "dS", "dN/dS", "dN+dS")))
+    stop("Please specify a type that is supported by this function. E.g. dN, dS, dN+dS, or dN/dS.", call. = FALSE)
   
   subject_species <- dN <- dS <- dNdS <- dN_plus_dS <- ..density.. <- NULL
   

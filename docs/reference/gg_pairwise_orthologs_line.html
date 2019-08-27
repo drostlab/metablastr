@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metablastr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@
 
     <pre class="usage"><span class='fu'>gg_pairwise_orthologs_line</span>(<span class='no'>ortho_summary</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Subject Species"</span>,
   <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Number of reciprocal best hit orthologs"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>vline</span> <span class='kw'>=</span> <span class='fl'>7000</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='fl'>24000</span>)</pre>
+  <span class='kw'>vline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,11 +142,11 @@
     </tr>
     <tr>
       <th>vline</th>
-      <td><p>plot a line characterizing the core set.</p></td>
+      <td><p>plot a line characterizing the core set. Default is <code>vline = NULL</code> meaning that no vline is drawn.</p></td>
     </tr>
     <tr>
       <th>ymax</th>
-      <td><p>max value of y-axis.</p></td>
+      <td><p>max value of y-axis. Default is <code>ymax = NULL</code> meaning that the largest value within the dataset will be used to determine y-max.</p></td>
     </tr>
     </table>
     

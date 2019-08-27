@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Statistical assessment of motif enrichments in a set of non-random versus randomly sampled gene promotor sequences for multiple species — motif_enrichment_multi_promotor_seqs • metablastr</title>
+<title>Plot pairwise feature distributions of orthologous genes — gg_species_feature_blast_tbl • metablastr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Statistical assessment of motif enrichments in a set of non-random versus randomly sampled gene promotor sequences for multiple species — motif_enrichment_multi_promotor_seqs" />
+<meta property="og:title" content="Plot pairwise feature distributions of orthologous genes — gg_species_feature_blast_tbl" />
 
-<meta property="og:description" content="Compare the number of motifs in a set of non-random versus randomly sampled gene promotor sequences within a set of subject genomes. 
-The resulting values are then used to statistically assess the enrichment of certain motifs in real sequences compared to randomly sampled gene promotor sequences." />
+<meta property="og:description" content="This function enables users to plot pairwise feature distributions of orthologous genes." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,80 +106,61 @@ The resulting values are then used to statistically assess the enrichment of cer
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Statistical assessment of motif enrichments in a set of non-random versus randomly sampled gene promotor sequences for multiple species</h1>
+    <h1>Plot pairwise feature distributions of orthologous genes</h1>
     
-    <div class="hidden name"><code>motif_enrichment_multi_promotor_seqs.Rd</code></div>
+    <div class="hidden name"><code>gg_species_feature_blast_tbl.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Compare the number of motifs in a set of non-random versus randomly sampled gene promotor sequences within a set of subject genomes. 
-The resulting values are then used to statistically assess the enrichment of certain motifs in real sequences compared to randomly sampled gene promotor sequences.</p>
+    <p>This function enables users to plot pairwise feature distributions of orthologous genes.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>motif_enrichment_multi_promotor_seqs</span>(<span class='no'>blast_tbl</span>, <span class='no'>subject_genomes</span>,
-  <span class='no'>annotation_files</span>, <span class='kw'>annotation_format</span> <span class='kw'>=</span> <span class='st'>"gff"</span>, <span class='kw'>test</span> <span class='kw'>=</span> <span class='st'>"fisher"</span>,
-  <span class='kw'>alternative</span> <span class='kw'>=</span> <span class='st'>"two.sided"</span>, <span class='no'>interval_width</span>, <span class='no'>motifs</span>, <span class='kw'>max.mismatch</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>min.mismatch</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>gg_species_feature_blast_tbl</span>(<span class='no'>blast_tbl</span>, <span class='no'>type</span>, <span class='no'>order</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='no'>type</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Density"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>blast_tbl</th>
-      <td><p>a blast_table.</p></td>
+      <td><p>a <code>blast_tbl</code>.</p></td>
     </tr>
     <tr>
-      <th>subject_genomes</th>
-      <td><p>a character vector storing the file paths to the subject genomes that shall be used as subject references.</p></td>
-    </tr>
-    <tr>
-      <th>annotation_files</th>
-      <td><p>a character vector storing the file paths to the subject annotation files in <code>.gff</code> format that match the subject genomes.</p></td>
-    </tr>
-    <tr>
-      <th>annotation_format</th>
-      <td><p>the annotation format. Options are:</p><ul>
-<li><p><code>annotation_format = "gff"</code></p></li>
+      <th>type</th>
+      <td><p>type of sustitution rate quantification that shall be visualized on the y-axis. Options are:</p><ul>
+<li><p><code>type = "q_len"</code></p></li>
+<li><p><code>type = "qcov"</code></p></li>
+<li><p><code>type = "qcovhsp"</code></p></li>
+<li><p><code>type = "perc_identity"</code></p></li>
+<li><p><code>type = "alig_length"</code></p></li>
+<li><p><code>type = "mismatches"</code></p></li>
+<li><p><code>type = "gap_openings"</code></p></li>
+<li><p><code>type = "n_gaps"</code></p></li>
+<li><p><code>type = "evalue"</code></p></li>
+<li><p><code>type = "bit_score"</code></p></li>
+<li><p><code>type = "score_raw"</code></p></li>
 </ul></td>
     </tr>
     <tr>
-      <th>test</th>
-      <td><ul>
-<li><p><code>test = "fisher"</code>: Fisher's Exact Test for Count Data (see <code>link[stats]{fisher.test}</code> for details).</p></li>
-</ul></td>
+      <th>order</th>
+      <td><p>a character vector specifying the order of the species using their scientific names (which have to match the species names stored in the <code>subject_species</code>
+column of the input <code>blast_tbl</code>).</p></td>
     </tr>
     <tr>
-      <th>alternative</th>
-      <td><p>indicates the alternative hypothesis and must be one of <code>"two.sided"</code>, <code>"greater"</code> or <code>"less"</code>. You can specify just the initial letter. Only used in the 2 by 2 case.</p></td>
+      <th>xlab</th>
+      <td><p>label of x-axis.</p></td>
     </tr>
     <tr>
-      <th>interval_width</th>
-      <td><p>total number of sequences that shall be sampled per subject genome.</p></td>
+      <th>ylab</th>
+      <td><p>label of y-axis.</p></td>
     </tr>
     <tr>
-      <th>motifs</th>
-      <td><p>a character vector storing (case sensitive) motif sequences for which abundance in the sampled sequences shall be assessed.</p></td>
-    </tr>
-    <tr>
-      <th>max.mismatch</th>
-      <td><p>maximum number of mismatches that are allowed between the sequence motif and the matching region in the sampled sequence.</p></td>
-    </tr>
-    <tr>
-      <th>min.mismatch</th>
-      <td><p>minimum number of mismatches that are allowed between the sequence motif and the matching region in the sampled sequence.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional arguments passed to <code><a href='motif_compare.html'>motif_compare</a></code>.</p></td>
+      <th>title</th>
+      <td><p>title label.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='motif_count.html'>motif_count</a></code>, <code><a href='motif_compare_multi_promotor_seqs.html'>motif_compare_multi_promotor_seqs</a></code>, <code><a href='motif_compare.html'>motif_compare</a></code>, 
-<code><a href='motif_enrichment.html'>motif_enrichment</a></code></p></div>
     
 
   </div>
@@ -188,9 +168,7 @@ The resulting values are then used to statistically assess the enrichment of cer
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+                </ul>
 
     <h2>Author</h2>
     <p>Hajk-Georg Drost</p>

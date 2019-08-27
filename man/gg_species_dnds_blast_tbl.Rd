@@ -2,7 +2,7 @@
 % Please edit documentation in R/gg_species_dnds_blast_tbl.R
 \name{gg_species_dnds_blast_tbl}
 \alias{gg_species_dnds_blast_tbl}
-\title{Plot pairwise dN, dS, or dNdS distributions of orthologous genes}
+\title{Plot pairwise dN, dS, or dN/dS distributions of orthologous genes}
 \usage{
 gg_species_dnds_blast_tbl(blast_tbl, type, order, xlab = "", ylab = "",
   title = "")
@@ -14,7 +14,7 @@ gg_species_dnds_blast_tbl(blast_tbl, type, order, xlab = "", ylab = "",
 \itemize{
 \item \code{type = "dN"}
 \item \code{type = "dS"}
-\item \code{type = "dNdS"}
+\item \code{type = "dN/dS"}
 \item \code{type = "dN+dS"}
 }}
 
@@ -28,7 +28,7 @@ column of the input \code{blast_tbl}).}
 \item{title}{title label.}
 }
 \description{
-This function enables users to plot pairwise dN, dS, or dNdS distributions of orthologous genes.
+This function enables users to plot pairwise dN, dS, or dN/dS distributions of orthologous genes.
 }
 \author{
 Hajk-Georg Drost

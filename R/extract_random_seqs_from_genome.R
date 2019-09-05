@@ -9,6 +9,8 @@
 #' \item 3) randomly choose (equal probability: see \code{\link{sample.int}} the starting position of the locus in the sampled chromosome and strand (\code{replace = TRUE}).
 #' }
 #' @param size a non-negative integer giving the number of loci that shall be sampled.
+#' @param replace logical value indicating whether sampling should be with replacement. Default: \code{replace = TRUE}.
+#' @param prob a vector of probability weights for obtaining the elements of the vector being sampled. Default is \code{prob = NULL}.
 #' @param interval_width the length of the locus that shall be sampled.
 #' @param subject_genome file path to the \code{fasta} file storing the subject genome.
 #' @param file_name a name of the output \code{fasta} file that will store the sequences of the randomly
@@ -20,6 +22,8 @@
 
 extract_random_seqs_from_genome <-
   function(size,
+           replace = TRUE,
+           prob = NULL,
            interval_width,
            subject_genome,
            file_name = NULL,
@@ -75,8 +79,8 @@ extract_random_seqs_from_genome <-
         res <- vector("list", length(size))
         
         for (i in seq_len(size)) {
-          sample_chromsome <- sample.int(length(chr_names), 1, replace = TRUE)
-          sample_strand <- sample.int(2, 1, replace = TRUE, prob = c(0.5, 0.5))
+          sample_chromsome <- sample.int(length(chr_names), 1, replace = replace, prob = prob)
+          sample_strand <- sample.int(2, 1, replace = replace, prob = c(0.5, 0.5))
           
           if (sample_strand == 1){
             sample_i <- sample_chromosome_intervals(

@@ -4,11 +4,15 @@
 \alias{extract_random_seqs_from_genome}
 \title{Extract random loci from a genome of interest}
 \usage{
-extract_random_seqs_from_genome(size, interval_width, subject_genome,
-  file_name = NULL, append = FALSE)
+extract_random_seqs_from_genome(size, replace = TRUE, prob = NULL,
+  interval_width, subject_genome, file_name = NULL, append = FALSE)
 }
 \arguments{
 \item{size}{a non-negative integer giving the number of loci that shall be sampled.}
+
+\item{replace}{logical value indicating whether sampling should be with replacement. Default: \code{replace = TRUE}.}
+
+\item{prob}{a vector of probability weights for obtaining the elements of the vector being sampled. Default is \code{prob = NULL}.}
 
 \item{interval_width}{the length of the locus that shall be sampled.}
 

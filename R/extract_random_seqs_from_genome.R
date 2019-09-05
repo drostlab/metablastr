@@ -79,7 +79,7 @@ extract_random_seqs_from_genome <-
         res <- vector("list", length(size))
         
         for (i in seq_len(size)) {
-          sample_chromsome <- sample.int(length(chr_names), 1, replace = replace, prob = prob)
+          sample_chromsome <- sample.int(length(chr_names), 1, replace = TRUE, prob = NULL)
           sample_strand <- sample.int(2, 1, replace = replace, prob = c(0.5, 0.5))
           
           if (sample_strand == 1){
@@ -87,7 +87,9 @@ extract_random_seqs_from_genome <-
               chr_size = imported_genome_i[chr_names[sample_chromsome]]@ranges@width,
               interval_width = interval_width,
               strand = "plus",
-              size = 1
+              size = 1,
+              replace = replace,
+              prob = prob
             )
             
             sample_i <- dplyr::mutate(sample_i, chr = chr_names[sample_chromsome])
@@ -99,7 +101,9 @@ extract_random_seqs_from_genome <-
               chr_size = imported_genome_i[chr_names[sample_chromsome]]@ranges@width,
               interval_width = interval_width,
               strand = "minus",
-              size = 1
+              size = 1,
+              replace = replace,
+              prob = prob
             )
             
                 sample_i <-

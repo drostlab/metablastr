@@ -4,7 +4,8 @@
 \alias{sample_chromosome_intervals}
 \title{Helper function to sample random intervals of length \code{interval_width} from chromosomes}
 \usage{
-sample_chromosome_intervals(chr_size, interval_width, strand, size)
+sample_chromosome_intervals(chr_size, interval_width, strand, size,
+  replace = TRUE, prob = NULL)
 }
 \arguments{
 \item{chr_size}{an integer value defining the length of the chromosome.}
@@ -19,6 +20,10 @@ are:
 }}
 
 \item{size}{a non-negative integer giving the number of sequences that shall be sampled from random genomic loci.}
+
+\item{replace}{logical value indicating whether sampling should be with replacement. Default: \code{replace = TRUE}.}
+
+\item{prob}{a vector of probability weights for obtaining the elements of the vector being sampled. Default is \code{prob = NULL}.}
 }
 \description{
 This function samples a random locus given the chromosome lenght (\code{chr_size}) 

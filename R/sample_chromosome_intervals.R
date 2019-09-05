@@ -10,9 +10,17 @@
 #' \item \code{strand = "minus"}
 #' }
 #' @param size a non-negative integer giving the number of sequences that shall be sampled from random genomic loci.
+#' @param replace logical value indicating whether sampling should be with replacement. Default: \code{replace = TRUE}.
+#' @param prob a vector of probability weights for obtaining the elements of the vector being sampled. Default is \code{prob = NULL}.
 #' @author Hajk-Georg Drost
-sample_chromosome_intervals <- function(chr_size, interval_width, strand, size) {
-  
+sample_chromosome_intervals <-
+  function(chr_size,
+           interval_width,
+           strand,
+           size,
+           replace = TRUE,
+           prob = NULL) {
+    
   if (!is.element(strand, c("plus", "minus")))
     stop("The 'strand' argument can only be specified as strand = 'plus' or strand = 'minus'.", call. = FALSE)
   
@@ -27,7 +35,11 @@ sample_chromosome_intervals <- function(chr_size, interval_width, strand, size) 
     }
   
   # random start position in chromosome
-  random_start <- sample.int(ifelse((chr_size - interval_width) == 0,1, chr_size - interval_width), size)
+    random_start <-
+      sample.int(ifelse((chr_size - interval_width) == 0, 1, chr_size - interval_width),
+                 size,
+                 replace = replace,
+                 prob = prob)
   # compute random end position in chromosome given interval width
   random_end <- random_start + interval_width - 1
   

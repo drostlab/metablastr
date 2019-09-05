@@ -80,7 +80,7 @@ extract_random_seqs_from_genome <-
         
         for (i in seq_len(size)) {
           sample_chromsome <- sample.int(length(chr_names), 1, replace = TRUE, prob = NULL)
-          sample_strand <- sample.int(2, 1, replace = replace, prob = c(0.5, 0.5))
+          sample_strand <- sample.int(2, 1, replace = TRUE, prob = c(0.5, 0.5))
           
           if (sample_strand == 1){
             sample_i <- sample_chromosome_intervals(

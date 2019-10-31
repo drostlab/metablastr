@@ -5,7 +5,8 @@
 \title{Extract random loci from a genome of interest}
 \usage{
 extract_random_seqs_from_genome(size, replace = TRUE, prob = NULL,
-  interval_width, subject_genome, file_name = NULL, append = FALSE)
+  interval_width, subject_genome, file_name = NULL, append = FALSE,
+  n_max = NULL)
 }
 \arguments{
 \item{size}{a non-negative integer giving the number of loci that shall be sampled.}
@@ -23,6 +24,8 @@ sampled loci.}
 
 \item{append}{shall new random sequences be added to an existing \code{file_name} (\code{append = TRUE})
 or should an exosting \code{file_name} be removed before storing new random sequences (\code{append = FALSE}; Default)?}
+
+\item{n_max}{a non-negative integer giving the maximum number of allowed Ns in each sequence.}
 }
 \description{
 This function allows users to specify a number of sequences

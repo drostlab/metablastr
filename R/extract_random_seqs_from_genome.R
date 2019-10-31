@@ -15,6 +15,7 @@
 #' @param subject_genome file path to the \code{fasta} file storing the subject genome.
 #' @param file_name a name of the output \code{fasta} file that will store the sequences of the randomly
 #' sampled loci.
+#' @param n_max a non-negative integer giving the maximum number of allowed Ns in each sequence.
 #' @param append shall new random sequences be added to an existing \code{file_name} (\code{append = TRUE})
 #'  or should an exosting \code{file_name} be removed before storing new random sequences (\code{append = FALSE}; Default)?  
 #' @author Hajk-Georg Drost
@@ -27,7 +28,8 @@ extract_random_seqs_from_genome <-
            interval_width,
            subject_genome,
            file_name = NULL,
-           append = FALSE) {
+           append = FALSE,
+           n_max = NULL) {
     
     if (!file.exists(subject_genome))
       stop(
@@ -145,13 +147,19 @@ extract_random_seqs_from_genome <-
                 )
               )
               
+              # set n_max when null and count N in each sequence
+              if (is.null(n_max)) n_max <- interval_width + 1
+              nn <- Biostrings::vcountPattern('N', seqs_plus@unlistData)
+              seqs <- seqs_plus@unlistData[nn <= n_max]
+              
+              # subset sequences
               Biostrings::writeXStringSet(
-                seqs_plus@unlistData,
+                seqs,
                 filepath = file_name,
                 format = "fasta",
                 append = TRUE
               )
-              
+
             } else {
               message("  -> No random sequences were chosen from the plus strand of ", chr_names[j])
             }
@@ -177,8 +185,15 @@ extract_random_seqs_from_genome <-
                 )
               )
               
+              # set n_max when null and count N in each sequence
+              if (is.null(n_max)) n_max <- interval_width + 1
+              nn <- Biostrings::vcountPattern('N', seqs_minus@unlistData)
+              
+              # subset sequences
+              seqs <- seqs_minus@unlistData[nn <= n_max]
+              
               Biostrings::writeXStringSet(
-                seqs_minus@unlistData,
+                seqs,
                 filepath = file_name,
                 format = "fasta",
                 append = TRUE
@@ -191,4 +206,5 @@ extract_random_seqs_from_genome <-
         
     message("Sequence extraction process of random loci finished without any problems.")
     return(file_name)
+    
   }

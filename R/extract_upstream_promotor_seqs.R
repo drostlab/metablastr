@@ -93,7 +93,8 @@ extract_upstream_promotor_seqs <- function(organism,
   
   message("Running quality control on imported annotation file by removing multipart transcripts that have different strand information ...")
   
-  annotation_df <- as.data.frame(annotation)
+  annotation_df <- dplyr::filter(as.data.frame(annotation), type == "gene")
+  
   if (!"gene_id" %in% names(annotation_df))
     stop("It seems like your ", annotation_format, " file does not have the column name 'gene_id' which is required to callpse transcripts accroding to a gene locus.", call. = FALSE)
       

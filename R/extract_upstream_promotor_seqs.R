@@ -93,21 +93,22 @@ extract_upstream_promotor_seqs <- function(organism,
   
   message("Running quality control on imported annotation file by removing multipart transcripts that have different strand information ...")
   
-  annotation_df <- dplyr::filter(as.data.frame(annotation), type == "gene")
+  type <- gene_biotype <- source <- NULL
+  annotation_df <- dplyr::filter(as.data.frame(annotation), type == "gene", gene_biotype == "protein_coding", source %in% c("phytozomev11", "DevSeq"))
   
   if (!"gene_id" %in% names(annotation_df))
     stop("It seems like your ", annotation_format, " file does not have the column name 'gene_id' which is required to callpse transcripts accroding to a gene locus.", call. = FALSE)
       
-  gene_id <- '.' <- NULL
-  annotation_clean <- dplyr::do(dplyr::group_by(annotation_df, gene_id), remove_multipart_transcripts(.))
-  
+  # gene_id <- '.' <- NULL
+  # annotation_clean <- dplyr::do(dplyr::group_by(annotation_df, gene_id), remove_multipart_transcripts(.))
+  # 
   message("Generating TxDbFromGRanges ...")
   
   tryCatch({
   gr_db <-
     GenomicFeatures::makeTxDbFromGRanges(
       GenomicRanges::makeGRangesFromDataFrame(
-        annotation_clean,
+        annotation_df,
         keep.extra.columns = TRUE,
         seqnames.field = "seqnames"
       )

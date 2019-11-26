@@ -19,7 +19,7 @@ blast_protein_to_nucleotide(query, subject, output.path = NULL,
 Default is \code{output.path = NULL} (hence \code{getwd()} is used).}
 
 \item{is.subject.db}{logical specifying whether or not the \code{subject} file is a file in fasta format (\code{is.subject.db = FALSE}; default)
-or a blast-able database that was formatted with \code{makeblastdb} (\code{is.subject.db = TRUE}).}
+or a \code{fasta} file that was previously converted into a blast-able database using \code{makeblastdb} (\code{is.subject.db = TRUE}).}
 
 \item{task}{nucleotide search task option. Options are:
 \itemize{

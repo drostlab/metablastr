@@ -7,6 +7,9 @@
 #' \item \code{type = "alig_length"}
 #' \item \code{type = "evalue"}
 #' \item \code{type = "bit_score"}
+#' \item \code{type = "qcovhsp"}
+#' \item \code{type = "qcov"}
+#' \item \code{type = "perc_identity"}
 #' }
 #' @param scope_cutoff The scope is defined as \code{1 - (abs(q_len - alig_length) / q_len))}. The \code{scope_cutoff}
 #' defines the minimum scope that is required to retain a BLAST hit. Default is \code{scope_cutoff = 0.1} (meaning that each BLAST hit must have at least 0.1 scope). 
@@ -32,7 +35,7 @@ gg_blast_hits <-
            xticks = 5,
            levels = NULL
            ) {
-    if (!is.element(type, c("scope", "alig_length", "evalue", "bit_score")))
+    if (!is.element(type, c("scope", "alig_length", "evalue", "bit_score", "qcovhsp", "qcov", "perc_identity")))
       stop(
         "The argument '",
         type,
@@ -94,6 +97,51 @@ gg_blast_hits <-
           dplyr::filter(blast_tbl, scope >= scope_cutoff),
           ggplot2::aes(
             x = bit_score,
+            y = species,
+            fill = species,
+            alpha = alpha,
+            height = ..density..
+          )
+        )
+    }
+    
+    if (type == "qcovhsp") {
+      qcovhsp <- NULL
+      p <-
+        ggplot2::ggplot(
+          dplyr::filter(blast_tbl, scope >= scope_cutoff),
+          ggplot2::aes(
+            x = qcovhsp,
+            y = species,
+            fill = species,
+            alpha = alpha,
+            height = ..density..
+          )
+        )
+    }
+    
+    if (type == "qcov") {
+      qcovhsp <- NULL
+      p <-
+        ggplot2::ggplot(
+          dplyr::filter(blast_tbl, scope >= scope_cutoff),
+          ggplot2::aes(
+            x = qcov,
+            y = species,
+            fill = species,
+            alpha = alpha,
+            height = ..density..
+          )
+        )
+    }
+    
+    if (type == "perc_identity") {
+      qcovhsp <- NULL
+      p <-
+        ggplot2::ggplot(
+          dplyr::filter(blast_tbl, scope >= scope_cutoff),
+          ggplot2::aes(
+            x = perc_identity,
             y = species,
             fill = species,
             alpha = alpha,

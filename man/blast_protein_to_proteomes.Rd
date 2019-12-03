@@ -14,6 +14,14 @@ blast_protein_to_proteomes(query, subject_proteomes,
 
 \item{subject_proteomes}{a vector containing file paths to the reference proteomes that shall be queried (e.g. file paths returned by \code{\link[biomartr]{meta.retrieval}}).}
 
+\item{blast_type}{specification of the BLAST type shall be used to perform BLAST searches between query and reference.
+Available options are:
+\itemize{
+\item \code{task = "blastp"} : Standard protein-protein comparisons (default); (see \code{\link{blast_protein_to_protein}} for details).
+\item \code{task = "blast-fast"} : Improved BLAST searches using longer words for protein seeding.
+\item \code{task = "blastp-short"} : Optimized protein-protein comparisons for query sequences shorter than 30 residues.
+}}
+
 \item{blast_output_path}{a path to a folder that will be created to store BLAST output tables for each individual query-proteome search.}
 
 \item{min_alig_length}{minimum alignment length that shall be retained in the result dataset. All hit alignments with smaller

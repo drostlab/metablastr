@@ -18,6 +18,9 @@ gg_blast_hits(blast_tbl, type = "scope", scope_cutoff = 0.1,
 \item \code{type = "alig_length"}
 \item \code{type = "evalue"}
 \item \code{type = "bit_score"}
+\item \code{type = "qcovhsp"}
+\item \code{type = "qcov"}
+\item \code{type = "perc_identity"}
 }}
 
 \item{scope_cutoff}{The scope is defined as \code{1 - (abs(q_len - alig_length) / q_len))}. The \code{scope_cutoff}

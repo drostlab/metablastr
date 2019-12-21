@@ -4,9 +4,15 @@
 \alias{extract_promotor_seqs_from_genome}
 \title{Retrieve all upstream promotor sequences from a genome}
 \usage{
-extract_promotor_seqs_from_genome(annotation_file, genome_file,
-  promotor_length = 500, annotation_format = "gtf", file_name = NULL,
-  path = NULL, update = TRUE)
+extract_promotor_seqs_from_genome(
+  annotation_file,
+  genome_file,
+  promotor_length = 500,
+  annotation_format = "gtf",
+  file_name = NULL,
+  path = NULL,
+  update = TRUE
+)
 }
 \arguments{
 \item{annotation_file}{file path to the annotation file of the genome assembly

@@ -1,9 +1,9 @@
 Package: metablastr
 Title: Perform Local BLAST Searches
-Version: 0.2.0.9000
+Version: 0.3.0
 Authors@R: c(person("Hajk-Georg", "Drost",
                 role = c("aut", "ctb", "cre"),
-                email = "hgd23@cam.ac.uk",
+                email = "hajk-georg.drost@tuebingen.mpg.de",
                 comment = c(ORCID = "http://orcid.org/0000-0002-1567-306X")),
                 person("Anna", "Gogleva", email = "anna.gogleva@slcu.cam.ac.uk", role = c("aut", "ctb")))
 Description: This package provides interface functions for users to perform local Basic Local Alignment Search Tool (BLAST) searches. The search results can be efficiently imported into the R session. 
@@ -27,7 +27,6 @@ Imports:
     stringr (>= 0.6.2),
     DBI (>= 0.3.1),
     readr (>= 1.1.0),
-    biomartr,
     ggplot2,
     ggridges,
     IRanges,
@@ -36,9 +35,10 @@ Imports:
 Suggests: 
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    biomartr
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 VignetteBuilder: knitr

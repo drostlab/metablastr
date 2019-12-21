@@ -4,8 +4,14 @@
 \alias{gg_species_feature_blast_tbl}
 \title{Plot pairwise feature distributions of orthologous genes}
 \usage{
-gg_species_feature_blast_tbl(blast_tbl, type, order, xlab = type,
-  ylab = "Density", title = "")
+gg_species_feature_blast_tbl(
+  blast_tbl,
+  type,
+  order,
+  xlab = type,
+  ylab = "Density",
+  title = ""
+)
 }
 \arguments{
 \item{blast_tbl}{a \code{blast_tbl}.}

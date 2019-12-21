@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot number of pairwise orthologs for multiple species comparisons — gg_pairwise_orthologs_line • metablastr</title>
+<title>Perfrom BLAST Searches Against a Set of Genomes — blast_nucleotide_to_genomes • metablastr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,10 @@
 
 
 
-<meta property="og:title" content="Plot number of pairwise orthologs for multiple species comparisons — gg_pairwise_orthologs_line" />
-<meta property="og:description" content="Visualizes pairwise orthologs for multiple species comparisons as line graph." />
+<meta property="og:title" content="Perfrom BLAST Searches Against a Set of Genomes — blast_nucleotide_to_genomes" />
+<meta property="og:description" content="This function takes a fasta file containing query sequences
+as input and performs BLAST searches of these query sequences against
+a set of reference genomes to retrieve corresponding hits in diverse genomes." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,59 +114,87 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot number of pairwise orthologs for multiple species comparisons</h1>
+    <h1>Perfrom BLAST Searches Against a Set of Genomes</h1>
     
-    <div class="hidden name"><code>gg_pairwise_orthologs_line.Rd</code></div>
+    <div class="hidden name"><code>blast_nucleotide_to_genomes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Visualizes pairwise orthologs for multiple species comparisons as line graph.</p>
+    <p>This function takes a fasta file containing query sequences
+as input and performs BLAST searches of these query sequences against
+a set of reference genomes to retrieve corresponding hits in diverse genomes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_pairwise_orthologs_line</span>(
-  <span class='no'>ortho_summary</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Subject Species"</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Number of reciprocal best hit orthologs"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>vline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+    <pre class="usage"><span class='fu'>blast_nucleotide_to_genomes</span>(
+  <span class='no'>query</span>,
+  <span class='no'>subject_genomes</span>,
+  <span class='kw'>blast_type</span> <span class='kw'>=</span> <span class='st'>"blastn"</span>,
+  <span class='kw'>blast_output_path</span> <span class='kw'>=</span> <span class='st'>"blast_output"</span>,
+  <span class='kw'>min_alig_length</span> <span class='kw'>=</span> <span class='fl'>30</span>,
+  <span class='kw'>evalue</span> <span class='kw'>=</span> <span class='fl'>1e-05</span>,
+  <span class='kw'>max.target.seqs</span> <span class='kw'>=</span> <span class='fl'>5000</span>,
+  <span class='kw'>update</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>ortho_summary</th>
-      <td><p>a <code>data.frame</code> storing the <code>subject_species</code> in the first column and the number of orthologs named <code>n_orthologs</code> in the second column.</p></td>
+      <th>query</th>
+      <td><p>path to input file in fasta format.</p></td>
     </tr>
     <tr>
-      <th>xlab</th>
-      <td><p>label of x-axis.</p></td>
+      <th>subject_genomes</th>
+      <td><p>a vector containing file paths to the reference genomes that shall be queried (e.g. file paths returned by <code><a href='https://docs.ropensci.org/biomartr/reference/meta.retrieval.html'>meta.retrieval</a></code>).</p></td>
     </tr>
     <tr>
-      <th>ylab</th>
-      <td><p>label of y-axis.</p></td>
+      <th>blast_type</th>
+      <td><p>specification of the BLAST type shall be used to perform BLAST searches between query and reference.
+Available options are:</p><ul>
+<li><p><code>blast_type = "blastn"</code> for  nucleotide to nucleotide BLAST searches (see <code><a href='blast_nucleotide_to_nucleotide.html'>blast_nucleotide_to_nucleotide</a></code> for details)</p></li>
+<li><p><code>blast_type = "tblastn"</code> for protein to nucleotide BLAST searches (see <code><a href='blast_protein_to_nucleotide.html'>blast_protein_to_nucleotide</a></code> for details)</p></li>
+</ul></td>
     </tr>
     <tr>
-      <th>title</th>
-      <td><p>plot title.</p></td>
+      <th>blast_output_path</th>
+      <td><p>a path to a folder that will be created to store BLAST output tables for each individual query-genome search.</p></td>
     </tr>
     <tr>
-      <th>vline</th>
-      <td><p>plot a line characterizing the core set. Default is <code>vline = NULL</code> meaning that no vline is drawn.</p></td>
+      <th>min_alig_length</th>
+      <td><p>minimum alignment length that shall be retained in the result dataset. All hit alignments with smaller
+hit alignment length will be removed automatically.</p></td>
     </tr>
     <tr>
-      <th>ymax</th>
-      <td><p>max value of y-axis. Default is <code>ymax = NULL</code> meaning that the largest value within the dataset will be used to determine y-max.</p></td>
+      <th>evalue</th>
+      <td><p>minimum expectation value (E) threshold for retaining hits (default: evalue = 0.00001).</p></td>
+    </tr>
+    <tr>
+      <th>max.target.seqs</th>
+      <td><p>maximum number of aligned sequences that shall be retained. Please be aware that <code>max.target.seqs</code> selects best hits based on the database entry and not by the best e-value. See details here: https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty833/5106166 .</p></td>
+    </tr>
+    <tr>
+      <th>update</th>
+      <td><p>a logical value indicating whether or not pre-computed BLAST tables should be removed and re-computed (<code>update = TRUE</code>)
+or imported from existing file (<code>update = FALSE</code>) (Default).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional arguments passed to <code><a href='blast_nucleotide_to_nucleotide.html'>blast_nucleotide_to_nucleotide</a></code> or <code><a href='blast_protein_to_nucleotide.html'>blast_protein_to_nucleotide</a></code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>blast_nucleotide_to_genomes</code> function enables users to BLAST specific query sequences against a set of reference genomes
+and retrieve the corresponding BLAST output.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#details">Details</a></li>
     </ul>
 
     <h2>Author</h2>

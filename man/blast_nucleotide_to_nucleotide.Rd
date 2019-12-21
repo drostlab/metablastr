@@ -4,11 +4,23 @@
 \alias{blast_nucleotide_to_nucleotide}
 \title{Perform Nucleotide to Nucleotide BLAST Searches (BLASTN)}
 \usage{
-blast_nucleotide_to_nucleotide(query, subject, strand = "both",
-  output.path = NULL, is.subject.db = FALSE, task = "blastn",
-  db.import = FALSE, postgres.user = NULL, evalue = 0.001,
-  out.format = "csv", cores = 1, max.target.seqs = 10000,
-  db.soft.mask = FALSE, db.hard.mask = FALSE, blast.path = NULL)
+blast_nucleotide_to_nucleotide(
+  query,
+  subject,
+  strand = "both",
+  output.path = NULL,
+  is.subject.db = FALSE,
+  task = "blastn",
+  db.import = FALSE,
+  postgres.user = NULL,
+  evalue = 0.001,
+  out.format = "csv",
+  cores = 1,
+  max.target.seqs = 10000,
+  db.soft.mask = FALSE,
+  db.hard.mask = FALSE,
+  blast.path = NULL
+)
 }
 \arguments{
 \item{query}{path to input file in fasta format.}

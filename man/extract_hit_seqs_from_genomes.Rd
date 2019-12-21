@@ -4,9 +4,14 @@
 \alias{extract_hit_seqs_from_genomes}
 \title{Extract sequences of BLAST hits in respective genomes and store it as \code{fasta} file(s)}
 \usage{
-extract_hit_seqs_from_genomes(blast_tbl, subject_genomes,
-  file_name = NULL, separated_by_genome = FALSE, update = TRUE,
-  path = NULL)
+extract_hit_seqs_from_genomes(
+  blast_tbl,
+  subject_genomes,
+  file_name = NULL,
+  separated_by_genome = FALSE,
+  update = TRUE,
+  path = NULL
+)
 }
 \arguments{
 \item{blast_tbl}{a BLAST table generated with \code{\link{blast_genomes}}.}

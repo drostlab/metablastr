@@ -4,8 +4,14 @@
 \alias{gg_species_dnds_blast_tbl}
 \title{Plot pairwise dN, dS, or dN/dS distributions of orthologous genes}
 \usage{
-gg_species_dnds_blast_tbl(blast_tbl, type, order, xlab = "", ylab = "",
-  title = "")
+gg_species_dnds_blast_tbl(
+  blast_tbl,
+  type,
+  order,
+  xlab = "",
+  ylab = "",
+  title = ""
+)
 }
 \arguments{
 \item{blast_tbl}{a \code{blast_tbl}.}

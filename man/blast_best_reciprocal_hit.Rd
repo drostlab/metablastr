@@ -4,12 +4,24 @@
 \alias{blast_best_reciprocal_hit}
 \title{Retrieve only the best reciprocal BLAST hit for each query}
 \usage{
-blast_best_reciprocal_hit(query, subject,
-  search_type = "nucleotide_to_nucleotide", strand = "both",
-  output.path = NULL, is.subject.db = FALSE, task = "blastn",
-  db.import = FALSE, postgres.user = NULL, evalue = 0.001,
-  out.format = "csv", cores = 1, max.target.seqs = 10000,
-  db.soft.mask = FALSE, db.hard.mask = FALSE, blast.path = NULL)
+blast_best_reciprocal_hit(
+  query,
+  subject,
+  search_type = "nucleotide_to_nucleotide",
+  strand = "both",
+  output.path = NULL,
+  is.subject.db = FALSE,
+  task = "blastn",
+  db.import = FALSE,
+  postgres.user = NULL,
+  evalue = 0.001,
+  out.format = "csv",
+  cores = 1,
+  max.target.seqs = 10000,
+  db.soft.mask = FALSE,
+  db.hard.mask = FALSE,
+  blast.path = NULL
+)
 }
 \arguments{
 \item{query}{path to input file in fasta format.}

@@ -4,9 +4,17 @@
 \alias{motif_compare_multi_promotor_seqs}
 \title{Count the number of motifs in a set of non-random versus randomly drawn gene promotor sequences for multiple species}
 \usage{
-motif_compare_multi_promotor_seqs(blast_tbl, subject_genomes,
-  annotation_files, annotation_format = "gff", interval_width, motifs,
-  max.mismatch = 0, min.mismatch = 0, ...)
+motif_compare_multi_promotor_seqs(
+  blast_tbl,
+  subject_genomes,
+  annotation_files,
+  annotation_format = "gff",
+  interval_width,
+  motifs,
+  max.mismatch = 0,
+  min.mismatch = 0,
+  ...
+)
 }
 \arguments{
 \item{blast_tbl}{a blast_table.}

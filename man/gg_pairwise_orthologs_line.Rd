@@ -4,9 +4,14 @@
 \alias{gg_pairwise_orthologs_line}
 \title{Plot number of pairwise orthologs for multiple species comparisons}
 \usage{
-gg_pairwise_orthologs_line(ortho_summary, xlab = "Subject Species",
-  ylab = "Number of reciprocal best hit orthologs", title = "",
-  vline = NULL, ymax = NULL)
+gg_pairwise_orthologs_line(
+  ortho_summary,
+  xlab = "Subject Species",
+  ylab = "Number of reciprocal best hit orthologs",
+  title = "",
+  vline = NULL,
+  ymax = NULL
+)
 }
 \arguments{
 \item{ortho_summary}{a \code{data.frame} storing the \code{subject_species} in the first column and the number of orthologs named \code{n_orthologs} in the second column.}

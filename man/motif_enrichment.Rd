@@ -4,8 +4,16 @@
 \alias{motif_enrichment}
 \title{Test motif enrichment in a set of non-random versus random sequences}
 \usage{
-motif_enrichment(real_seqs, random_seqs, motifs, test = "fisher",
-  alternative = "less", max.mismatch = 0, min.mismatch = 0, ...)
+motif_enrichment(
+  real_seqs,
+  random_seqs,
+  motifs,
+  test = "fisher",
+  alternative = "less",
+  max.mismatch = 0,
+  min.mismatch = 0,
+  ...
+)
 }
 \arguments{
 \item{real_seqs}{a file path to the \code{fasta} file storing the non-random set of sequences.}

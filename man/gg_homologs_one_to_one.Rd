@@ -4,9 +4,14 @@
 \alias{gg_homologs_one_to_one}
 \title{Plot number of BLAST hits per species as barplot from a \code{tibble} generated with \code{detect_homologs_genome_to_genome} or \code{detect_homologs_proteome_to_proteome}}
 \usage{
-gg_homologs_one_to_one(blast_tbl, xlab = "Species",
+gg_homologs_one_to_one(
+  blast_tbl,
+  xlab = "Species",
   ylab = "Number of one-to-one homologs (including splice variants)",
-  title = "One-to-one homologs", text_size = 18, y_ticks = 8)
+  title = "One-to-one homologs",
+  text_size = 18,
+  y_ticks = 8
+)
 }
 \arguments{
 \item{blast_tbl}{a BLAST table generated with \code{\link{detect_homologs_proteome_to_proteome}}.}

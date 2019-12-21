@@ -4,8 +4,16 @@
 \alias{motif_compare_multi}
 \title{Count the number of motifs in a set of non-random versus randomly sampled genomic sequences for multiple species}
 \usage{
-motif_compare_multi(blast_tbl, subject_genomes, size, interval_width,
-  motifs, max.mismatch = 0, min.mismatch = 0, ...)
+motif_compare_multi(
+  blast_tbl,
+  subject_genomes,
+  size,
+  interval_width,
+  motifs,
+  max.mismatch = 0,
+  min.mismatch = 0,
+  ...
+)
 }
 \arguments{
 \item{blast_tbl}{a blast_table.}

@@ -4,10 +4,18 @@
 \alias{detect_homologs_proteome_to_proteome}
 \title{Perform Proteome to Proteome BLAST Searches against a set of Proteomes}
 \usage{
-detect_homologs_proteome_to_proteome(query, subject_proteomes,
-  task = "blastp", blast_output_path = "blast_output",
-  min_alig_length = 20, evalue = 1e-05, max.target.seqs = 5000,
-  cores = 1, update = FALSE, ...)
+detect_homologs_proteome_to_proteome(
+  query,
+  subject_proteomes,
+  task = "blastp",
+  blast_output_path = "blast_output",
+  min_alig_length = 20,
+  evalue = 1e-05,
+  max.target.seqs = 5000,
+  cores = 1,
+  update = FALSE,
+  ...
+)
 }
 \arguments{
 \item{query}{path to input file in fasta format.}

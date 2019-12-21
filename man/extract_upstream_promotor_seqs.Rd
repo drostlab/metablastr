@@ -4,9 +4,15 @@
 \alias{extract_upstream_promotor_seqs}
 \title{Retrieve all upstream promotor sequences from a genome}
 \usage{
-extract_upstream_promotor_seqs(organism, genome_file, annotation_file,
-  annotation_format, file_name = NULL, promotor_width,
-  replaceUnstranded = "+")
+extract_upstream_promotor_seqs(
+  organism,
+  genome_file,
+  annotation_file,
+  annotation_format,
+  file_name = NULL,
+  promotor_width,
+  replaceUnstranded = "+"
+)
 }
 \arguments{
 \item{organism}{a character string specifying the scientific name of the organism.}

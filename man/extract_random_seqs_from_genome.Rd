@@ -4,8 +4,15 @@
 \alias{extract_random_seqs_from_genome}
 \title{Extract random loci from a genome of interest}
 \usage{
-extract_random_seqs_from_genome(size, replace = TRUE, prob = NULL,
-  interval_width, subject_genome, file_name = NULL, append = FALSE)
+extract_random_seqs_from_genome(
+  size,
+  replace = TRUE,
+  prob = NULL,
+  interval_width,
+  subject_genome,
+  file_name = NULL,
+  append = FALSE
+)
 }
 \arguments{
 \item{size}{a non-negative integer giving the number of loci that shall be sampled.}

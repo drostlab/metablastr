@@ -4,9 +4,18 @@
 \alias{motif_enrichment_multi}
 \title{Statistical assessment of motif enrichments in a set of non-random versus randomly sampled genomic sequences for multiple species}
 \usage{
-motif_enrichment_multi(blast_tbl, subject_genomes, test = "fisher",
-  alternative = "two.sided", size, interval_width, motifs,
-  max.mismatch = 0, min.mismatch = 0, ...)
+motif_enrichment_multi(
+  blast_tbl,
+  subject_genomes,
+  test = "fisher",
+  alternative = "two.sided",
+  size,
+  interval_width,
+  motifs,
+  max.mismatch = 0,
+  min.mismatch = 0,
+  ...
+)
 }
 \arguments{
 \item{blast_tbl}{a blast_table.}

@@ -4,11 +4,22 @@
 \alias{blast_protein_to_protein}
 \title{Perform Protein to Protein BLAST Searches (BLASTP)}
 \usage{
-blast_protein_to_protein(query, subject, output.path = NULL,
-  is.subject.db = FALSE, task = "blastp", db.import = FALSE,
-  postgres.user = NULL, evalue = 0.001, out.format = "csv",
-  cores = 1, max.target.seqs = 10000, db.soft.mask = FALSE,
-  db.hard.mask = FALSE, blast.path = NULL)
+blast_protein_to_protein(
+  query,
+  subject,
+  output.path = NULL,
+  is.subject.db = FALSE,
+  task = "blastp",
+  db.import = FALSE,
+  postgres.user = NULL,
+  evalue = 0.001,
+  out.format = "csv",
+  cores = 1,
+  max.target.seqs = 10000,
+  db.soft.mask = FALSE,
+  db.hard.mask = FALSE,
+  blast.path = NULL
+)
 }
 \arguments{
 \item{query}{path to input file in fasta format.}

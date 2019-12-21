@@ -4,8 +4,14 @@
 \alias{sample_chromosome_intervals}
 \title{Helper function to sample random intervals of length \code{interval_width} from chromosomes}
 \usage{
-sample_chromosome_intervals(chr_size, interval_width, strand, size,
-  replace = TRUE, prob = NULL)
+sample_chromosome_intervals(
+  chr_size,
+  interval_width,
+  strand,
+  size,
+  replace = TRUE,
+  prob = NULL
+)
 }
 \arguments{
 \item{chr_size}{an integer value defining the length of the chromosome.}

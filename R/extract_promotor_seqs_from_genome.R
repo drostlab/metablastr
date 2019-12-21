@@ -138,6 +138,7 @@ extract_promotor_seqs_from_genome <-
                         seqnames == chr_names[j],
                         strand_name == "plus")
         
+        start <- end <- NULL
         Import_gtf_filtered_plus_strand_pissible <- dplyr::filter(Import_gtf_filtered_plus_strand, start - promotor_length > 0)
         
         if (nrow(Import_gtf_filtered_plus_strand) - nrow(Import_gtf_filtered_plus_strand_pissible) > 0)

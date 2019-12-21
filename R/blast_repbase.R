@@ -1,11 +1,11 @@
 #' @title Query the RepBase to annotate putative LTRs
 #' @description Validate or annotate putative LTR
 #' transposons that have been predicted using LTRharvest or LTRdigest.
-#' @param seq.file file path to the putative LTR transposon sequences in \code{fasta} format.
+#' @param query file path to the putative LTR transposon sequences in \code{fasta} format.
 #' @param repbase.path file path to the RepBase file in \code{fasta} format.
 #' @param output file name of the BLAST output.
-#' @param max.hits maximum number of hits that shall be retrieved that still fulfill the e-value criterium.
-#' Default is \code{max.hits = 10000}.
+#' @param max.target.seqs maximum number of hits that shall be retrieved that still fulfill the e-value criterium.
+#' Default is \code{max.target.seqs = 10000}.
 #' @param eval e-value threshold for BLAST hit detection. Default is \code{eval = 1E-10}.
 #' @param cores number of cores to use to perform parallel computations.
 #' @author Hajk-Georg Drost
@@ -53,10 +53,12 @@
 
 blast_repbase <- function(query,
                           repbase.path,
-                          output.path   = "RepbaseOutput.txt",
+                          output   = "RepbaseOutput.txt",
                           max.target.seqs = 10000,
                           eval     = 1E-10,
                           cores    = 1) {
+  
+  is_blast_installed()
   
   s_len <- alig_length <- NULL
   # Create a blast-able database of repbase and perform blastn search of
@@ -80,7 +82,7 @@ blast_repbase <- function(query,
       "-evalue ",
       eval,
       " -max_target_seqs ",
-      max.hits,
+      max.target.seqs,
       " -num_threads ",
       cores,
       " -dust no -outfmt '6 qseqid sseqid pident nident

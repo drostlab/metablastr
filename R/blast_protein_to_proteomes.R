@@ -7,7 +7,6 @@
 #' @param blast_type specification of the BLAST type shall be used to perform BLAST searches between query and reference.
 #' Available options are:
 #' \itemize{
-#' \itemize{
 #' \item \code{task = "blastp"} : Standard protein-protein comparisons (default); (see \code{\link{blast_protein_to_protein}} for details).
 #' \item \code{task = "blast-fast"} : Improved BLAST searches using longer words for protein seeding.
 #' \item \code{task = "blastp-short"} : Optimized protein-protein comparisons for query sequences shorter than 30 residues.

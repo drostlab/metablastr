@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot <code><a href='blast_genomes.html'>blast_genomes</a></code> Result — gg_blast_hits • metablastr</title>
+<title>Plot pairwise promotor sequence distance distributions of orthologous genes — gg_species_promotor_dist_blast_tbl • metablastr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Plot <code><a href='blast_genomes.html'>blast_genomes</a></code> Result — gg_blast_hits" />
-<meta property="og:description" content="This function generates a joyplot of the blast_genomes output." />
+<meta property="og:title" content="Plot pairwise promotor sequence distance distributions of orthologous genes — gg_species_promotor_dist_blast_tbl" />
+<meta property="og:description" content="This function enables users to plot pairwise promotor sequence distance distributions of orthologous genes." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,80 +112,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot <code><a href='blast_genomes.html'>blast_genomes</a></code> Result</h1>
+    <h1>Plot pairwise promotor sequence distance distributions of orthologous genes</h1>
     
-    <div class="hidden name"><code>gg_blast_hits.Rd</code></div>
+    <div class="hidden name"><code>gg_species_promotor_dist_blast_tbl.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function generates a joyplot of the <code><a href='blast_genomes.html'>blast_genomes</a></code> output.</p>
+    <p>This function enables users to plot pairwise promotor sequence distance distributions of orthologous genes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_blast_hits</span>(
-  <span class='no'>blast_tbl</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"scope"</span>,
-  <span class='kw'>scope_cutoff</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Query"</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Density over Number of BLAST Hits"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Total number of BLAST hits: "</span>,
-  <span class='kw'>xticks</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>levels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>gg_species_promotor_dist_blast_tbl</span>(<span class='no'>blast_tbl</span>, <span class='no'>type</span>, <span class='no'>order</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>blast_tbl</th>
-      <td><p>a BLAST table generated with <code><a href='blast_genomes.html'>blast_genomes</a></code>.</p></td>
+      <td><p>a <code>blast_tbl</code>.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>the type of BLAST hit visualization. Options are:</p><ul>
-<li><p><code>type = "scope"</code></p></li>
-<li><p><code>type = "alig_length"</code></p></li>
-<li><p><code>type = "evalue"</code></p></li>
-<li><p><code>type = "bit_score"</code></p></li>
-<li><p><code>type = "qcovhsp"</code></p></li>
-<li><p><code>type = "qcov"</code></p></li>
-<li><p><code>type = "perc_identity"</code></p></li>
+      <td><p>type of sustitution rate quantification that shall be visualized on the y-axis. Options are:</p><ul>
+<li><p><code>type = "promotor_dist"</code></p></li>
+<li><p><code>type = "promotor_aln_score"</code></p></li>
+<li><p><code>type = "promotor_indel_blocks"</code></p></li>
+<li><p><code>type = "promotor_indels"</code></p></li>
 </ul></td>
     </tr>
     <tr>
-      <th>scope_cutoff</th>
-      <td><p>The scope is defined as <code>1 - (abs(q_len - alig_length) / q_len))</code>. The <code>scope_cutoff</code>
-defines the minimum scope that is required to retain a BLAST hit. Default is <code>scope_cutoff = 0.1</code> (meaning that each BLAST hit must have at least 0.1 scope).</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>a value passed to <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></code>specifying the transparency of distributions.</p></td>
-    </tr>
-    <tr>
-      <th>scale</th>
-      <td><p>the ridges scale passed to <code><a href='https://rdrr.io/pkg/ggridges/man/geom_density_ridges.html'>geom_density_ridges</a></code>.</p></td>
+      <th>order</th>
+      <td><p>a character vector specifying the order of the species using their scientific names (which have to match the species names stored in the <code>subject_species</code>
+column of the input <code>blast_tbl</code>).</p></td>
     </tr>
     <tr>
       <th>xlab</th>
-      <td><p>x-axis label.</p></td>
+      <td><p>label of x-axis.</p></td>
     </tr>
     <tr>
       <th>ylab</th>
-      <td><p>y-axis label.</p></td>
+      <td><p>label of y-axis.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>figure title which will be concatenated with the number of BLAST hits available in the inpit <code>blast_tbl</code>.</p></td>
-    </tr>
-    <tr>
-      <th>xticks</th>
-      <td><p>number of ticks on the x-axis. Default is <code>xticks = 5</code>.</p></td>
-    </tr>
-    <tr>
-      <th>levels</th>
-      <td><p>a character vector specifying the exact order of species names (levels) 
-that is used to <code><a href='https://rdrr.io/r/base/factor.html'>factor</a></code> and sort species in the <code><a href='https://rdrr.io/pkg/ggridges/man/geom_density_ridges.html'>geom_density_ridges</a></code> plot.</p></td>
+      <td><p>title label.</p></td>
     </tr>
     </table>
 

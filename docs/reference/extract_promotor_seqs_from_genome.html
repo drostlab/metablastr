@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot <code><a href='blast_genomes.html'>blast_genomes</a></code> Result — gg_blast_hits • metablastr</title>
+<title>Retrieve all upstream promotor sequences from a genome — extract_promotor_seqs_from_genome • metablastr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,9 @@
 
 
 
-<meta property="og:title" content="Plot <code><a href='blast_genomes.html'>blast_genomes</a></code> Result — gg_blast_hits" />
-<meta property="og:description" content="This function generates a joyplot of the blast_genomes output." />
+<meta property="og:title" content="Retrieve all upstream promotor sequences from a genome — extract_promotor_seqs_from_genome" />
+<meta property="og:description" content="Given a genome assembly file and an corresponding annotation 
+file users can retrieve all upstream promotor sequences of all genes from a genome." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,80 +113,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot <code><a href='blast_genomes.html'>blast_genomes</a></code> Result</h1>
+    <h1>Retrieve all upstream promotor sequences from a genome</h1>
     
-    <div class="hidden name"><code>gg_blast_hits.Rd</code></div>
+    <div class="hidden name"><code>extract_promotor_seqs_from_genome.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function generates a joyplot of the <code><a href='blast_genomes.html'>blast_genomes</a></code> output.</p>
+    <p>Given a genome assembly file and an corresponding annotation 
+file users can retrieve all upstream promotor sequences of all genes from a genome.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_blast_hits</span>(
-  <span class='no'>blast_tbl</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"scope"</span>,
-  <span class='kw'>scope_cutoff</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Query"</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Density over Number of BLAST Hits"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Total number of BLAST hits: "</span>,
-  <span class='kw'>xticks</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>levels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>extract_promotor_seqs_from_genome</span>(<span class='no'>annotation_file</span>, <span class='no'>genome_file</span>,
+  <span class='kw'>promotor_length</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>annotation_format</span> <span class='kw'>=</span> <span class='st'>"gtf"</span>, <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>update</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>blast_tbl</th>
-      <td><p>a BLAST table generated with <code><a href='blast_genomes.html'>blast_genomes</a></code>.</p></td>
+      <th>annotation_file</th>
+      <td><p>file path to the annotation file of the genome assembly
+in <code>gtf</code> or <code>gff</code> format.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>the type of BLAST hit visualization. Options are:</p><ul>
-<li><p><code>type = "scope"</code></p></li>
-<li><p><code>type = "alig_length"</code></p></li>
-<li><p><code>type = "evalue"</code></p></li>
-<li><p><code>type = "bit_score"</code></p></li>
-<li><p><code>type = "qcovhsp"</code></p></li>
-<li><p><code>type = "qcov"</code></p></li>
-<li><p><code>type = "perc_identity"</code></p></li>
+      <th>genome_file</th>
+      <td><p>file path to the genome assembly file.</p></td>
+    </tr>
+    <tr>
+      <th>promotor_length</th>
+      <td><p>width of upstream promotors. This is -<code>promotor_width</code> bp from the transcription start site (TSS) of the gene.</p></td>
+    </tr>
+    <tr>
+      <th>annotation_format</th>
+      <td><p>format of the annotation file. Options are:</p><ul>
+<li><p><code>annotation_format = "gtf"</code></p></li>
+<li><p><code>annotation_format = "gff"</code></p></li>
 </ul></td>
     </tr>
     <tr>
-      <th>scope_cutoff</th>
-      <td><p>The scope is defined as <code>1 - (abs(q_len - alig_length) / q_len))</code>. The <code>scope_cutoff</code>
-defines the minimum scope that is required to retain a BLAST hit. Default is <code>scope_cutoff = 0.1</code> (meaning that each BLAST hit must have at least 0.1 scope).</p></td>
+      <th>file_name</th>
+      <td><p>file path to the output file storing the promotor sequences.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
-      <td><p>a value passed to <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></code>specifying the transparency of distributions.</p></td>
+      <th>path</th>
+      <td><p>a file path to an output folder storing the promotor sequences.</p></td>
     </tr>
     <tr>
-      <th>scale</th>
-      <td><p>the ridges scale passed to <code><a href='https://rdrr.io/pkg/ggridges/man/geom_density_ridges.html'>geom_density_ridges</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>xlab</th>
-      <td><p>x-axis label.</p></td>
-    </tr>
-    <tr>
-      <th>ylab</th>
-      <td><p>y-axis label.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>figure title which will be concatenated with the number of BLAST hits available in the inpit <code>blast_tbl</code>.</p></td>
-    </tr>
-    <tr>
-      <th>xticks</th>
-      <td><p>number of ticks on the x-axis. Default is <code>xticks = 5</code>.</p></td>
-    </tr>
-    <tr>
-      <th>levels</th>
-      <td><p>a character vector specifying the exact order of species names (levels) 
-that is used to <code><a href='https://rdrr.io/r/base/factor.html'>factor</a></code> and sort species in the <code><a href='https://rdrr.io/pkg/ggridges/man/geom_density_ridges.html'>geom_density_ridges</a></code> plot.</p></td>
+      <th>update</th>
+      <td><p>shall previously generated promotor sequences be overwritten when again generated for the same genome assembly?</p></td>
     </tr>
     </table>
 

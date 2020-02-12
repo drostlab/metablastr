@@ -51,7 +51,7 @@ extract_random_seqs_from_multiple_genomes <-
       }
     }
       
-    message("Starting sequence extraction process ...")
+    message("Starting sequence extraction process of ", sample_size, " random sequences of length = [", interval_width,"] for each of the ", length(subject_genomes), " genomes ...")
     
     ifelse(
       separated_by_genome,
@@ -65,8 +65,6 @@ extract_random_seqs_from_multiple_genomes <-
         # remove appendix *.fa from file name
         species_refined_name <-
           unlist(stringr::str_split(basename(subject_genomes[i]), "[.]"))[1]
-        
-        message("Processing organism ", species_refined_name, " ...")
         
         extract_random_seqs_from_genome(
           size = sample_size,
@@ -99,8 +97,6 @@ extract_random_seqs_from_multiple_genomes <-
          # remove appendix *.fa from file name
         species_refined_name <-
           unlist(stringr::str_split(basename(subject_genomes[i]), "[.]"))[1]
-        
-        message("Processing organism ", species_refined_name, " ...")
         
         extract_random_seqs_from_genome(
           size = sample_size,

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot pairwise promotor sequence distance distributions of orthologous genes — gg_species_promotor_dist_blast_tbl • metablastr</title>
+<title>Extract random loci from a set of genomes — extract_random_seqs_from_multiple_genomes • metablastr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,17 @@
 
 
 
-<meta property="og:title" content="Plot pairwise promotor sequence distance distributions of orthologous genes — gg_species_promotor_dist_blast_tbl" />
-<meta property="og:description" content="This function enables users to plot pairwise promotor sequence distance distributions of orthologous genes." />
+<meta property="og:title" content="Extract random loci from a set of genomes — extract_random_seqs_from_multiple_genomes" />
+<meta property="og:description" content="In some cases, users may wish to extract sequences from randomly sampled loci of a particular length from a set of genomes.
+This function allows users to specify a number of sequences
+of a specified length that shall be randomly sampled from the genome.
+The sampling rule is as follows:
+For each locus independently sample:
+1) choose randomly (equal probability: see sample.int for details) from which of the given chromosomes the locus shall be sampled (replace = TRUE).
+2) choose randomly (equal probability: see sample.int for details) from which strand (plus or minus) the locus shall be sampled (replace = TRUE).
+3) randomly choose (equal probability: see sample.int the starting position of the locus in the sampled chromosome and strand (replace = TRUE).
+
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,56 +121,75 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot pairwise promotor sequence distance distributions of orthologous genes</h1>
+    <h1>Extract random loci from a set of genomes</h1>
     
-    <div class="hidden name"><code>gg_species_promotor_dist_blast_tbl.Rd</code></div>
+    <div class="hidden name"><code>extract_random_seqs_from_multiple_genomes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function enables users to plot pairwise promotor sequence distance distributions of orthologous genes.</p>
+    <p>In some cases, users may wish to extract sequences from randomly sampled loci of a particular length from a set of genomes.
+This function allows users to specify a number of sequences
+of a specified length that shall be randomly sampled from the genome.
+The sampling rule is as follows:
+For each locus independently sample:</p><ul>
+<li><p>1) choose randomly (equal probability: see <code><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></code> for details) from which of the given chromosomes the locus shall be sampled (<code>replace = TRUE</code>).</p></li>
+<li><p>2) choose randomly (equal probability: see <code><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></code> for details) from which strand (plus or minus) the locus shall be sampled (<code>replace = TRUE</code>).</p></li>
+<li><p>3) randomly choose (equal probability: see <code><a href='https://rdrr.io/r/base/sample.html'>sample.int</a></code> the starting position of the locus in the sampled chromosome and strand (<code>replace = TRUE</code>).</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>gg_species_promotor_dist_blast_tbl</span>(
-  <span class='no'>blast_tbl</span>,
-  <span class='no'>type</span>,
-  <span class='no'>order</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>
+    <pre class="usage"><span class='fu'>extract_random_seqs_from_multiple_genomes</span>(
+  <span class='no'>sample_size</span>,
+  <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>prob</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>interval_width</span>,
+  <span class='no'>subject_genomes</span>,
+  <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>separated_by_genome</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>update</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>blast_tbl</th>
-      <td><p>a <code>blast_tbl</code>.</p></td>
+      <th>sample_size</th>
+      <td><p>a non-negative integer giving the number of loci that shall be sampled.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>type of sustitution rate quantification that shall be visualized on the y-axis. Options are:</p><ul>
-<li><p><code>type = "promotor_dist"</code></p></li>
-<li><p><code>type = "promotor_aln_score"</code></p></li>
-<li><p><code>type = "promotor_indel_blocks"</code></p></li>
-<li><p><code>type = "promotor_indels"</code></p></li>
-</ul></td>
+      <th>replace</th>
+      <td><p>logical value indicating whether sampling should be with replacement. Default: <code>replace = TRUE</code>.</p></td>
     </tr>
     <tr>
-      <th>order</th>
-      <td><p>a character vector specifying the order of the species using their scientific names (which have to match the species names stored in the <code>subject_species</code>
-column of the input <code>blast_tbl</code>).</p></td>
+      <th>prob</th>
+      <td><p>a vector of probability weights for obtaining the elements of the vector being sampled. Default is <code>prob = NULL</code>.</p></td>
     </tr>
     <tr>
-      <th>xlab</th>
-      <td><p>label of x-axis.</p></td>
+      <th>interval_width</th>
+      <td><p>the length of the locus that shall be sampled.</p></td>
     </tr>
     <tr>
-      <th>ylab</th>
-      <td><p>label of y-axis.</p></td>
+      <th>subject_genomes</th>
+      <td><p>a vector containing file paths to the reference genomes that shall be queried (e.g. file paths returned by <code><a href='https://docs.ropensci.org/biomartr/reference/meta.retrieval.html'>meta.retrieval</a></code>).</p></td>
     </tr>
     <tr>
-      <th>title</th>
-      <td><p>title label.</p></td>
+      <th>file_name</th>
+      <td><p>name of the fasta file that stores the BLAST hit sequences. This name will only be used when <code>separated_by_genome = FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>separated_by_genome</th>
+      <td><p>a logical value indicating whether or not hit sequences from different genomes should be stored in the same
+output <code>fasta</code> file <code>separated_by_genome = FALSE</code> (default) or in separate <code>fasta</code> files <code>separated_by_genome = TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>update</th>
+      <td><p>shall an existing <code>file_name</code> file be overwritten (<code>update = TRUE</code>; Default) or shall blast hit sequences be appended to the existing file (<code>update = FALSE</code>)?</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>a folder path in which corresponding <code>fasta</code> output files shall be stored.</p></td>
     </tr>
     </table>
 

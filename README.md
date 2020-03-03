@@ -58,15 +58,23 @@ Please install the `libpq-dev` library on you linux machine by typing into the t
 
 ```
 sudo apt-get install libpq-dev
+
+# install mysql
+sudo apt-get install mysql-server
 ```
 
 ### For all systems install `metablastr` by typing
 
 ```r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install()
+
+BiocManager::install(c("Biostrings", "GenomicFeatures", "GenomicRanges", "Rsamtools", "IRanges", "rtracklayer", "biomaRt"))
+
 # install.packages("devtools")
 # install the current version of metablastr on your system
-library(devtools)
-install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
+devtools::install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 ```
 
 __Please follow the [Installation Vignette](https://hajkd.github.io/metablastr/articles/installation.html) to install all standalone sequence search tools.__

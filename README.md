@@ -138,7 +138,7 @@ https://github.com/HajkD/metablastr/issues
 
 ### BLAST against common NCBI databases 
 
-- `blast_nr()`: Perform Protein to Protein BLAST Searches against the `NCBI non-redundant database`
+- `blast_protein_to_nr_database()`: Perform Protein to Protein BLAST Searches against the `NCBI non-redundant database`
 - `blast_nt()`: Perform Nucleotide to Nucleotide BLAST Searches against the `NCBI non-redundant database`
 - `blast_est()`: Perform Nucleotide to Nucleotide BLAST Searches against the `NCBI expressed sequence tags database`
 - `blast_pdb_protein()`:
@@ -152,7 +152,8 @@ https://github.com/HajkD/metablastr/issues
 
 ### BLAST against a set of organisms
 
-- `blast_genomes()`: Perfrom BLAST Searches Against a Set of Genomes
+- `blast_nucleotide_to_genomes()`: Perfrom BLAST Searches Against a Set of Genomes
+- `blast_protein_to_proteomes()`: Perfrom BLAST Searches Against a Set of Proteomes
 - `detect_homologs_cds_to_cds()`: Perform CDS to CDS BLAST Searches against a set of CDS files
 - `detect_homologs_proteome_to_proteome()`: Perform Proteome to Proteome BLAST Searches against a set of Proteomes
 - `extract_hit_seqs_from_genomes()`: Extract sequences of BLAST hits in respective genomes and store it as 'fasta' file(s)

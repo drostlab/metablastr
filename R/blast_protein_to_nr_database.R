@@ -48,7 +48,7 @@
 #' @author Hajk-Georg Drost
 #' @examples 
 #' \dontrun{
-#' blast_example <- blast_protein_to_protein(
+#' blast_example <- blast_protein_to_nr_database(
 #'               query   = system.file('seqs/qry_aa.fa', package = 'metablastr'),
 #'               nr.database = "nr",
 #'               output.path = tempdir(),

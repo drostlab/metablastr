@@ -1,0 +1,197 @@
+#' @title Perform Protein to Protein BLAST Searches Against the NCBI NR Database
+#' @description Run protein to protein BLAST of reference sequences
+#' against the NCBI non-redundant protein sequence Database.
+#' @param query path to input file in fasta format.
+#' @param nr.database path to local NCBI NR database.
+#' @param nr.needs.formatting a logical value indicating whether or not the local database specified in \code{nr.database} is already pre-formatted (\code{nr.needs.formatting = FALSE}; default) or whether the local NCBI NR databasse still requires formatting (\code{nr.needs.formatting = TRUE}). 
+#' @param output.path path to folder at which BLAST output table shall be stored. 
+#' Default is \code{output.path = NULL} (hence \code{getwd()} is used).
+#' @param task protein search task option. Options are:
+#' \itemize{
+#' \item \code{task = "blastp"} : Standard protein-protein comparisons (default).
+#' \item \code{task = "blast-fast"} : Improved BLAST searches using longer words for protein seeding.
+#' \item \code{task = "blastp-short"} : Optimized protein-protein comparisons for query sequences shorter than 30 residues.
+#' }
+#' @param db.import shall the BLAST output be stored in a PostgresSQL database and shall a connection be established to this database? Default is \code{db.import = FALSE}.
+#' In case users wish to to only generate a BLAST output file without importing it to the current R session they can specify \code{db.import = NULL}.
+#' @param postgres.user when \code{db.import = TRUE} and \code{out.format = "postgres"} is selected, the BLAST output is imported and stored in a 
+#' PostgresSQL database. In that case, users need to have PostgresSQL installed and initialized on their system. 
+#' Please consult the Installation Vignette for details. 
+#' @param evalue Expectation value (E) threshold for saving hits (default: \code{evalue = 0.001}).
+#' @param out.format a character string specifying the format of the file in which the BLAST results shall be stored.
+#' Available options are:
+#'  \itemize{
+#'  \item \code{out.format = "pair"} : Pairwise
+#'  \item \code{out.format = "qa.ident"} : Query-anchored showing identities
+#'  \item \code{out.format = "qa.nonident"} : Query-anchored no identities
+#'  \item \code{out.format = "fq.ident"} : Flat query-anchored showing identities
+#'  \item \code{out.format = "fq.nonident"} : Flat query-anchored no identities
+#'  \item \code{out.format = "xml"} : XML
+#'  \item \code{out.format = "tab"} : Tabular separated file
+#'  \item \code{out.format = "tab.comment"} : Tabular separated file with comment lines
+#'  \item \code{out.format = "ASN.1.text"} : Seqalign (Text ASN.1)
+#'  \item \code{out.format = "ASN.1.binary"} : Seqalign (Binary ASN.1)
+#'  \item \code{out.format = "csv"} : Comma-separated values
+#'  \item \code{out.format = "ASN.1"} : BLAST archive (ASN.1)
+#'  \item \code{out.format = "json.seq.aln"} : Seqalign (JSON)
+#'  \item \code{out.format = "json.blast.multi"} : Multiple-file BLAST JSON
+#'  \item \code{out.format = "xml2.blast.multi"} : Multiple-file BLAST XML2
+#'  \item \code{out.format = "json.blast.single"} : Single-file BLAST JSON
+#'  \item \code{out.format = "xml2.blast.single"} : Single-file BLAST XML2
+#'  \item \code{out.format = "report"} : Organism Report
+#'  }
+#' @param cores number of cores for parallel BLAST searches.
+#' @param max.target.seqs maximum number of aligned sequences that shall be retained. Please be aware that \code{max.target.seqs} selects best hits based on the database entry and not by the best e-value. See details here: https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty833/5106166 .
+#' @param db.soft.mask shall low complexity regions be soft masked? Default is \code{db.soft.mask = FALSE}.
+#' @param db.hard.mask shall low complexity regions be hard masked? Default is \code{db.hard.mask = FALSE}.
+#' @param blast.path path to BLAST executables.
+#' @author Hajk-Georg Drost
+#' @examples 
+#' \dontrun{
+#' blast_example <- blast_protein_to_protein(
+#'               query   = system.file('seqs/qry_aa.fa', package = 'metablastr'),
+#'               nr.database = "nr",
+#'               output.path = tempdir(),
+#'               db.import  = FALSE)
+#'               
+#' # look at BLAST results
+#' blast_example
+#' }
+#' 
+#' @seealso \code{\link{blast_nucleotide_to_nucleotide}}, \code{\link{blast_nucleotide_to_protein}},
+#' \code{\link{blast_protein_to_nucleotide}}, \code{\link{blast_best_hit}}
+#' @export
+blast_protein_to_nr_database <- function(query, 
+                                         nr.database,
+                                         nr.needs.formatting = FALSE,
+                                         output.path = NULL,
+                                         task = "blastp",
+                                         db.import = FALSE,
+                                         postgres.user = NULL,
+                                         evalue   = 1E-5,
+                                         out.format = "csv", 
+                                         cores = 1,
+                                         max.target.seqs = 65200,
+                                         db.soft.mask = TRUE,
+                                         db.hard.mask = TRUE,
+                                         blast.path = NULL) {
+  
+  if (!is_blast_installed())
+    stop("Please install a valid version of BLAST.", call. = FALSE)
+  
+  if (!is.null(db.import)) {
+    if (db.import) {
+      if (!is.element(out.format, c("xml", "tab", "csv")))
+        stop("Only output formats: 'xml', 'tab', or 'csv' can be imported.", call. = FALSE)
+    }
+  }
+  
+  # make sure that input files contain the correct sequence type    
+  file_contains_aa(query, "query")  
+
+  # determine the number of cores on a multicore machine
+  multi.cores <- parallel::detectCores()
+  
+  # in case one tries to use more cores than are available
+  if (cores > multi.cores)
+    stop("You chose more cores than are available on your machine.", call. = FALSE)
+  
+  # test if query file exists
+  if (!file.exists(query))
+    stop("Unfortunately, no query file has been found at ", query, call. = FALSE)
+  
+  # test if nr.database file or database exists
+  if (!file.exists(nr.database))
+    stop("Unfortunately, no nr.database file has been found at ", nr.database, call. = FALSE)
+  
+  if (!is.element(task, c("blastp", "blastp-fast", "blastp-short")))
+    stop("Please choose a protein-protein comparison task that is supported by BLAST: task = 'blastp', task = 'blastp-fast', or task = 'blastp-short'.", call. = FALSE)
+  
+  message("Starting 'blastp -task ", task,"' with  query: ", query, " and subject: ",nr.database," using ", cores, " core(s) ...")
+  
+  blast_call <-
+    paste0("blastp -query ", ws_wrap(query), " -db ", ws_wrap(nr.database))
+  
+  output_blast <-
+    file.path(ifelse(is.null(output.path), ws_wrap(getwd()), ws_wrap(output.path)),
+              paste0(unlist(stringr::str_split(
+                basename(query), "[.]"
+              ))[1],"_",unlist(stringr::str_split(
+                basename(nr.database), "[.]"
+              ))[1],"_",task,"_eval_",evalue, ".blast_tbl"))
+  
+  # output_blast without ws_wrap()
+  output_read_blast <-
+    file.path(ifelse(is.null(output.path), getwd(), output.path),
+              paste0(unlist(stringr::str_split(
+                basename(query), "[.]"
+              ))[1],"_",unlist(stringr::str_split(
+                basename(nr.database), "[.]"
+              ))[1],"_",task,"_eval_",evalue, ".blast_tbl"))
+  
+  
+  # format subject into database
+  if (nr.needs.formatting) {
+    if (is.null(blast.path)) {
+      system(
+        paste0(
+          "makeblastdb -in ",
+          nr.database,
+          " -input_type fasta -dbtype prot -hash_index"
+        )
+      )
+      
+    } else {
+      system(
+        paste0(
+          "export PATH=",
+          blast.path,
+          "; makeblastdb -in ",
+          nr.database,
+          " -input_type fasta -dbtype prot -hash_index"
+        )
+      )
+    }
+  } 
+  
+  system(
+    paste0(
+      ifelse(is.null(blast.path), blast_call, paste0("export PATH=$PATH:", blast_call)),
+      " -evalue ",
+      evalue,
+      " -max_target_seqs ",
+      max.target.seqs,
+      " -out ",
+      output_blast ,
+      " -num_threads ",
+      cores,
+      ifelse(db.soft.mask, " -db_soft_mask", ""),
+      ifelse(db.hard.mask, " -db_hard_mask", ""),
+      paste0( " -task ", task),
+      paste0(' -outfmt "', outformat2num(out.format = out.format), ' qseqid sseqid pident nident length mismatch gapopen gaps positive ppos qstart qend qlen qcovs qcovhsp sstart send slen evalue bitscore score sscinames staxids scomnames sblastnames sskingdoms sstrand"')
+    )
+  )
+  
+  if (!is.null(db.import)) {
+    if (db.import) {
+      blast_tbl <- read_blast_databases(file = output_read_blast, 
+                              out.format = "postgres",
+                              postgres.user = postgres.user)
+      message("\n")
+      message("BLAST search finished! A Postgres  database connection to the BLAST output file has been generated. The BLAST output file can be found at: ", output_blast)
+      return(blast_tbl)
+    } else {
+      blast_tbl <- read_blast_databases(file = output_read_blast, 
+                              out.format = out.format,
+                              postgres.user = NULL)
+      
+      message("\n")
+      message("BLAST search finished! The BLAST output file was imported into the running R session. The BLAST output file has been stored at: ", output_blast)
+      return(blast_tbl)
+    }
+  } else {
+    message("\n")
+    message("BLAST search finished! BLAST output file has been stored at: ", output_blast)
+  }
+}
+

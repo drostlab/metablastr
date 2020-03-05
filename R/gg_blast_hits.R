@@ -21,6 +21,7 @@
 #' @param xticks number of ticks on the x-axis. Default is \code{xticks = 5}.
 #' @param levels a character vector specifying the exact order of species names (levels) 
 #' that is used to \code{\link{factor}} and sort species in the \code{\link[ggridges]{geom_density_ridges}} plot.
+#' @param trim a logical value indicating whether ridges densities shall be trimmed. Default is \code{trim = TRUE}. 
 #' @author Hajk-Georg Drost
 #' @export
 gg_blast_hits <-
@@ -33,7 +34,8 @@ gg_blast_hits <-
            ylab = "Density over Number of BLAST Hits",
            title = "Total number of BLAST hits: ",
            xticks = 5,
-           levels = NULL
+           levels = NULL,
+           trim = TRUE
            ) {
     if (!is.element(type, c("scope", "alig_length", "evalue", "bit_score", "qcovhsp", "qcov", "perc_identity")))
       stop(
@@ -155,9 +157,8 @@ gg_blast_hits <-
                                     show.legend = FALSE,
                                     alpha = alpha,
                                     size = 1.5,
-                                    stat = "density", trim = TRUE) + ggridges::theme_ridges() +
-      ggridges::theme_ridges(font_size = 13, grid = TRUE)  + 
-      ggsci::scale_colour_lancet() + ggsci::scale_fill_lancet() +
+                                    stat = "density", trim = trim) + ggridges::theme_ridges() +
+      ggridges::theme_ridges(font_size = 13, grid = TRUE)  +
       ggplot2::labs(x = xlab,
                     y = ylab) +
       ggplot2::theme(legend.text = ggplot2::element_text(size = 18)) +
@@ -171,10 +172,15 @@ gg_blast_hits <-
           colour = "black",
           face = "bold"
         )
-      ) + ggplot2::ggtitle(paste0(title, nrow(
+      )
+    
+    if (!is.null(title)) {
+      p <- p + ggplot2::ggtitle(paste0(title, nrow(
         dplyr::filter(blast_tbl, scope >= scope_cutoff)
-      ))) +
-      ggplot2::theme(axis.text.x = ggplot2::element_text(
+      )))
+    }
+
+      p <- p + ggplot2::theme(axis.text.x = ggplot2::element_text(
         angle = 90,
         vjust = 1,
         hjust = 1

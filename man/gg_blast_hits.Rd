@@ -14,7 +14,8 @@ gg_blast_hits(
   ylab = "Density over Number of BLAST Hits",
   title = "Total number of BLAST hits: ",
   xticks = 5,
-  levels = NULL
+  levels = NULL,
+  trim = TRUE
 )
 }
 \arguments{
@@ -48,6 +49,8 @@ defines the minimum scope that is required to retain a BLAST hit. Default is \co
 
 \item{levels}{a character vector specifying the exact order of species names (levels) 
 that is used to \code{\link{factor}} and sort species in the \code{\link[ggridges]{geom_density_ridges}} plot.}
+
+\item{trim}{a logical value indicating whether ridges densities shall be trimmed. Default is \code{trim = TRUE}.}
 }
 \description{
 This function generates a joyplot of the \code{\link{blast_nucleotide_to_genomes}} output.

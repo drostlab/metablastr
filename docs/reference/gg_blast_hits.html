@@ -131,7 +131,8 @@
   <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Density over Number of BLAST Hits"</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Total number of BLAST hits: "</span>,
   <span class='kw'>xticks</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>levels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>levels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -186,6 +187,10 @@ defines the minimum scope that is required to retain a BLAST hit. Default is <co
       <th>levels</th>
       <td><p>a character vector specifying the exact order of species names (levels) 
 that is used to <code><a href='https://rdrr.io/r/base/factor.html'>factor</a></code> and sort species in the <code><a href='https://rdrr.io/pkg/ggridges/man/geom_density_ridges.html'>geom_density_ridges</a></code> plot.</p></td>
+    </tr>
+    <tr>
+      <th>trim</th>
+      <td><p>a logical value indicating whether ridges densities shall be trimmed. Default is <code>trim = TRUE</code>.</p></td>
     </tr>
     </table>
 

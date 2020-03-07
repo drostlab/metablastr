@@ -80,7 +80,7 @@ devtools::install_github("HajkD/metablastr", build_vignettes = TRUE, dependencie
 __Please follow the [Installation Vignette](https://hajkd.github.io/metablastr/articles/installation.html) to install all standalone sequence search tools.__
 
 ### Quick start
-
+ 
 ```r
 library(metablastr)
 # run blastn (nucleotide to nucleotide search) between example query and subject sequences

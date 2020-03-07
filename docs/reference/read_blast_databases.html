@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot <code><a href='blast_nucleotide_to_genomes.html'>blast_nucleotide_to_genomes</a></code> Result — gg_blast_hits • metablastr</title>
+<title>Import BLAST output file — read_blast_databases • metablastr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,10 @@
 
 
 
-<meta property="og:title" content="Plot <code><a href='blast_nucleotide_to_genomes.html'>blast_nucleotide_to_genomes</a></code> Result — gg_blast_hits" />
-<meta property="og:description" content="This function generates a joyplot of the blast_nucleotide_to_genomes output." />
+<meta property="og:title" content="Import BLAST output file — read_blast_databases" />
+<meta property="og:description" content="When performing BLAST searches with the blast_*() functions,
+the corresponding BLAST output file can be imported into the current R session using this function.
+All output formats given by BLAST are supported (see e.g. description for details)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,94 +114,58 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot <code><a href='blast_nucleotide_to_genomes.html'>blast_nucleotide_to_genomes</a></code> Result</h1>
+    <h1>Import BLAST output file</h1>
     
-    <div class="hidden name"><code>gg_blast_hits.Rd</code></div>
+    <div class="hidden name"><code>read_blast_databases.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function generates a joyplot of the <code><a href='blast_nucleotide_to_genomes.html'>blast_nucleotide_to_genomes</a></code> output.</p>
+    <p>When performing BLAST searches with the <code>blast_*()</code> functions,
+the corresponding BLAST output file can be imported into the current R session using this function.
+All output formats given by BLAST are supported (see e.g. description for details).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_blast_hits</span>(
-  <span class='no'>blast_tbl</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"scope"</span>,
-  <span class='kw'>scope_cutoff</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Query"</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Density over Number of BLAST Hits"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Total number of BLAST hits: "</span>,
-  <span class='kw'>xticks</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>levels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>read_blast_databases</span>(<span class='no'>file</span>, <span class='no'>out.format</span>, <span class='kw'>postgres.user</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>blast_tbl</th>
-      <td><p>a BLAST table generated with <code><a href='blast_nucleotide_to_genomes.html'>blast_nucleotide_to_genomes</a></code>.</p></td>
+      <th>file</th>
+      <td><p>path to BLAST output file.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>the type of BLAST hit visualization. Options are:</p><ul>
-<li><p><code>type = "scope"</code></p></li>
-<li><p><code>type = "alig_length"</code></p></li>
-<li><p><code>type = "evalue"</code></p></li>
-<li><p><code>type = "bit_score"</code></p></li>
-<li><p><code>type = "qcovhsp"</code></p></li>
-<li><p><code>type = "qcov"</code></p></li>
-<li><p><code>type = "perc_identity"</code></p></li>
+      <th>out.format</th>
+      <td><p>a character string specifying the output format of the BLAST output that shall be imported.
+Available options are:</p><ul>
+<li><p><code>out.format = "postgres"</code> : store BLAST output as Postgres database and generate postgres database connection.</p></li>
+<li><p><code>out.format = "xml"</code> : XML</p></li>
+<li><p><code>out.format = "tsv"</code> : Tabular separated file</p></li>
+<li><p><code>out.format = "csv"</code> : Comma-separated values</p></li>
+<li><p><code>out.format = "json.seq.aln"</code> : Seqalign (JSON)</p></li>
+<li><p><code>out.format = "json.blast.multi"</code> : Multiple-file BLAST JSON</p></li>
+<li><p><code>out.format = "xml2.blast.multi"</code> : Multiple-file BLAST XML2</p></li>
+<li><p><code>out.format = "json.blast.single"</code> : Single-file BLAST JSON</p></li>
+<li><p><code>out.format = "xml2.blast.single"</code> : Single-file BLAST XML2</p></li>
 </ul></td>
     </tr>
     <tr>
-      <th>scope_cutoff</th>
-      <td><p>The scope is defined as <code>1 - (abs(q_len - alig_length) / q_len))</code>. The <code>scope_cutoff</code>
-defines the minimum scope that is required to retain a BLAST hit. Default is <code>scope_cutoff = 0.1</code> (meaning that each BLAST hit must have at least 0.1 scope).</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>a value passed to <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></code> specifying the transparency of distributions.</p></td>
-    </tr>
-    <tr>
-      <th>scale</th>
-      <td><p>the ridges scale passed to <code><a href='https://rdrr.io/pkg/ggridges/man/geom_density_ridges.html'>geom_density_ridges</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>xlab</th>
-      <td><p>x-axis label.</p></td>
-    </tr>
-    <tr>
-      <th>ylab</th>
-      <td><p>y-axis label.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>figure title which will be concatenated with the number of BLAST hits available in the inpit <code>blast_tbl</code>.</p></td>
-    </tr>
-    <tr>
-      <th>xticks</th>
-      <td><p>number of ticks on the x-axis. Default is <code>xticks = 5</code>.</p></td>
-    </tr>
-    <tr>
-      <th>levels</th>
-      <td><p>a character vector specifying the exact order of species names (levels) 
-that is used to <code><a href='https://rdrr.io/r/base/factor.html'>factor</a></code> and sort species in the <code><a href='https://rdrr.io/pkg/ggridges/man/geom_density_ridges.html'>geom_density_ridges</a></code> plot.</p></td>
-    </tr>
-    <tr>
-      <th>trim</th>
-      <td><p>a logical value indicating whether ridges densities shall be trimmed. Default is <code>trim = TRUE</code>.</p></td>
+      <th>postgres.user</th>
+      <td><p>specify username for RPostgreSQL connection.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='blast_protein_to_protein.html'>blast_protein_to_protein</a></code>, <code><a href='blast_nucleotide_to_protein.html'>blast_nucleotide_to_protein</a></code>,
+<code><a href='blast_nucleotide_to_nucleotide.html'>blast_nucleotide_to_nucleotide</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#see-also">See also</a></li>
     </ul>
 
     <h2>Author</h2>

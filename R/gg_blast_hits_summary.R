@@ -28,29 +28,8 @@ gg_blast_hits_summary <- function(blast_tbl,
   if (scope_cutoff > 1)
     stop("Please specify a scope_cutoff between [0,1].", call. = FALSE)
   
-  p1 <-
-    metablastr::gg_blast_hits(
-      blast_tbl,
-      type = "scope",
-      scope_cutoff = scope_cutoff,
-      levels = names(table(blast_tbl$species)),
-      xlab = paste0("Length homology to ", query_name, " in %"),
-      trim = FALSE
-    )
-  
-  p2 <-
-    metablastr::gg_blast_hits(
-      blast_tbl,
-      type = "alig_length",
-      scope_cutoff = scope_cutoff,
-      levels = names(table(blast_tbl$species)),
-      xlab = paste0("Alignment length with ", query_name, " in number of amino acids"),
-      title =  NULL,
-      trim = FALSE
-    )
-  
   species <- scope <- NULL
-  p3 <-
+  p1 <-
     ggplot2::ggplot(dplyr::filter(blast_tbl, scope >= scope_cutoff), ggplot2::aes(species)) + ggplot2::geom_bar() + ggplot2::coord_flip() + ggplot2::ylab("Number of homologous BLAST hits") +
     ggplot2::theme(legend.text = ggplot2::element_text(size = 18)) +
     ggplot2::theme(
@@ -63,7 +42,29 @@ gg_blast_hits_summary <- function(blast_tbl,
         colour = "black",
         face = "bold"
       )
-    ) + ggplot2::xlab("")
+    ) + ggplot2::xlab("Species")
+  
+  
+  p2 <-
+    metablastr::gg_blast_hits(
+      blast_tbl,
+      type = "scope",
+      scope_cutoff = scope_cutoff,
+      levels = names(table(blast_tbl$species)),
+      xlab = paste0("Length homology to ", query_name, " in %"),
+      trim = FALSE
+    )
+  
+  p3 <-
+    metablastr::gg_blast_hits(
+      blast_tbl,
+      type = "alig_length",
+      scope_cutoff = scope_cutoff,
+      levels = names(table(blast_tbl$species)),
+      xlab = paste0("Alignment length with ", query_name, " in number of amino acids"),
+      title =  NULL,
+      trim = FALSE
+    )
   
   
   p_final <-

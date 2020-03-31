@@ -6,7 +6,7 @@
 \usage{
 gg_blast_hits_summary(
   blast_tbl,
-  scope_cutoff = 0.1,
+  scope_cutoff = 0,
   alpha = 0.7,
   scale = 4,
   query_name = "query",

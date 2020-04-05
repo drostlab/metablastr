@@ -58,9 +58,6 @@ Please install the `libpq-dev` library on you linux machine by typing into the t
 
 ```
 sudo apt-get install libpq-dev
-
-# install mysql
-sudo apt-get install mysql-server
 ```
 
 ### For all systems install `metablastr` by typing

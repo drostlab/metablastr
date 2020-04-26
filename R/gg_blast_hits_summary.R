@@ -12,7 +12,9 @@
 #' @param xticks number of ticks on the x-axis. Default is \code{xticks = 5}.
 #' @param levels a character vector specifying the exact order of species names (levels) 
 #' that is used to \code{\link{factor}} and sort species in the \code{\link[ggridges]{geom_density_ridges}} plot.
+#' @param trim a logical value indicating whether ridges densities shall be trimmed. Default is \code{trim = FALSE}. 
 #' @author Hajk-Georg Drost
+#' @note In some cases it may happen that for certain species no line is drawn although there are a few hits present in the dataset. This happens when the hits are too few and their values too close to eachother to be able to estimate density functions. It is important to remember that density functions are \code{estimated} which usually requires a sufficient amount data to be useful and accurate. However, when density estimation is not possible this plot will omit drawing a line since this visualization approach is intended to be an analytics tool.
 #' @export
 gg_blast_hits_summary <- function(blast_tbl,
                                   scope_cutoff = 0,
@@ -23,7 +25,8 @@ gg_blast_hits_summary <- function(blast_tbl,
                                   ylab = "Density over Number of BLAST Hits",
                                   title = "Total number of BLAST hits: ",
                                   xticks = 5,
-                                  levels = NULL) {
+                                  levels = NULL,
+                                  trim = FALSE) {
   
   if (scope_cutoff > 1)
     stop("Please specify a scope_cutoff between [0,1].", call. = FALSE)
@@ -50,25 +53,35 @@ gg_blast_hits_summary <- function(blast_tbl,
       blast_tbl,
       type = "scope",
       scope_cutoff = scope_cutoff,
-      levels = names(table(blast_tbl$species)),
+      levels = levels,
       xlab = paste0("Length homology to ", query_name, " in %"),
-      trim = FALSE
-    )
+      trim = trim
+    ) + ggplot2::xlim(c(0,100))
   
   p3 <-
     metablastr::gg_blast_hits(
       blast_tbl,
       type = "alig_length",
       scope_cutoff = scope_cutoff,
-      levels = names(table(blast_tbl$species)),
+      levels = levels,
       xlab = paste0("Alignment length with ", query_name, " in number of amino acids"),
       title =  NULL,
       trim = FALSE
     )
   
+  p4 <-
+    metablastr::gg_blast_hits(
+      blast_tbl,
+      type = "perc_identity",
+      scope_cutoff = scope_cutoff,
+      levels = levels,
+      xlab = paste0("Alignment sequence identity with ", query_name, " in %"),
+      title =  NULL,
+      trim = FALSE
+    ) + ggplot2::xlim(c(0,100))
   
   p_final <-
-    gridExtra::grid.arrange(p1, p2, p3, nrow = 1)
+    gridExtra::grid.arrange(p1, p2, p3, p4, nrow = 1)
   
   return(p_final)
 }

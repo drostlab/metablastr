@@ -23,11 +23,12 @@
 #' that is used to \code{\link{factor}} and sort species in the \code{\link[ggridges]{geom_density_ridges}} plot.
 #' @param trim a logical value indicating whether ridges densities shall be trimmed. Default is \code{trim = TRUE}. 
 #' @author Hajk-Georg Drost
+#' @note In some cases it may happen that for certain species no line is drawn although there are a few hits present in the dataset. This happens when the hits are too few and their values too close to eachother to be able to estimate density functions. It is important to remember that density functions are \code{estimated} which usually requires a sufficient amount data to be useful and accurate. However, when density estimation is not possible this plot will omit drawing a line since this visualization approach is intended to be an analytics tool.
 #' @export
 gg_blast_hits <-
   function(blast_tbl,
            type = "scope",
-           scope_cutoff = 0.1,
+           scope_cutoff = 0,
            alpha = 0.7,
            scale = 4,
            xlab = "Query",
@@ -153,11 +154,16 @@ gg_blast_hits <-
     }
     
     p <- p +
-      ggridges::geom_density_ridges(scale = scale,
+      ggridges::geom_density_ridges2(scale = scale,
                                     show.legend = FALSE,
                                     alpha = alpha,
-                                    size = 1.5,
-                                    stat = "density", trim = trim) + ggridges::theme_ridges() +
+                                    size = 1,
+                                    stat = "density_ridges", 
+                                    panel_scaling = TRUE,
+                                    jittered_points = TRUE,
+                                    position = ggridges::position_points_jitter(width = 0.05, height = 0),
+                                    point_shape = '|', point_size = 5, point_alpha = 1)  +
+      ggplot2::coord_cartesian(clip = "off") +
       ggridges::theme_ridges(font_size = 13, grid = TRUE)  +
       ggplot2::labs(x = xlab,
                     y = ylab) +

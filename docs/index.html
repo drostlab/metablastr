@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Perform Local BLAST Searches • metablastr</title>
+<title>Perform Massive Local BLAST Searches • metablastr</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Perform Local BLAST Searches">
+<script src="pkgdown.js"></script><meta property="og:title" content="Perform Massive Local BLAST Searches">
 <meta property="og:description" content="This package provides interface functions for users to perform local Basic Local Alignment Search Tool (BLAST) searches. The search results can be efficiently imported into the R session. ">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -58,8 +58,18 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="news/index.html">Changelog</a>
+</li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/drostlab/metablastr">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -74,28 +84,21 @@
 <div id="metablastr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#metablastr" class="anchor"></a>metablastr</h1></div>
-<div id="an-easy-to-use-framework-to-perform-massive-sequence-searches-with-r" class="section level2">
+<div id="an-easy-to-use-framework-to-perform-massive-blast-sequence-searches-with-r" class="section level2">
 <h2 class="hasAnchor">
-<a href="#an-easy-to-use-framework-to-perform-massive-sequence-searches-with-r" class="anchor"></a>An easy-to-use framework to perform massive sequence searches with R</h2>
+<a href="#an-easy-to-use-framework-to-perform-massive-blast-sequence-searches-with-r" class="anchor"></a>An easy-to-use framework to perform massive <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> sequence searches with R</h2>
 <div id="motivation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#motivation" class="anchor"></a>Motivation</h3>
 <p>The exponentially growing number of available sequences in biological databases revolutionizes the way modern life science research is conducted. Approximately hundred thousand genomic sequences spanning diverse species from the tree of life are currently publically available and free to access. It is now possible to access and retrieve this data automatically using the R package <a href="https://github.com/ropensci/biomartr">biomartr</a> and the next step is to harness this wealth of sequence diversity to explore and detect novel patterns of evolvability, variation, and disease emergence.</p>
 <p>The R package <a href="https://github.com/ropensci/biomartr">biomartr</a> <strong>solves the problem of retrieving this vast amount of biological sequence data</strong> in a standardized and computationally reproducible way and the <code>metablastr</code> package aims to <strong>solve the problem of performing massive scale sequence searches</strong> in a standardized and computationally reproducible way.</p>
-<p>Both packages, <code>biomartr</code> and <code>metablastr</code> are designed to complement each other seamlessly to provide users with a toolset to automatically retrieve thousands of biological sequences (thousands of genomes, proteomes, annotations, etc) and to use these sequences to perform massive sequence searches to extract novel patterns of similarity and divergence between large sets of species.</p>
-<p>The most prominent tool to perform sequence searches at scale is the Basic Local Alignment Search Tool (BLAST) which is designed to find regions of sequence similarity between query and a subject sequences or sequence databases. However, in addition to BLAST recent efforts in bioinformatics research led to the development of faster and/or more accurate sequence search tools which enable sequence searches and sequence comparisons between thousands of genomes.</p>
-<p>Examples include:</p>
-<ul>
-<li><a href="https://github.com/bbuchfink/diamond">DIAMOND</a></li>
-<li><a href="https://github.com/soedinglab/MMseqs2">MMSeqs2</a></li>
-<li><a href="https://github.com/soedinglab/hh-suite">HH-suite3</a></li>
-<li><a href="https://github.com/hallamlab/LAST-Plus">LAST+</a></li>
-</ul>
+<p>Both packages, <code>biomartr</code> and <code>metablastr</code> are designed to complement each other seamlessly to provide users with a toolset to automatically retrieve thousands of biological sequences (thousands of genomes, proteomes, annotations, etc) and to use these sequences to perform massive sequence searches with <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> to extract novel patterns of similarity and divergence between large sets of species.</p>
+<p>The most prominent tool to perform sequence searches at scale is the Basic Local Alignment Search Tool (BLAST) which is designed to find regions of sequence similarity between query and a subject sequences or sequence databases.</p>
 </div>
 <div id="short-package-description" class="section level3">
 <h3 class="hasAnchor">
 <a href="#short-package-description" class="anchor"></a>Short package description</h3>
-<p>The <code>metablastr</code> package harnesses the power of these search tools by providing interface functions between R and the standalone (command line tool) versions of these programs. In addition to providing interface functions, <code>metablastr</code> provides a scalable database backend infrastructure and analytics tools to store and handle the extensive search output generated by these tools when handling thousands of genomes.</p>
+<p>The <code>metablastr</code> package harnesses the power of <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> by providing interface functions between R and the standalone (command line tool) version of this program.</p>
 <p>Together, the <code>metablastr</code> package may enable a new level of data-driven genomics research by providing the computational tools and data science standards needed to perform reproducible research at scale.</p>
 <p>I happily welcome anyone who wishes to contribute to this project :) Just drop me an email.</p>
 </div>
@@ -122,7 +125,7 @@
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># install.packages("devtools")</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co"># install the current version of metablastr on your system</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"HajkD/metablastr"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p><strong>Please follow the <a href="https://hajkd.github.io/metablastr/articles/installation.html">Installation Vignette</a> to install all standalone sequence search tools.</strong></p>
+<p><strong>Please follow the <a href="https://drostlab.github.io/metablastr/articles/installation.html">Installation Vignette</a> to install all standalone sequence search tools.</strong></p>
 </div>
 <div id="quick-start" class="section level3">
 <h3 class="hasAnchor">
@@ -257,7 +260,16 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div class="license">
+    <div class="links">
+<h2>Links</h2>
+<ul class="list-unstyled">
+<li>Browse source code at <br><a href="https://github.com/drostlab/metablastr">https://​github.com/​drostlab/​metablastr</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/drostlab/metablastr/issues">https://​github.com/​drostlab/​metablastr/​issues</a>
+</li>
+</ul>
+</div>
+<div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>

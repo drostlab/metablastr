@@ -96,9 +96,17 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/drostlab/metablastr">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -113,7 +121,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot <code><a href='blast_nucleotide_to_genomes.html'>blast_nucleotide_to_genomes</a></code> Result</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/drostlab/metablastr/blob/master/R/gg_blast_hits_summary.R'><code>R/gg_blast_hits_summary.R</code></a></small>
     <div class="hidden name"><code>gg_blast_hits_summary.Rd</code></div>
     </div>
 
@@ -131,7 +139,8 @@
   <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Density over Number of BLAST Hits"</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Total number of BLAST hits: "</span>,
   <span class='kw'>xticks</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>levels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>levels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -179,14 +188,22 @@ defines the minimum scope that is required to retain a BLAST hit. Default is <co
       <td><p>a character vector specifying the exact order of species names (levels) 
 that is used to <code><a href='https://rdrr.io/r/base/factor.html'>factor</a></code> and sort species in the <code><a href='https://rdrr.io/pkg/ggridges/man/geom_density_ridges.html'>geom_density_ridges</a></code> plot.</p></td>
     </tr>
+    <tr>
+      <th>trim</th>
+      <td><p>a logical value indicating whether ridges densities shall be trimmed. Default is <code>trim = FALSE</code>.</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>In some cases it may happen that for certain species no line is drawn although there are a few hits present in the dataset. This happens when the hits are too few and their values too close to eachother to be able to estimate density functions. It is important to remember that density functions are <code>estimated</code> which usually requires a sufficient amount data to be useful and accurate. However, when density estimation is not possible this plot will omit drawing a line since this visualization approach is intended to be an analytics tool.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#note">Note</a></li>
     </ul>
 
     <h2>Author</h2>

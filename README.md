@@ -1,6 +1,6 @@
 # metablastr
 
-## An easy-to-use framework to perform massive sequence searches with R
+## An easy-to-use framework to perform massive [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) sequence searches with R
 
 ### Motivation 
 
@@ -20,29 +20,17 @@ sequence searches__ in a standardized and computationally reproducible way.
 Both packages, `biomartr` and `metablastr` are designed to complement
 each other seamlessly to provide users with a toolset to automatically
 retrieve thousands of biological sequences (thousands of genomes, proteomes, annotations, etc)
-and to use these sequences to perform massive sequence searches to
+and to use these sequences to perform massive sequence searches with [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) to
 extract novel patterns of similarity and divergence between large sets
 of species.
 
 The most prominent tool to perform sequence searches at scale is the Basic Local Alignment Search Tool (BLAST)
 which is designed to find regions of sequence similarity between query and a subject sequences or sequence databases.
-However, in addition to BLAST recent efforts in bioinformatics research led to the
-development of faster and/or more accurate sequence search tools which enable
-sequence searches and sequence comparisons between thousands of genomes.
 
-Examples include:
-
-- [DIAMOND](https://github.com/bbuchfink/diamond)
-- [MMSeqs2](https://github.com/soedinglab/MMseqs2)
-- [HH-suite3](https://github.com/soedinglab/hh-suite)
-- [LAST+](https://github.com/hallamlab/LAST-Plus)
 
 ### Short package description  
 
-The `metablastr` package harnesses the power of these search tools by providing interface functions between R and the standalone (command line tool) versions
-of these programs. In addition to providing interface functions, `metablastr` provides a scalable database backend infrastructure
-and analytics tools to store and handle the extensive search output generated
-by these tools when handling thousands of genomes.
+The `metablastr` package harnesses the power of [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) by providing interface functions between R and the standalone (command line tool) version of this program. 
 
 Together, the `metablastr` package may enable a new level of data-driven genomics
 research by providing the computational tools and data science standards needed
@@ -74,7 +62,7 @@ BiocManager::install(c("Biostrings", "GenomicFeatures", "GenomicRanges", "Rsamto
 devtools::install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 ```
 
-__Please follow the [Installation Vignette](https://hajkd.github.io/metablastr/articles/installation.html) to install all standalone sequence search tools.__
+__Please follow the [Installation Vignette](https://drostlab.github.io/metablastr/articles/installation.html) to install all standalone sequence search tools.__
 
 ### Quick start
  

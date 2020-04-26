@@ -7,7 +7,7 @@
 gg_blast_hits(
   blast_tbl,
   type = "scope",
-  scope_cutoff = 0.1,
+  scope_cutoff = 0,
   alpha = 0.7,
   scale = 4,
   xlab = "Query",
@@ -54,6 +54,9 @@ that is used to \code{\link{factor}} and sort species in the \code{\link[ggridge
 }
 \description{
 This function generates a joyplot of the \code{\link{blast_nucleotide_to_genomes}} output.
+}
+\note{
+In some cases it may happen that for certain species no line is drawn although there are a few hits present in the dataset. This happens when the hits are too few and their values too close to eachother to be able to estimate density functions. It is important to remember that density functions are \code{estimated} which usually requires a sufficient amount data to be useful and accurate. However, when density estimation is not possible this plot will omit drawing a line since this visualization approach is intended to be an analytics tool.
 }
 \author{
 Hajk-Georg Drost

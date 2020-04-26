@@ -14,7 +14,8 @@ gg_blast_hits_summary(
   ylab = "Density over Number of BLAST Hits",
   title = "Total number of BLAST hits: ",
   xticks = 5,
-  levels = NULL
+  levels = NULL,
+  trim = FALSE
 )
 }
 \arguments{
@@ -39,9 +40,14 @@ defines the minimum scope that is required to retain a BLAST hit. Default is \co
 
 \item{levels}{a character vector specifying the exact order of species names (levels) 
 that is used to \code{\link{factor}} and sort species in the \code{\link[ggridges]{geom_density_ridges}} plot.}
+
+\item{trim}{a logical value indicating whether ridges densities shall be trimmed. Default is \code{trim = FALSE}.}
 }
 \description{
 This function generates a joyplot of the \code{\link{blast_nucleotide_to_genomes}} output.
+}
+\note{
+In some cases it may happen that for certain species no line is drawn although there are a few hits present in the dataset. This happens when the hits are too few and their values too close to eachother to be able to estimate density functions. It is important to remember that density functions are \code{estimated} which usually requires a sufficient amount data to be useful and accurate. However, when density estimation is not possible this plot will omit drawing a line since this visualization approach is intended to be an analytics tool.
 }
 \author{
 Hajk-Georg Drost

@@ -209,12 +209,12 @@ blast_nucleotide_to_nucleotide <- function(query,
         blast_files_output_qry <- list.files(dirname(query))
         blast_files_output_sbj <- list.files(dirname(subject))
         
-        blast_files_to_remove_qry <- file.path(dirname(query), blast_files_output_qry[which(stringr::str_detect(blast_files_output_qry, "[.]n.."))])
+        # blast_files_to_remove_qry <- file.path(dirname(query), blast_files_output_qry[which(stringr::str_detect(blast_files_output_qry, "[.]n.."))])
         blast_files_to_remove_sbj <- file.path(dirname(subject), blast_files_output_sbj[which(stringr::str_detect(blast_files_output_sbj, "[.]n.."))])
-        message("Removing query BLAST databases ",paste0(basename(blast_files_to_remove_qry), collapse = ", ")," from '", dirname(query), "'.") 
+        # message("Removing query BLAST databases ",paste0(basename(blast_files_to_remove_qry), collapse = ", ")," from '", dirname(query), "'.") 
         message("Removing subject BLAST databases ",paste0(basename(blast_files_to_remove_sbj), collapse = ", ")," from '", dirname(subject), "'.") 
         
-        unlink(blast_files_to_remove_qry, force = TRUE)
+        # unlink(blast_files_to_remove_qry, force = TRUE)
         unlink(blast_files_to_remove_sbj, force = TRUE)
         message("All done!")
         return(blast_tbl)

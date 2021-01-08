@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -43,7 +47,6 @@ the hit with the smallest e-value
 if e-values are identical then the hit with the longest alignment length is chosen
 
 " />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -61,7 +64,7 @@ if e-values are identical then the hit with the longest alignment length is chos
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -75,7 +78,7 @@ if e-values are identical then the hit with the longest alignment length is chos
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metablastr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -108,7 +111,7 @@ if e-values are identical then the hit with the longest alignment length is chos
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/drostlab/metablastr">
+  <a href="https://github.com/drostlab/metablastr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -141,24 +144,24 @@ returns only the best hit based on the following criteria.</p>
 
     </div>
 
-    <pre class="usage"><span class='fu'>blast_best_hit</span>(
-  <span class='no'>query</span>,
-  <span class='no'>subject</span>,
-  <span class='kw'>search_type</span> <span class='kw'>=</span> <span class='st'>"nucleotide_to_nucleotide"</span>,
-  <span class='kw'>strand</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
-  <span class='kw'>output.path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>is.subject.db</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>task</span> <span class='kw'>=</span> <span class='st'>"blastn"</span>,
-  <span class='kw'>db.import</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>postgres.user</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>evalue</span> <span class='kw'>=</span> <span class='fl'>0.001</span>,
-  <span class='kw'>out.format</span> <span class='kw'>=</span> <span class='st'>"csv"</span>,
-  <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>max.target.seqs</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
-  <span class='kw'>db.soft.mask</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>db.hard.mask</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>blast.path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>blast_best_hit</span><span class='op'>(</span>
+  <span class='va'>query</span>,
+  <span class='va'>subject</span>,
+  search_type <span class='op'>=</span> <span class='st'>"nucleotide_to_nucleotide"</span>,
+  strand <span class='op'>=</span> <span class='st'>"both"</span>,
+  output.path <span class='op'>=</span> <span class='cn'>NULL</span>,
+  is.subject.db <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  task <span class='op'>=</span> <span class='st'>"blastn"</span>,
+  db.import <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  postgres.user <span class='op'>=</span> <span class='cn'>NULL</span>,
+  evalue <span class='op'>=</span> <span class='fl'>0.001</span>,
+  out.format <span class='op'>=</span> <span class='st'>"csv"</span>,
+  cores <span class='op'>=</span> <span class='fl'>1</span>,
+  max.target.seqs <span class='op'>=</span> <span class='fl'>10000</span>,
+  db.soft.mask <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  db.hard.mask <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  blast.path <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -292,30 +295,29 @@ Available options are:</p><ul>
     <div class='dont-index'><p><code><a href='blast_nucleotide_to_nucleotide.html'>blast_nucleotide_to_nucleotide</a></code>, <code><a href='blast_protein_to_protein.html'>blast_protein_to_protein</a></code>,
 <code><a href='blast_nucleotide_to_protein.html'>blast_nucleotide_to_protein</a></code>, <code><a href='blast_protein_to_nucleotide.html'>blast_protein_to_nucleotide</a></code>,
 <code><a href='blast_best_reciprocal_hit.html'>blast_best_reciprocal_hit</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>blast_best_test</span> <span class='kw'>&lt;-</span> <span class='fu'>blast_best_hit</span>(
-                 <span class='kw'>query</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'seqs/qry_nn.fa'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'metablastr'</span>),
-                 <span class='kw'>subject</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'seqs/sbj_nn_best_hit.fa'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'metablastr'</span>),
-                 <span class='kw'>search_type</span> <span class='kw'>=</span> <span class='st'>"nucleotide_to_nucleotide"</span>,
-                 <span class='kw'>output.path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(),
-                 <span class='kw'>db.import</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>blast_best_test</span> <span class='op'>&lt;-</span> <span class='fu'>blast_best_hit</span><span class='op'>(</span>
+                 query   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>'seqs/qry_nn.fa'</span>, package <span class='op'>=</span> <span class='st'>'metablastr'</span><span class='op'>)</span>,
+                 subject <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>'seqs/sbj_nn_best_hit.fa'</span>, package <span class='op'>=</span> <span class='st'>'metablastr'</span><span class='op'>)</span>,
+                 search_type <span class='op'>=</span> <span class='st'>"nucleotide_to_nucleotide"</span>,
+                 output.path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>,
+                 db.import  <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+                 
  <span class='co'># look at results</span>
- <span class='no'>blast_best_test</span>
-}</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+ <span class='va'>blast_best_test</span>
+<span class='op'>}</span>
 
-    <h2>Author</h2>
-    <p>Hajk-Georg Drost</p>
+</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -326,7 +328,7 @@ Available options are:</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

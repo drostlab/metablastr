@@ -75,17 +75,21 @@ extract_promotor_seqs_from_genome <-
         gene_biotype == "protein_coding"
       )
     
+    if (nrow(dplyr::filter(Import_gtf_filtered, (strand == "-") & (end - start + 1 <= 0))) > 0)
+      stop("Your start and end coordinates for all minus strand genes are swapped (see: end - start + 1 <= 0).",
+           " Please specify the minus strand as '-' in the strand column of your annotation file and use start and end coordinates analogous to the plus strand directtion, hence: end - start + 1 > 0.",call. = FALSE)
+    
     message("Import genome file ...")
     Import_genome <- biomartr::read_genome(genome_file)
     
     if (nrow(Import_gtf_filtered) > 0) {
-      strand_info <-
-        ifelse(Import_gtf_filtered$end - Import_gtf_filtered$start + 1 > 0,
-               "plus",
-               "minus")
+      Import_gtf_filtered_plus <- dplyr::filter(Import_gtf_filtered, (strand == "+") & (end - start + 1 > 0))
+      Import_gtf_filtered_plus <- dplyr::mutate(Import_gtf_filtered_plus, strand_name = rep("plus", nrow(Import_gtf_filtered_plus)))
       
-      Import_gtf_filtered <-
-        dplyr::mutate(Import_gtf_filtered, strand_name = strand_info)
+      Import_gtf_filtered_minus <- dplyr::filter(Import_gtf_filtered, (strand == "-") & (end - start + 1 > 0))
+      Import_gtf_filtered_minus <- dplyr::mutate(Import_gtf_filtered_minus, strand_name = rep("minus", nrow(Import_gtf_filtered_minus)))
+      
+      Import_gtf_filtered <- dplyr::bind_rows(Import_gtf_filtered_plus, Import_gtf_filtered_minus)
       
       # only retain chromosome names that are present in both: genome and BLAST table
       chr_names <-

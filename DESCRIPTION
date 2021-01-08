@@ -1,6 +1,6 @@
 Package: metablastr
 Title: Perform Massive Local BLAST Searches
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: c(person("Hajk-Georg", "Drost",
                 role = c("aut", "ctb", "cre"),
                 email = "hajk-georg.drost@tuebingen.mpg.de",
@@ -40,8 +40,7 @@ Suggests:
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 URL: https://github.com/drostlab/metablastr
 BugReports: https://github.com/drostlab/metablastr/issues
-

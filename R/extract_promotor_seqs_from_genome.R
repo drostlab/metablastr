@@ -190,30 +190,30 @@ extract_promotor_seqs_from_genome <-
         }
         
         if (nrow(Import_gtf_filtered_minus_strand_pissible) > 0) {
-          seqs_minus <- Biostrings::extractAt(
-            Biostrings::reverse(Import_genome[chr_names[j]]),
-            at = IRanges::IRanges(
-              start = Import_gtf_filtered_minus_strand_pissible$end - promotor_length - 1,
-              end = Import_gtf_filtered_minus_strand_pissible$end - 1,
-              names = paste0(
-                Import_gtf_filtered_minus_strand_pissible$gene_id,
-                "_",
-                Import_gtf_filtered_minus_strand_pissible$seqnames,
-                "_",
-                Import_gtf_filtered_minus_strand_pissible$end - promotor_length,
-                "_",
-                Import_gtf_filtered_minus_strand_pissible$end - 1,
-                "_strand_minus"
+          seqs_minus <-
+            Biostrings::reverseComplement(Biostrings::extractAt(
+              Import_genome[chr_names[j]],
+              at = IRanges::IRanges(
+                start = Import_gtf_filtered_minus_strand_possible$end + 1,
+                end = Import_gtf_filtered_minus_strand_possible$end + promotor_length,
+                names = paste0(
+                  Import_gtf_filtered_minus_strand_possible$gene_id,
+                  "_",
+                  Import_gtf_filtered_minus_strand_possible$seqnames,
+                  "_",
+                  Import_gtf_filtered_minus_strand_possible$end - promotor_length,
+                  "_",
+                  Import_gtf_filtered_minus_strand_possible$end -  1,
+                  "_strand_minus"
+                )
               )
-            )
-          )
+            )[[1]])
           
-          Biostrings::writeXStringSet(
-            seqs_minus@unlistData,
-            filepath = promotor_seq_file_output,
-            format = "fasta",
-            append = TRUE
-          )
+          Biostrings::writeXStringSet(seqs_minus,
+                                      filepath = promotor_seq_file_output,
+                                      format = "fasta",
+                                      append = TRUE)
+
         } else {
           warning("The minus strand of ",chr_names[j], " did not contain any genes and thus promotor extraction was omitted here.", call. = FALSE)
         }

@@ -59,6 +59,7 @@ extract_promotor_seqs_from_genome <-
     
     message("Importing annotation file ...")
     
+    strand <- NULL
     
     if (annotation_format == "gtf") {
       Import_gtf <-
@@ -143,10 +144,10 @@ extract_promotor_seqs_from_genome <-
                         strand_name == "plus")
         
         start <- end <- NULL
-        Import_gtf_filtered_plus_strand_pissible <- dplyr::filter(Import_gtf_filtered_plus_strand, start - promotor_length > 0)
+        Import_gtf_filtered_plus_strand_possible <- dplyr::filter(Import_gtf_filtered_plus_strand, start - promotor_length > 0)
         
-        if (nrow(Import_gtf_filtered_plus_strand) - nrow(Import_gtf_filtered_plus_strand_pissible) > 0)
-          message("There were ",nrow(Import_gtf_filtered_plus_strand) - nrow(Import_gtf_filtered_plus_strand_pissible), " gene(s) on the plus strand for which promotor sequences couldn't be extracted because the promotor regions were beyond the borders of ", chr_names[j] , " ...")
+        if (nrow(Import_gtf_filtered_plus_strand) - nrow(Import_gtf_filtered_plus_strand_possible) > 0)
+          message("There were ",nrow(Import_gtf_filtered_plus_strand) - nrow(Import_gtf_filtered_plus_strand_possible), " gene(s) on the plus strand for which promotor sequences couldn't be extracted because the promotor regions were beyond the borders of ", chr_names[j] , " ...")
         
         ## minus strand
         Import_gtf_filtered_minus_strand <-
@@ -154,25 +155,25 @@ extract_promotor_seqs_from_genome <-
                         seqnames == chr_names[j],
                         strand_name == "minus")
         
-        Import_gtf_filtered_minus_strand_pissible <- dplyr::filter(Import_gtf_filtered_minus_strand, end - promotor_length > 0)
+        Import_gtf_filtered_minus_strand_possible <- dplyr::filter(Import_gtf_filtered_minus_strand, end - promotor_length > 0)
         
-        if (nrow(Import_gtf_filtered_minus_strand) - nrow(Import_gtf_filtered_minus_strand_pissible) > 0)
-          message("There were ", nrow(Import_gtf_filtered_minus_strand) - nrow(Import_gtf_filtered_minus_strand_pissible), " genes on the minus strand for which promotor sequences couldn't be extracted because the promotor regions were beyond the borders of ", chr_names[j] , " ...")
+        if (nrow(Import_gtf_filtered_minus_strand) - nrow(Import_gtf_filtered_minus_strand_possible) > 0)
+          message("There were ", nrow(Import_gtf_filtered_minus_strand) - nrow(Import_gtf_filtered_minus_strand_possible), " genes on the minus strand for which promotor sequences couldn't be extracted because the promotor regions were beyond the borders of ", chr_names[j] , " ...")
         
-        if (nrow(Import_gtf_filtered_plus_strand_pissible) > 0) {
+        if (nrow(Import_gtf_filtered_plus_strand_possible) > 0) {
           seqs_plus <- Biostrings::extractAt(
             Import_genome[chr_names[j]],
             at = IRanges::IRanges(
-              start = Import_gtf_filtered_plus_strand_pissible$start - promotor_length,
-              end = Import_gtf_filtered_plus_strand_pissible$start - 1,
+              start = Import_gtf_filtered_plus_strand_possible$start - promotor_length,
+              end = Import_gtf_filtered_plus_strand_possible$start - 1,
               names = paste0(
-                Import_gtf_filtered_plus_strand_pissible$gene_id,
+                Import_gtf_filtered_plus_strand_possible$gene_id,
                 "_",
-                Import_gtf_filtered_plus_strand_pissible$seqnames,
+                Import_gtf_filtered_plus_strand_possible$seqnames,
                 "_",
-                Import_gtf_filtered_plus_strand_pissible$start - promotor_length,
+                Import_gtf_filtered_plus_strand_possible$start - promotor_length,
                 "_",
-                Import_gtf_filtered_plus_strand_pissible$start - 1,
+                Import_gtf_filtered_plus_strand_possible$start - 1,
                 "_strand_plus"
               )
             )
@@ -189,7 +190,7 @@ extract_promotor_seqs_from_genome <-
           warning("The plus strand of ",chr_names[j], " did not contain any genes and thus promotor extraction was omitted here.", call. = FALSE)
         }
         
-        if (nrow(Import_gtf_filtered_minus_strand_pissible) > 0) {
+        if (nrow(Import_gtf_filtered_minus_strand_possible) > 0) {
           seqs_minus <-
             Biostrings::reverseComplement(Biostrings::extractAt(
               Import_genome[chr_names[j]],

@@ -29,7 +29,7 @@ extract_random_seqs_from_genome(
 sampled loci.}
 
 \item{append}{shall new random sequences be added to an existing \code{file_name} (\code{append = TRUE})
-or should an exosting \code{file_name} be removed before storing new random sequences (\code{append = FALSE}; Default)?}
+or should an existing \code{file_name} be removed before storing new random sequences (\code{append = FALSE}; Default)?}
 }
 \description{
 This function allows users to specify a number of sequences

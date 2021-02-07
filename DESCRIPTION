@@ -11,32 +11,30 @@ Depends:
     R (>= 3.3)
 Imports:
     seqinr (>= 3.3-3),
-    parallel (>= 3.0.2),
     dplyr (>= 0.3.0.2),
-    doParallel (>= 1.0.8),
-    RPostgreSQL (>= 0.4-1),
     Biostrings,
     GenomicFeatures,
     GenomicRanges,
-    Rsamtools,
-    ggsci,
     scales,
     tibble,
-    foreach (>= 1.4.2),
-    RSQLite (>= 0.11.4),
     stringr (>= 0.6.2),
-    DBI (>= 0.3.1),
     readr (>= 1.1.0),
-    ggplot2,
-    ggridges,
     IRanges,
     fs,
-    rtracklayer
+    rtracklayer,
+    RSQLite,
+    DBI
 Suggests: 
     testthat,
     knitr,
     rmarkdown,
-    biomartr
+    biomartr,
+    ggsci,
+    ggplot2,
+    ggridges,
+    gridExtra,
+    Rsamtools,
+    foreach (>= 1.4.2)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

@@ -1,6 +1,6 @@
 # metablastr
 
-## An easy-to-use framework to perform massive [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) sequence searches with R
+## A [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) interface with R
 
 ### Motivation 
 
@@ -36,7 +36,12 @@ Together, the `metablastr` package may enable a new level of data-driven genomic
 research by providing the computational tools and data science standards needed
 to perform reproducible research at scale.
 
-I happily welcome anyone who wishes to contribute to this project :) Just drop me an email.
+### Citation
+
+__The `metablastr` package is still under development and not formally published yet. However, we did develop parts of `metablastr` for this Methods chapter which you can cite until a `metablastr` specific manuscript is prepared.__
+
+> M Benoit, HG Drost. [__A Predictive Approach to Infer the Activity and Natural Variation of Retrotransposon Families in Plants__](https://link.springer.com/protocol/10.1007%2F978-1-0716-1134-0_1). In: Cho J. (eds) Plant Transposable Elements. Methods in Molecular Biology, vol 2250. Humana, New York, NY (2021). 
+
 
 ### Install `metablastr`
 

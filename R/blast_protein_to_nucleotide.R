@@ -79,7 +79,7 @@ blast_protein_to_nucleotide <- function(query,
                                         db.hard.mask = FALSE,
                                         blast.path = NULL) {
   
-  if (!is_blast_installed())
+  if (!is_blast_installed(path = blast.path))
     stop("Please install a valid version of BLAST.", call. = FALSE)
   
   if (db.import) {

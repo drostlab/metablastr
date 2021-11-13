@@ -63,13 +63,13 @@ or a blast-able database that was formatted with \code{makeblastdb} (\code{is.su
 }
 \item \code{search_type = "nucleotide_to_protein"}
 \itemize{
-\item \code{task = "blastx"} : Standard nucleotide-protein comparisons (default).
-\item \code{task = "blastx-fast"} : Optimized nucleotide-protein comparisons.
+\item \code{task = c("blastx", "tblastn")} : Standard nucleotide-protein comparisons (default) from A -> B and standard protein-nucleotide comparisons (default) from B -> A.
+\item \code{task = c("blastx-fast", "tblastn-fast")} : Optimized nucleotide-protein comparisons from A -> B and aptimized protein-nucleotide comparisons from B -> A.
 }
 \item \code{search_type = "protein_to_nucleotide"}
 \itemize{
-\item \code{task = "tblastn"} : Standard protein-nucleotide comparisons (default).
-\item \code{task = "tblastn-fast"} : Optimized protein-nucleotide comparisons.
+\item \code{task = c("tblastn", "blastx")} : Standard protein-nucleotide comparisons (default) from A -> B and Standard nucleotide-protein comparisons (default) from B -> A.
+\item \code{task = c("tblastn-fast", "blastx-fast")} : Optimized protein-nucleotide comparisons from A -> B and optimized nucleotide-protein comparisons from B -> A.
 }
 \item \code{search_type = "protein_to_protein"}
 \itemize{

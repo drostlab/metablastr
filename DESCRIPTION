@@ -23,16 +23,16 @@ Imports:
     fs,
     rtracklayer,
     RSQLite,
-    DBI
+    DBI,
+    ggplot2,
+    ggsci,
+    ggridges
 Suggests: 
     testthat,
     knitr,
     rmarkdown,
     biomartr,
-    ggsci,
-    ggplot2,
     ggridges,
-    gridExtra,
     Rsamtools,
     foreach (>= 1.4.2)
 License: GPL-3

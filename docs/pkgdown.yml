@@ -1,7 +1,6 @@
-pandoc: 2.7.3
-pkgdown: 1.6.1
+pandoc: 2.14.0.3
+pkgdown: 2.0.6
 pkgdown_sha: ~
-articles:
-  installation: installation.html
-last_built: 2021-05-24T18:37Z
+articles: {}
+last_built: 2022-11-16T16:17Z
 

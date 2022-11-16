@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,32 +33,14 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">metablastr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/installation.html">Installing metablastr and all sequence search tools</a>
-    </li>
-  </ul>
 </li>
 <li>
   <a href="news/index.html">Changelog</a>
@@ -64,7 +48,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/drostlab/metablastr/">
+  <a href="https://github.com/drostlab/metablastr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -81,74 +65,70 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="metablastr" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#metablastr" class="anchor"></a>metablastr</h1></div>
-<div id="a-blast-interface-with-r" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-blast-interface-with-r" class="anchor"></a>A <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> interface with R</h2>
-<div id="motivation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#motivation" class="anchor"></a>Motivation</h3>
-<p>The exponentially growing number of available sequences in biological databases revolutionizes the way modern life science research is conducted. Approximately hundred thousand genomic sequences spanning diverse species from the tree of life are currently publically available and free to access. It is now possible to access and retrieve this data automatically using the R package <a href="https://github.com/ropensci/biomartr">biomartr</a> and the next step is to harness this wealth of sequence diversity to explore and detect novel patterns of evolvability, variation, and disease emergence.</p>
-<p>The R package <a href="https://github.com/ropensci/biomartr">biomartr</a> <strong>solves the problem of retrieving this vast amount of biological sequence data</strong> in a standardized and computationally reproducible way and the <code>metablastr</code> package aims to <strong>solve the problem of performing massive scale sequence searches</strong> in a standardized and computationally reproducible way.</p>
-<p>Both packages, <code>biomartr</code> and <code>metablastr</code> are designed to complement each other seamlessly to provide users with a toolset to automatically retrieve thousands of biological sequences (thousands of genomes, proteomes, annotations, etc) and to use these sequences to perform massive sequence searches with <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> to extract novel patterns of similarity and divergence between large sets of species.</p>
+<div class="section level1">
+<div class="page-header"><h1 id="metablastr">metablastr<a class="anchor" aria-label="anchor" href="#metablastr"></a>
+</h1></div>
+<div class="section level2">
+<h2 id="a-blast-interface-with-r">A <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" class="external-link">BLAST</a> interface with R<a class="anchor" aria-label="anchor" href="#a-blast-interface-with-r"></a>
+</h2>
+<div class="section level3">
+<h3 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
+</h3>
+<p>The exponentially growing number of available sequences in biological databases revolutionizes the way modern life science research is conducted. Approximately hundred thousand genomic sequences spanning diverse species from the tree of life are currently publically available and free to access. It is now possible to access and retrieve this data automatically using the R package <a href="https://github.com/ropensci/biomartr" class="external-link">biomartr</a> and the next step is to harness this wealth of sequence diversity to explore and detect novel patterns of evolvability, variation, and disease emergence.</p>
+<p>The R package <a href="https://github.com/ropensci/biomartr" class="external-link">biomartr</a> <strong>solves the problem of retrieving this vast amount of biological sequence data</strong> in a standardized and computationally reproducible way and the <code>metablastr</code> package aims to <strong>solve the problem of performing massive scale sequence searches</strong> in a standardized and computationally reproducible way.</p>
+<p>Both packages, <code>biomartr</code> and <code>metablastr</code> are designed to complement each other seamlessly to provide users with a toolset to automatically retrieve thousands of biological sequences (thousands of genomes, proteomes, annotations, etc) and to use these sequences to perform massive sequence searches with <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" class="external-link">BLAST</a> to extract novel patterns of similarity and divergence between large sets of species.</p>
 <p>The most prominent tool to perform sequence searches at scale is the Basic Local Alignment Search Tool (BLAST) which is designed to find regions of sequence similarity between query and a subject sequences or sequence databases.</p>
 </div>
-<div id="short-package-description" class="section level3">
-<h3 class="hasAnchor">
-<a href="#short-package-description" class="anchor"></a>Short package description</h3>
-<p>The <code>metablastr</code> package harnesses the power of <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> by providing interface functions between R and the standalone (command line tool) version of this program.</p>
+<div class="section level3">
+<h3 id="short-package-description">Short package description<a class="anchor" aria-label="anchor" href="#short-package-description"></a>
+</h3>
+<p>The <code>metablastr</code> package harnesses the power of <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" class="external-link">BLAST</a> by providing interface functions between R and the standalone (command line tool) version of this program.</p>
 <p>Together, the <code>metablastr</code> package may enable a new level of data-driven genomics research by providing the computational tools and data science standards needed to perform reproducible research at scale.</p>
 </div>
-<div id="citation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h3>
-<p><strong>The <code>metablastr</code> package is still under development and not formally published yet. However, we did develop parts of <code>metablastr</code> for this Methods chapter which you can cite until a <code>metablastr</code> specific manuscript is prepared.</strong></p>
-<blockquote>
-<p>M Benoit, HG Drost. <a href="https://link.springer.com/protocol/10.1007%2F978-1-0716-1134-0_1"><strong>A Predictive Approach to Infer the Activity and Natural Variation of Retrotransposon Families in Plants</strong></a>. In: Cho J. (eds) Plant Transposable Elements. Methods in Molecular Biology, vol 2250. Humana, New York, NY (2021).</p>
-</blockquote>
-</div>
-<div id="install-metablastr" class="section level3">
-<h3 class="hasAnchor">
-<a href="#install-metablastr" class="anchor"></a>Install <code>metablastr</code>
+<div class="section level3">
+<h3 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h3>
+<p><strong>The <code>metablastr</code> package is still under development and not formally published yet. However, we did develop parts of <code>metablastr</code> for this Methods chapter which you can cite until a <code>metablastr</code> specific manuscript is prepared.</strong></p>
+<blockquote><p>M Benoit, HG Drost. <a href="https://link.springer.com/protocol/10.1007%2F978-1-0716-1134-0_1" class="external-link"><strong>A Predictive Approach to Infer the Activity and Natural Variation of Retrotransposon Families in Plants</strong></a>. In: Cho J. (eds) Plant Transposable Elements. Methods in Molecular Biology, vol 2250. Humana, New York, NY (2021).</p></blockquote>
 </div>
-<div id="for-linux-users" class="section level3">
-<h3 class="hasAnchor">
-<a href="#for-linux-users" class="anchor"></a>For Linux Users:</h3>
+<div class="section level3"><h3 id="install-metablastr">Install <code>metablastr</code>
+<a class="anchor" aria-label="anchor" href="#install-metablastr"></a>
+</h3></div>
+<div class="section level3">
+<h3 id="for-linux-users">For Linux Users:<a class="anchor" aria-label="anchor" href="#for-linux-users"></a>
+</h3>
 <p>Please install the <code>libpq-dev</code> library on you linux machine by typing into the terminal:</p>
 <pre><code>sudo apt-get install libpq-dev</code></pre>
 </div>
-<div id="for-all-systems-install-metablastr-by-typing" class="section level3">
-<h3 class="hasAnchor">
-<a href="#for-all-systems-install-metablastr-by-typing" class="anchor"></a>For all systems install <code>metablastr</code> by typing</h3>
+<div class="section level3">
+<h3 id="for-all-systems-install-metablastr-by-typing">For all systems install <code>metablastr</code> by typing<a class="anchor" aria-label="anchor" href="#for-all-systems-install-metablastr-by-typing"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Biostrings"</span>, <span class="st">"GenomicFeatures"</span>, <span class="st">"GenomicRanges"</span>, <span class="st">"Rsamtools"</span>, <span class="st">"IRanges"</span>, <span class="st">"rtracklayer"</span>, <span class="st">"biomaRt"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># install.packages("devtools")</span>
-<span class="co"># install the current version of metablastr on your system</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"HajkD/metablastr"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p><strong>Please follow the <a href="https://drostlab.github.io/metablastr/articles/installation.html">Installation Vignette</a> to install all standalone sequence search tools.</strong></p>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Biostrings"</span>, <span class="st">"GenomicFeatures"</span>, <span class="st">"GenomicRanges"</span>, <span class="st">"Rsamtools"</span>, <span class="st">"IRanges"</span>, <span class="st">"rtracklayer"</span>, <span class="st">"biomaRt"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="co"># install the current version of metablastr on your system</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/remotes/man/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"HajkD/metablastr"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Please follow the <a href="https://drostlab.github.io/metablastr/articles/installation.html" class="external-link">Installation Vignette</a> to install all standalone sequence search tools.</strong></p>
 </div>
-<div id="quick-start" class="section level3">
-<h3 class="hasAnchor">
-<a href="#quick-start" class="anchor"></a>Quick start</h3>
+<div class="section level3">
+<h3 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/drostlab/metablastr">metablastr</a></span><span class="op">)</span>
-<span class="co"># run blastn (nucleotide to nucleotide search) between example query and subject sequences</span>
-<span class="va">blast_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/blast_nucleotide_to_nucleotide.html">blast_nucleotide_to_nucleotide</a></span><span class="op">(</span>
-                 query   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'seqs/qry_nn.fa'</span>, package <span class="op">=</span> <span class="st">'metablastr'</span><span class="op">)</span>,
-                 subject <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'seqs/sbj_nn.fa'</span>, package <span class="op">=</span> <span class="st">'metablastr'</span><span class="op">)</span>,
-                 output.path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,
-                 db.import  <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-                 
-<span class="co"># look at BLAST results</span>
-<span class="va">blast_test</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/drostlab/metablastr" class="external-link">metablastr</a></span><span class="op">)</span></span>
+<span><span class="co"># run blastn (nucleotide to nucleotide search) between example query and subject sequences</span></span>
+<span><span class="va">blast_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/blast_nucleotide_to_nucleotide.html">blast_nucleotide_to_nucleotide</a></span><span class="op">(</span></span>
+<span>                 query   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'seqs/qry_nn.fa'</span>, package <span class="op">=</span> <span class="st">'metablastr'</span><span class="op">)</span>,</span>
+<span>                 subject <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'seqs/sbj_nn.fa'</span>, package <span class="op">=</span> <span class="st">'metablastr'</span><span class="op">)</span>,</span>
+<span>                 output.path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                 db.import  <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>                 </span>
+<span><span class="co"># look at BLAST results</span></span>
+<span><span class="va">blast_test</span></span></code></pre></div>
 <pre><code>   query_id     subject_id perc_identity num_ident_match… alig_length mismatches
    &lt;chr&gt;        &lt;chr&gt;              &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;      &lt;int&gt;
  1 333554|PACi… AT1G01010…          84.2              640         760         63
@@ -167,19 +147,19 @@
 #   s_len &lt;dbl&gt;, evalue &lt;dbl&gt;, bit_score &lt;chr&gt;, score_raw &lt;int&gt;</code></pre>
 </div>
 </div>
-<div id="discussions-and-bug-reports" class="section level2">
-<h2 class="hasAnchor">
-<a href="#discussions-and-bug-reports" class="anchor"></a>Discussions and Bug Reports</h2>
+<div class="section level2">
+<h2 id="discussions-and-bug-reports">Discussions and Bug Reports<a class="anchor" aria-label="anchor" href="#discussions-and-bug-reports"></a>
+</h2>
 <p>I would be very happy to learn more about potential improvements of the concepts and functions provided in this package.</p>
 <p>Furthermore, in case you find some bugs, need additional (more flexible) functionality of parts of this package, or want to contribute to this project please let me know:</p>
-<p><a href="https://github.com/HajkD/metablastr/issues" class="uri">https://github.com/HajkD/metablastr/issues</a></p>
+<p><a href="https://github.com/HajkD/metablastr/issues" class="external-link uri">https://github.com/HajkD/metablastr/issues</a></p>
 </div>
-<div id="interfaces-implemented-in-metablastr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#interfaces-implemented-in-metablastr" class="anchor"></a>Interfaces implemented in <code>metablastr</code>:</h2>
-<div id="perform-blast-searches" class="section level3">
-<h3 class="hasAnchor">
-<a href="#perform-blast-searches" class="anchor"></a>Perform BLAST searches</h3>
+<div class="section level2">
+<h2 id="interfaces-implemented-in-metablastr">Interfaces implemented in <code>metablastr</code>:<a class="anchor" aria-label="anchor" href="#interfaces-implemented-in-metablastr"></a>
+</h2>
+<div class="section level3">
+<h3 id="perform-blast-searches">Perform BLAST searches<a class="anchor" aria-label="anchor" href="#perform-blast-searches"></a>
+</h3>
 <ul>
 <li>
 <code><a href="reference/blast_protein_to_protein.html">blast_protein_to_protein()</a></code>: Perform Protein to Protein BLAST Searches (BLASTP)</li>
@@ -199,9 +179,9 @@
 <code><a href="reference/read_blast.html">read_blast()</a></code>: Import BLAST output into R session (in memory) or via <code>PostgresSQL</code> database connection.</li>
 </ul>
 </div>
-<div id="blast-against-common-ncbi-databases" class="section level3">
-<h3 class="hasAnchor">
-<a href="#blast-against-common-ncbi-databases" class="anchor"></a>BLAST against common NCBI databases</h3>
+<div class="section level3">
+<h3 id="blast-against-common-ncbi-databases">BLAST against common NCBI databases<a class="anchor" aria-label="anchor" href="#blast-against-common-ncbi-databases"></a>
+</h3>
 <ul>
 <li>
 <code><a href="reference/blast_protein_to_nr_database.html">blast_protein_to_nr_database()</a></code>: Perform Protein to Protein BLAST Searches against the <code>NCBI non-redundant database</code>
@@ -228,9 +208,9 @@
 <code>blast_refseq_protein()</code>:</li>
 </ul>
 </div>
-<div id="blast-against-a-set-of-organisms" class="section level3">
-<h3 class="hasAnchor">
-<a href="#blast-against-a-set-of-organisms" class="anchor"></a>BLAST against a set of organisms</h3>
+<div class="section level3">
+<h3 id="blast-against-a-set-of-organisms">BLAST against a set of organisms<a class="anchor" aria-label="anchor" href="#blast-against-a-set-of-organisms"></a>
+</h3>
 <ul>
 <li>
 <code><a href="reference/blast_nucleotide_to_genomes.html">blast_nucleotide_to_genomes()</a></code>: Perfrom BLAST Searches Against a Set of Genomes</li>
@@ -248,21 +228,17 @@
 <code><a href="reference/sample_chromosome_intervals.html">sample_chromosome_intervals()</a></code>: Helper function to sample random intervals of length ‘interval_width’ from chromosomes</li>
 </ul>
 </div>
-<div id="analyze-blast-report" class="section level3">
-<h3 class="hasAnchor">
-<a href="#analyze-blast-report" class="anchor"></a>Analyze BLAST Report</h3>
-<ul>
-<li>
-<code>filter_blast_</code>:</li>
-</ul>
+<div class="section level3">
+<h3 id="analyze-blast-report">Analyze BLAST Report<a class="anchor" aria-label="anchor" href="#analyze-blast-report"></a>
+</h3>
+<ul><li>
+<code>filter_blast_</code>:</li></ul>
 </div>
-<div id="navigation-functions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#navigation-functions" class="anchor"></a>Navigation functions</h3>
-<ul>
-<li>
-<code><a href="reference/list_outformats.html">list_outformats()</a></code>: List available BLAST output formats</li>
-</ul>
+<div class="section level3">
+<h3 id="navigation-functions">Navigation functions<a class="anchor" aria-label="anchor" href="#navigation-functions"></a>
+</h3>
+<ul><li>
+<code><a href="reference/list_outformats.html">list_outformats()</a></code>: List available BLAST output formats</li></ul>
 </div>
 </div>
 </div>
@@ -270,38 +246,50 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/drostlab/metablastr/">https://​github.com/​drostlab/​metablastr/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/drostlab/metablastr/issues">https://​github.com/​drostlab/​metablastr/​issues</a>
-</li>
+<li><a href="https://github.com/drostlab/metablastr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/drostlab/metablastr/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Hajk-Georg Drost <br><small class="roles"> Author, contributor, maintainer </small> <a href="https://orcid.org/http://orcid.org/0000-0002-1567-306X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html#citation">Citing metablastr</a></li>
+</ul>
+</div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Hajk-Georg Drost <br><small class="roles"> Author, contributor, maintainer </small> <a href="https://orcid.org/http://orcid.org/0000-0002-1567-306X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Anna Gogleva <br><small class="roles"> Author, contributor </small>  </li>
 </ul>
 </div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Hajk-Georg Drost, Anna Gogleva.</p>
+  <p></p>
+<p>Developed by Hajk-Georg Drost, Anna Gogleva.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -309,6 +297,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -16,7 +16,7 @@ blast_nucleotide_to_nucleotide(
   evalue = 0.001,
   out.format = "csv",
   cores = 1,
-  max.target.seqs = 10000,
+  max.target.seqs = 10000L,
   db.soft.mask = FALSE,
   db.hard.mask = FALSE,
   blast.path = NULL

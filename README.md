@@ -1,32 +1,18 @@
 # metablastr
 
-## A [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) interface with R
+## Seamless Integration of [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) Sequence Searches in R 
 
 ### Motivation 
 
-The exponentially growing number of available sequences in biological databases
-revolutionizes the way modern life science research is conducted. Approximately
-hundred thousand genomic sequences spanning diverse species from the tree of life
-are currently publically available and free to access. It is now possible to
-access and retrieve this data automatically using the R package [biomartr](https://github.com/ropensci/biomartr)
-and the next step is to harness this wealth of sequence diversity to explore
-and detect novel patterns of evolvability, variation, and disease emergence.
+With the rapid expansion of available sequences in biological databases, the landscape of modern life science research is being transformed. Currently, around several hundred thousand genomic sequences from a diverse array of species in the tree of life are freely accessible to the public. The R package [biomartr](https://github.com/ropensci/biomartr) enables automated access and retrieval of this vast data, paving the way to delve into the rich tapestry of sequence diversity, uncovering new insights into evolvability, variation, and the emergence of diseases.
 
-The R package [biomartr](https://github.com/ropensci/biomartr)
-__solves the problem of retrieving this vast amount of biological sequence data__ in a standardized and computationally reproducible way and
-the `metablastr` package aims to __solve the problem of performing massive scale
-sequence searches__ in a standardized and computationally reproducible way. 
+The [biomartr](https://github.com/ropensci/biomartr) package streamlines the retrieval of a massive amount of biological sequence data in a standardized and reproducible manner. Complementing it, the `metablastr` package is tailored to facilitate large-scale sequence searches, also in a standardized and reproducible approach.
 
-Both packages, `biomartr` and `metablastr` are designed to complement
-each other seamlessly to provide users with a toolset to automatically
-retrieve thousands of biological sequences (thousands of genomes, proteomes, annotations, etc)
-and to use these sequences to perform massive sequence searches with [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) to
-extract novel patterns of similarity and divergence between large sets
-of species.
+In synergy, [biomartr](https://github.com/ropensci/biomartr) and `metablastr` provide researchers with a comprehensive toolset, allowing them to efficiently gather thousands of biological sequences (genomes, proteomes, annotations, etc.) and conduct extensive sequence comparisons using the gold standard sequence search engine [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi). This facilitates the extraction of novel patterns highlighting similarities and divergences among vast sets of species.
 
-The most prominent tool to perform sequence searches at scale is the Basic Local Alignment Search Tool (BLAST)
-which is designed to find regions of sequence similarity between query and a subject sequences or sequence databases.
+It's worth noting that the go-to instrument for large-scale sequence searches is BLAST (Basic Local Alignment Search Tool). It is purposefully built to identify regions of sequence similarity between a given query and subject sequences or sequence databases. 
 
+Building on these advancements, we have recently introduced [DIAMOND2](https://www.nature.com/articles/s41592-021-01101-x), a groundbreaking software solution designed to accelerate `BLAST` searches by an factor of up to 10,000x. To offer researchers even more flexibility and integration, we provide [rdiamond](https://github.com/drostlab/rdiamond), a dedicated interface package that allows programmatic handling of [DIAMOND2](https://github.com/bbuchfink/diamond) sequence searches directly through R. This not only streamlines the sequence search process but also ensures that researchers can access and utilize the power of [DIAMOND2](https://github.com/bbuchfink/diamond) within a familiar R environment.
 
 ### Short package description  
 
@@ -56,15 +42,25 @@ sudo apt-get install libpq-dev
 ### For all systems install `metablastr` by typing
 
 ```r
+# install BiocManager if required
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install()
 
-BiocManager::install(c("Biostrings", "GenomicFeatures", "GenomicRanges", "Rsamtools", "IRanges", "rtracklayer", "biomaRt"))
+# install package dependencies
+BiocManager::install(
+  c(
+    "Biostrings",
+    "GenomicFeatures",
+    "GenomicRanges",
+    "Rsamtools",
+    "IRanges",
+    "rtracklayer")
+)
 
 # install.packages("devtools")
 # install the current version of metablastr on your system
-devtools::install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
+devtools::install_github("drostlab/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 ```
 
 __Please follow the [Installation Vignette](https://drostlab.github.io/metablastr/articles/installation.html) to install all standalone sequence search tools.__
@@ -110,7 +106,7 @@ I would be very happy to learn more about potential improvements of the concepts
 
 Furthermore, in case you find some bugs, need additional (more flexible) functionality of parts of this package, or want to contribute to this project please let me know:
 
-https://github.com/HajkD/metablastr/issues
+https://github.com/drostlab/metablastr/issues
 
 
 ## Interfaces implemented in `metablastr`:

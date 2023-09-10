@@ -1,6 +1,6 @@
 Package: metablastr
 Title: Perform Massive Local BLAST Searches
-Version: 0.3.1
+Version: 0.3.2
 Authors@R: c(person("Hajk-Georg", "Drost",
                 role = c("aut", "ctb", "cre"),
                 email = "hajk-georg.drost@tuebingen.mpg.de",
@@ -35,7 +35,7 @@ Suggests:
     ggridges,
     Rsamtools,
     foreach (>= 1.4.2)
-License: GPL-3
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1

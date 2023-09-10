@@ -1,5 +1,9 @@
 # NEWS
 
+## metablastr v0.3.2
+
+- updating to GPL-2 license 
+
 ## metablastr v0.3.1
 
 - fixing bug in `extract_promotor_seqs_from_genome()` which causes genes on the minus strand that have `end - start + 1 > 0` coordinates in their respective annotation file to be removed from the analysis. The new convention is now that genes will be filtered according to the `strand` column
